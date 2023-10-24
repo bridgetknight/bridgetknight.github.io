@@ -1,0 +1,89 @@
+/* Reset some default browser styles */
+html, body, h1, h2, p, ul, li, a {
+    margin: 0;
+    padding: 0;
+}
+
+/* Apply a basic font and background color to the entire page */
+body {
+    font-family: Hack;
+    background-color: #f0f0f0;
+}
+
+#name {
+    position: relative;
+    color: #000;
+    font-size: 32px;
+    top: 170px;
+    display: flex; 
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+#portrait {
+    position: relative;
+    left: 300px;
+    width: 350px;
+    top:-30px;
+}
+
+#subtitle {
+    position: relative;
+    color:#696969;
+    font-size:22px;
+    top: 175px;
+}
+
+#center {
+    margin-left:auto;
+    margin-right:auto;
+    width:600px;
+}
+
+#blurb {
+    position: relative;
+    top: 27px;
+    line-height: 25px;
+}
+
+.links {
+    display: flex;
+    width: 500px;
+}
+
+.link_float {
+    margin-right: 25px;
+    transition: margin 0.2s ease-in-out;
+}
+
+.link_float:hover {
+    margin-top: -2px;
+    margin-bottom: 2px;
+    font-weight:bold;
+    text-decoration:underline;
+}
+
+.link_bold:hover {
+    font-weight:bold;
+    text-decoration:underline;
+}
+
+#about_me::after {
+    position: relative;
+    top:3px;
+    left:-5px;
+    content: "";
+    width: 6px;
+    height: 20px;
+    background: #ec7fff;
+    display: inline-block;
+
+    animation: cursor-blink 1.5s steps(2) infinite;
+}
+
+@keyframes cursor-blink {
+    0% {
+      opacity: 0;
+    }
+}
+
