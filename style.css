@@ -8,13 +8,14 @@ html, body, h1, h2, p, ul, li, a {
 body {
     font-family: Hack;
     background-color: #f0f0f0;
+    padding-bottom: 200px;
 }
 
 #name {
     position: relative;
     color: #000;
     font-size: 32px;
-    top: 170px;
+    top: 150px;
     display: flex; 
     font-weight: bold;
     letter-spacing: 2px;
@@ -24,14 +25,14 @@ body {
     position: relative;
     left: 300px;
     width: 350px;
-    top:-30px;
+    top:-50px;
 }
 
 #subtitle {
     position: relative;
     color:#696969;
     font-size:22px;
-    top: 175px;
+    top: 155px;
 }
 
 #center {
@@ -42,11 +43,13 @@ body {
 
 #blurb {
     position: relative;
-    top: 27px;
+    top: -3px;
     line-height: 25px;
 }
 
 .links {
+    position: relative;
+    top: -30px;
     display: flex;
     width: 500px;
 }
