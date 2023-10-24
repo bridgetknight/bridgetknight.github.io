@@ -1,2 +1,2 @@
 # bridgetknight.github.io
-personal website repository
+my personal (work-in-progress) website for compiling everything about me
