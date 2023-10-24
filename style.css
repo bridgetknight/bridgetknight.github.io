@@ -42,17 +42,48 @@ body {
 
 #blurb {
     position: relative;
-    top: 20px;
-    line-height: 22px;
+    top: 27px;
+    line-height: 25px;
 }
 
-.link {
-    margin-right: 10px;
+.links {
+    display: flex;
+    width: 500px;
 }
-.link:hover {
+
+.link_float {
+    margin-right: 25px;
+    transition: margin 0.2s ease-in-out;
+}
+
+.link_float:hover {
+    margin-top: -2px;
+    margin-bottom: 2px;
     font-weight:bold;
-}
-
-.link:hover{
     text-decoration:underline;
 }
+
+.link_bold:hover {
+    font-weight:bold;
+    text-decoration:underline;
+}
+
+#about_me::after {
+    position: relative;
+    top:3px;
+    left:-5px;
+    content: "";
+    width: 6px;
+    height: 20px;
+    background: #ec7fff;
+    display: inline-block;
+
+    animation: cursor-blink 1.5s steps(2) infinite;
+}
+
+@keyframes cursor-blink {
+    0% {
+      opacity: 0;
+    }
+}
+
