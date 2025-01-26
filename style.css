@@ -12,6 +12,10 @@ body {
     padding-bottom: 200px;
 }
 
+.mobile-only {
+    display: none;
+}
+
 #name {
     color: #000;
     font-size: 32px;
@@ -72,6 +76,9 @@ body {
     top: -3px;
     line-height: 25px;
     text-align: left;
+    display: inline-block;
+    overflow-wrap: normal;
+    word-wrap: normal;
 }
 
 .layered_button::before {
@@ -166,6 +173,7 @@ body {
     height: 20px;
     background: #ec7fff;
     display: inline-block;
+    white-space: nowrap;
 
     animation: cursor-blink 1.5s steps(2) infinite;
 }
@@ -178,6 +186,10 @@ body {
 
 
 @media (max-width: 768px) {
+    .mobile-only {
+        display: inline;
+    }
+
     #header {
         flex-direction: column-reverse;
         align-items: center;
@@ -218,6 +230,16 @@ body {
         margin-top: 20px;
         margin-bottom: 15px;
         position: relative;
+    }
+
+    #about_me {
+        position: relative;
+    }
+
+    #about_me::after {
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
     }
 
     #blurb_email {
