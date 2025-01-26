@@ -25,6 +25,7 @@ body {
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 2rem;
+    width: fit-content;
 }
 
 #left_header {
@@ -33,6 +34,13 @@ body {
     flex-direction: column;
     display: flex;
     gap: 1rem;
+}
+
+#right_header {
+    flex: 2;
+    flex-direction: column;
+    display: flex;
+    width: fit-content;
 }
 
 #portrait {
