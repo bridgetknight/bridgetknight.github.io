@@ -66,5 +66,9 @@ window.addEventListener("scroll", () => {
     const backToTop = document.querySelector(".back_to_top");
     const scrollLimit = checkMobileOrNot() ? 1000 : 500;
 
-    backToTop.style.display = window.scrollY > scrollLimit ? "block" : "none";
+    if (window.scrollY > scrollLimit) {
+        backToTop.classList.add("visible");
+    } else {
+        backToTop.classList.remove("visible");
+    }
 });

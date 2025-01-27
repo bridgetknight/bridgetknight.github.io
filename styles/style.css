@@ -273,7 +273,12 @@ body {
     z-index: 1000;
     cursor: pointer;
     width: fit-content;
-    display: none;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.back_to_top.visible {
+    opacity: 1;
 }
 
 .layered_button--small {
