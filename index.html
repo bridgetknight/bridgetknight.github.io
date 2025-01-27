@@ -17,13 +17,15 @@
     <meta name="description" content="Bridget Knight - Software Developer in Boston, MA specializing in data visualization for bioinformatics and physics education research">
     <meta name="keywords" content="software developer, Boston, data visualization, physics education, computer science, bioinformatics, biotechnology">
     <title>Bridget Knight — Software Developer</title>
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel='stylesheet' href='//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack-subset.css'>
     <link rel="stylesheet" href="styles/style.css">
     <link rel="icon" href="assets/favicon.png">
     <script src="scripts/projects.js" defer></script>
+    <script src="scripts/theme.js" defer></script>
 </head>
-<body>
+
+<body data-theme="light">
     <!-- Google Tag Manager (noscript) -->
     <noscript>
         <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5BBVCFR6"
@@ -56,36 +58,44 @@
         
         <div class="links">
                 <div class="link_float">
-                    <a target="_blank" href="https://github.com/bridgetknight"  style="color:#d78ca0">github</a></li>
+                    <a target="_blank" href="https://github.com/bridgetknight"  style="color:var(--medium-pink)">github</a></li>
                 </div>
                 <div class="link_float">
-                    <a target="_blank" href="https://www.linkedin.com/in/bridgetgknight/"  style="color:#b280c7">linkedin</a></li>
+                    <a target="_blank" href="https://www.linkedin.com/in/bridgetgknight/"  style="color:var(--purple)">linkedin</a></li>
                 </div>
                 <div class="link_float">
-                    <a target="_blank" href="https://britknight17.wixsite.com/portfolio"  style="color:#7491ca">art</a></li>
+                    <a target="_blank" href="https://britknight17.wixsite.com/portfolio"  style="color:var(--blue)">art</a></li>
                 </div>
                 <div class="link_float">
-                    <a href="#projects_header" style="color:#58b884">projects</a></li>
+                    <a href="#projects_header" style="color:var(--green)">projects</a></li>
+                </div>
+                <div id="theme-toggle">
+                    <input type="checkbox" class="mode_checkbox" id="mode_checkbox">
+                    <label for="mode_checkbox" class="mode_checkbox-label">
+                        <i class="fas fa-moon"></i>
+                        <i class="fas fa-sun"></i>
+                        <span class="ball"></span>
+                    </label>
                 </div>
         </div>
 
         <div class="main_section" id="blurb">
             <span id="about_me">
                 Hey there! I'm Bridget, a recent BSc. Computer Science graduate from Salem State University in Salem, MA, where I concentrated in intelligent systems and minored in math and physics. I work at the 
-                <a href="https://www.broadinstitute.org/" style="color:#51b5b5;" class="link_bold">Broad Institute of MIT and Harvard</a> doing 
+                <a href="https://www.broadinstitute.org/" style="color:var(--teal);" class="link_bold">Broad Institute of MIT and Harvard</a> doing 
                 (mostly) data visualization. Since I have an undeniable love for physics, I'm also working on one of MIT's
-                <a href="https://education.mit.edu/project/dc-models/" style="color:#51b5b5;" class="link_bold">physics education research projects</a> at my alma mater.
+                <a href="https://education.mit.edu/project/dc-models/" style="color:var(--teal);" class="link_bold">physics education research projects</a> at my alma mater.
                 <br>
                 <br>
                 <span>
                     
                 </span>
-                In my spare time, I love to learn languages, hike, and <a href="https://britknight17.wixsite.com/portfolio" style="color:#51b5b5;" 
+                In my spare time, I love to learn languages, hike, and <a href="https://britknight17.wixsite.com/portfolio" style="color:var(--teal);" 
                 class="link_bold">draw</a> (while I'm not reading). <br class="mobile-only"/><br class="mobile-only"/>Thanks for stopping by! 
             </span>
                 <span id="blurb_email">
                     Get in touch with me at
-                    <a class="link_bold" href="mailto:bridget.g.knight@gmail.com" style="color:#58b884">bridget.g.knight@gmail.com</a></li>
+                    <a class="link_bold" href="mailto:bridget.g.knight@gmail.com" style="color:var(--green)">bridget.g.knight@gmail.com</a></li>
                 </span>
         </div>
     </div>
@@ -130,7 +140,7 @@
                         </div>
                     </div>
                     <div class="repo_link">
-                        <a target="_blank" rel="noopener noreferrer" href="https://github.com/bridgetknight/sproutling"><img src="assets/github-mark.svg" alt="GitHub Repo"></a>
+                        <a target="_blank" rel="noopener noreferrer" href="https://github.com/bridgetknight/sproutling"><img class="github_icon" src="assets/github-mark.svg" alt="GitHub Repo"></a>
                     </div>
                 </div>
 
@@ -159,9 +169,10 @@
                         </div>
                     </div>
                     <div class="repo_link">
-                        <a target="_blank" rel="noopener noreferrer" href="https://github.com/bridgetknight/CSC485_F2023/tree/main/projects/picar"><img src="assets/github-mark.svg" alt="GitHub Repo"></a>
+                        <a target="_blank" rel="noopener noreferrer" href="https://github.com/bridgetknight/CSC485_F2023/tree/main/projects/picar"><img src="assets/github-mark.svg" class="github_icon" alt="GitHub Repo"></a>
                     </div>
                 </div>
+
                 <div class="project_card" id="mbta_card">
                     <div class="project_title" id="mbta_title">
                         <span>MBTA Trip Planner</span>
@@ -185,9 +196,10 @@
                         </div>
                     </div>
                     <div class="repo_link">
-                        <a target="_blank" rel="noopener noreferrer" href="https://github.com/bridgetknight/mern-app"><img src="assets/github-mark.svg" alt="GitHub Repo"></a>
+                        <a target="_blank" rel="noopener noreferrer" href="https://github.com/bridgetknight/mern-app"><img src="assets/github-mark.svg" class="github_icon" alt="GitHub Repo"></a>
                     </div>
                 </div>
+
                 <div class="project_card" id="base_converter_card">
                     <div class="project_title" id="base_converter_title">
                         <span>Base Converter</span>
@@ -212,9 +224,9 @@
                             </span>
                         </div>
                     </div>
-                    <div class="repo_link">
-                        <a target="_blank" rel="noopener noreferrer" href="https://github.com/bridgetknight/base-converter"><img src="assets/github-mark.svg" alt="GitHub Repo"></a>
-                    </div>
+                </div>
+                <div class="repo_link">
+                    <a target="_blank" rel="noopener noreferrer" href="https://github.com/bridgetknight/base-converter"><img src="assets/github-mark.svg" class="github_icon" alt="GitHub Repo"></a>
                 </div>
             </div>
         </div>
@@ -223,12 +235,12 @@
         <div id="footer_github">
             <a target="_blank" rel="noopener noreferrer" href="https://github.com/bridgetknight/bridgetknight.github.io"><img src="assets/github-mark-green.svg" alt="GitHub Repo" id="footer_link"></a>
         </div>
-         <div class="copyright">
+        <div class="copyright">
             © Bridget Knight 2025
-         </div>
+        </div>
     </div>
-    <div class="back_to_top">
+    <!--<div class="back_to_top">
         <button onclick="scrollToTop()" class="layered_button layered_button--white layered_button--small" id="top_button">Back to Top</button>
-    </div>
+    </div>-->
 </body>
 </html>
