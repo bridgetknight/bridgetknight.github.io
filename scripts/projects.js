@@ -45,3 +45,20 @@ document.querySelectorAll(".repo_link").forEach((linkDiv) => {
         // Let the link's default behavior proceed
     });
 });
+
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+// Don't show Back to Top at top of page
+window.addEventListener("scroll", () => {
+    const backToTop = document.querySelector(".back_to_top");
+    if (window.scrollY > 1000) {
+        backToTop.style.display = "block";
+    } else {
+        backToTop.style.display = "none";
+    }
+});

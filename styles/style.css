@@ -255,6 +255,33 @@ body {
     box-shadow: rgb(147, 26, 62) 0px 0px 0px 2px;
 }
 
+.layered_button--white {
+    color: #51b5b5;
+    background: rgb(255, 249, 251);
+    border: 2px solid #51b5b5;
+}
+
+.layered_button--white::before {
+    background: rgb(255, 249, 251);
+    box-shadow: #51b5b5 0px 0px 0px 2px;
+}
+
+.back_to_top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    cursor: pointer;
+    width: fit-content;
+    display: none;
+}
+
+.layered_button--small {
+    font-size: 12px;
+    padding: 0.75em 1.5em;
+    width: auto;
+}
+
 code {
     background: rgba(255, 255, 255, 0.7);
     padding: 10px 10px 10px 10px;
@@ -336,6 +363,10 @@ code {
 @media (max-width: 768px) {
     .mobile-only {
         display: inline;
+    }
+
+    .back_to_top {
+        right: 2%;
     }
 
     #projects_list {
