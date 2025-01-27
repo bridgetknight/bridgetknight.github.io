@@ -10,7 +10,6 @@ html, body, h1, h2, p, ul, li, a {
 body {
     font-family: Hack;
     background-color: #f0f0f0;
-    padding-bottom: 200px;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -110,6 +109,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    position: relative;
 }
 
 .project_container {
@@ -273,6 +273,21 @@ code {
     display: flex;
     width:320px;
     justify-content: space-between;
+}
+
+#footer_link  {
+    position: relative;
+    display: inline-block;
+    margin: auto;
+    margin-bottom: 10px;
+    height: 2.5rem;
+}
+
+#footer {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    margin-top: 100px;
 }
 
 .link_float {
