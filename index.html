@@ -6,23 +6,24 @@
     <meta name="description" content="Bridget Knight - Software Developer in Boston, MA specializing in data visualization for bioinformatics and physics education research">
     <meta name="keywords" content="software developer, Boston, data visualization, physics education, computer science, bioinformatics, biotechnology">
     <link rel='stylesheet' href='//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack-subset.css'>
-    <title>Bridget Knight</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Bridget Knight — Software Developer</title>
+    <link rel="stylesheet" href="styles/style.css">
     <link rel="icon" href="bridgetknight.github.io/assets/favicon.png">
+    <script src="scripts/projects.js" defer></script>
 </head>
 <body>
     <div id="center">
         <header>
             <div id="header">
                 <div id="left_header">
-                    <div id="name">
+                    <div class="header_text" id="name">
                         <span>Bridget Knight</span>
                     </div>
-                    <div id="subtitle">
+                    <div class="subtitle_text" id="subtitle">
                         <span> Software Developer in<br>
                             Boston, MA</span>
                     </div>
-                    <div id="resume_link";>
+                    <div id="resume_link">
                         <a href="bridgetknight.github.io/knight_bridget_resume.pdf">
                         <button class="layered_button layered_button--pink">download my resume</button></a>
                     </div>
@@ -43,16 +44,14 @@
                     <a href="https://www.linkedin.com/in/bridgetgknight/"  style="color:#b280c7">linkedin</a></li>
                 </div>
                 <div class="link_float">
-                    <a href="https://britknight17.wixsite.com/portfolio"  style="color:#7491ca">art portfolio</a></li>
+                    <a href="https://britknight17.wixsite.com/portfolio"  style="color:#7491ca">art</a></li>
                 </div>
-                <!--
                 <div class="link_float">
-                    <a href="mailto:bridget.g.knight@gmail.com" style="color:#58b884">contact me</a></li>
+                    <a href="#projects_header" style="color:#58b884">projects</a></li>
                 </div>
-                -->
         </div>
 
-        <div id="blurb">
+        <div class="main_section" id="blurb">
             <span id="about_me">
                 Hey there! I'm Bridget, a recent BSc. Computer Science graduate from Salem State University in Salem, MA, where I concentrated in intelligent systems and minored in math and physics. I work at the 
                 <a href="https://www.broadinstitute.org/" style="color:#51b5b5;" class="link_bold">Broad Institute of MIT and Harvard</a> doing 
@@ -70,6 +69,136 @@
                     Get in touch with me at
                     <a class="link_bold" href="mailto:bridget.g.knight@gmail.com" style="color:#58b884">bridget.g.knight@gmail.com</a></li>
                 </span>
+        </div>
+    </div>
+    <div class="main_section" id="projects_section">
+        <div class="header_text" id="projects_header">
+            <span>Projects</span>
+        </div>
+        <div class="subtitle_text" id="projects_subtitle">
+            <span>Click on any project to expand.</span>
+        </div>
+        <div id="projects_list">
+            <div class="project_container">
+                <div class="project_card" id="sproutling_card">
+                    <div class="project_title" id="sproutling_title">
+                        <span>Sproutling: Automating Plant Care with Android and Arduino</span>
+                    </div>
+                    <div class="tags">
+                        <span class="tag">Android</span>
+                        <span class="tag">Arduino</span>
+                        <span class="tag">Automation</span>
+                        <span class="tag">Embedded Systems</span>
+                        <span class="tag">UI/UX</span>
+                    </div>
+                    <div class="project_description">
+                        <span>My capstone project, an automatic plant watering system that combines an Arduino-based hardware device with a mobile Android application.</span>
+                    </div>
+
+                    <div class="project_content">
+                        <div class="project_image">
+                            <img src="assets/sproutling_showcase.svg">
+                        </div>
+                        <div class="project_description">
+                            <span>
+                                Three key screencaps of the final mobile product: the initial landing screen (left), the landing screen with a new plant (center), and the settings screen (right).
+                            </span>
+                        </div>
+                        <div class="project_video">
+                            <video controls>
+                                <source src="assets/sproutling_demo.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                    <div class="repo_link">
+                        <a target="_blank" rel="noopener noreferrer" href="https://github.com/bridgetknight/sproutling"><img src="assets/github-mark.svg" alt="GitHub Repo"></a>
+                    </div>
+                </div>
+
+                <div class="project_card" id="picar_card">
+                    <div class="project_title" id="mbta_title">
+                        <span>Self-Driving Raspberry PiCar</span>
+                    </div>
+                    <div class="tags">
+                        <span class="tag">Automation</span>
+                        <span class="tag">Embedded Systems</span>
+                        <span class="tag">Computer Vision</span>
+                        <span class="tag">Raspberry Pi</span>
+                        <span class="tag">Linux</span>
+                    </div>
+                    <div class="project_description">
+                        <span>My final project for the Robotics and Computer Vision course CSC 485 at SSU: an autonomous, self-driving Raspberry PiCar.</span>
+                    </div>
+                    <div class="project_content">
+                        <div class="project_image">
+                            <img src="assets/picar_images.svg">
+                        </div>
+                        <div class="project_description">
+                            <span>
+                                This project involved assembling the Raspberry PiCar kit and programming it using Python to achieve autonomous, self-driving functionality. The implementation utilized computer vision and image processing techniques, leveraging the PiCamera module and methods like edge detection. (1) An intermediate image of the car's vision feed after performing image processing to detect the track. (2) An image of the car's final path, plotted using OpenCV and numpy. (3) The car on its calibrating loop track.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="repo_link">
+                        <a target="_blank" rel="noopener noreferrer" href="https://github.com/bridgetknight/CSC485_F2023/tree/main/projects/picar"><img src="assets/github-mark.svg" alt="GitHub Repo"></a>
+                    </div>
+                </div>
+                <div class="project_card" id="mbta_card">
+                    <div class="project_title" id="mbta_title">
+                        <span>MBTA Trip Planner</span>
+                    </div>
+                    <div class="tags">
+                        <span class="tag">Full Stack Development</span>
+                        <span class="tag">MERN</span>
+                        <span class="tag">UI/UX</span>
+                    </div>
+                    <div class="project_description">
+                        <span>My final project for SSU's Software Engineering CSC 300 course: a route planner website for using the MBTA system.</span>
+                    </div>
+                    <div class="project_content">
+                        <div class="project_image">
+                            <img src="assets/mbta_mockup.svg">
+                        </div>
+                        <div class="project_description">
+                            <span>
+                                The main page (right), a trip plotter for using the MBTA system. Previously hosted on Render, this page uses Dijkstra's algorithm on a custom-designed graph of MBTA stations to plot and display the optimal route. This project used the MBTA's API to pull real-time data as well as the Radar API (left) for its location search functionality.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="repo_link">
+                        <a target="_blank" rel="noopener noreferrer" href="https://github.com/bridgetknight/mern-app"><img src="assets/github-mark.svg" alt="GitHub Repo"></a>
+                    </div>
+                </div>
+                <div class="project_card" id="base_converter_card">
+                    <div class="project_title" id="base_converter_title">
+                        <span>Base Converter</span>
+                    </div>
+                    <div class="tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Command Line Tool</span>
+                        <span class="tag">Algorithms</span>
+                    </div>
+                    <div class="project_description">
+                        <span>A simple but fully developed command line tool for converting a positive decimal integer to any radix between 2 and 16.</span>
+                    </div>
+                    <div class="project_content">
+                        <br>
+                        <div class="project_description">
+                            <span>
+                                <div id="base_converter_code" style="display:flex; flex-direction: column;">
+                                This program was developed as part of my CSC 295 Computer Architecture course at SSU. It is executed from the command line and takes two decimal integers as input: the integer to be converted and the radix.
+                                <code><b>></b> python base_converter.py INTEGER RADIX</code>
+                                The output for integers 4 and 2 is shown below.
+                                <code>4 in base 2 is 100.</code>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="repo_link">
+                        <a target="_blank" rel="noopener noreferrer" href="https://github.com/bridgetknight/base-converter"><img src="assets/github-mark.svg" alt="GitHub Repo"></a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
