@@ -53,12 +53,15 @@ function scrollToTop() {
     });
 }
 
+// Check if the screen is mobile or desktop
+function checkMobileOrNot() {
+    return window.innerWidth < 768;
+}
+
 // Don't show Back to Top at top of page
 window.addEventListener("scroll", () => {
     const backToTop = document.querySelector(".back_to_top");
-    if (window.scrollY > 1000) {
-        backToTop.style.display = "block";
-    } else {
-        backToTop.style.display = "none";
-    }
+    const scrollLimit = checkMobileOrNot() ? 1000 : 500;
+
+    backToTop.style.display = window.scrollY > scrollLimit ? "block" : "none";
 });
