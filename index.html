@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSDE5BTWLD"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-PSDE5BTWLD');
+        
+
+        document.addEventListener("DOMContentLoaded", () => {
+        // Wait until navbar is loaded
+            const navbarInterval = setInterval(() => {
+                const dropdown = document.querySelector(".dropdown");
+                
+                if (!dropdown) return; // not loaded yet
+
+                clearInterval(navbarInterval);
+
+                const trigger = dropdown.querySelector(".dropdown-trigger");
+                const dropdownContent = dropdown.querySelector(".dropdown-content");
+                let closeTimeout;
+
+                const openDropdown = () => {
+                    clearTimeout(closeTimeout);
+                    dropdownContent.style.opacity = "1";
+                    dropdownContent.style.pointerEvents = "auto";
+                    dropdownContent.style.transform = "translateX(-50%) translateY(0)";
+                    trigger.classList.add("dropdown-open"); // keep link floated
+                };
+
+                const closeDropdown = () => {
+                    dropdownContent.style.opacity = "0";
+                    dropdownContent.style.pointerEvents = "none";
+                    dropdownContent.style.transform = "translateX(-50%) translateY(-4px)";
+                    trigger.classList.remove("dropdown-open"); // return link to normal
+                };
+
+                // When mouse enters either the trigger or the dropdown content
+                [trigger, dropdownContent].forEach(el => {
+                    el.addEventListener("mouseenter", openDropdown);
+                    el.addEventListener("mouseleave", () => {
+                        closeTimeout = setTimeout(closeDropdown, 200); // keep open longer
+                    });
+                });
+            }, 100);
+        });
+
+
+    </script>
+
+    <meta name="description" content="Boston-based concept artist with a computer science background creating visual development, environments, and characters for games and animation. Savannah College of Art and Design master's of art student. Portfolio of Bridget Knight.">
+    <meta name="keywords" content="Bridget Knight, concept artist, game concept art, environment concept art, character concept art, illustration portfolio, visual development, creative technologist, technical artist, computational art, generative art, game art portfolio, digital painting, worldbuilding art, Savannah College of Art and Design, SCAD, master's of art, MA, Boston artist, Boston concept artist, art and technology, creative coding, interactive art, digital art portfolio, art and design, visual storytelling, art for games, art for animation, art and programming, art and computer science, art and technology portfolio">
+    <title>Bridget Knight | Concept Artist & Creative Technologist</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel='stylesheet' href='//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack-subset.css'>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="icon" href="assets/favicon.png">
+    <script src="scripts/projects.js" defer></script>
+    <script src="scripts/theme.js" defer></script>
+</head>
+
+<body data-theme="light">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5BBVCFR6"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div id="center">
+        <header>
+            <div id="navbar"></div>
+            <script>
+                fetch("/navbar.html")
+                .then(response => response.text())
+                .then(html => document.getElementById("navbar").innerHTML = html);
+            </script>
+        </header>
+        
+        <div id="hero_container">
+            <img id="hero_image" src="assets/
+        </div>
+
+
+    </div>
+    <div class="main_section" id="projects_section">
+
+    </div>
+    <!--<div class="back_to_top">
+        <button onclick="scrollToTop()" class="layered_button layered_button--white layered_button--small" id="top_button">Back to Top</button>
+    </div>-->
+</body>
+</html>
