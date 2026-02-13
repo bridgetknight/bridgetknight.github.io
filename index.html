@@ -55,14 +55,14 @@
 
     </script>
 
-    <meta name="description" content="Boston-based concept artist with a computer science background creating visual development, environments, and characters for games and animation. Savannah College of Art and Design master's of art student. Portfolio of Bridget Knight.">
+    <meta name="description" content="Boston-based concept artist with a computer science background creating visual development, environments, and characters for games and animation. Savannah College of Art and Design master's of art student. Bachelor's of science in computer science. Portfolio of Bridget Knight.">
     <meta name="keywords" content="Bridget Knight, concept artist, game concept art, environment concept art, character concept art, illustration portfolio, visual development, creative technologist, technical artist, computational art, generative art, game art portfolio, digital painting, worldbuilding art, Savannah College of Art and Design, SCAD, master's of art, MA, Boston artist, Boston concept artist, art and technology, creative coding, interactive art, digital art portfolio, art and design, visual storytelling, art for games, art for animation, art and programming, art and computer science, art and technology portfolio">
     <title>Bridget Knight | Concept Artist & Creative Technologist</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel='stylesheet' href='//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack-subset.css'>
+    <link href="https://fonts.googleapis.com/css2?family=Elms+Sans:ital,wght@0,100..900;1,100..900&family=Momo+Trust+Display&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Stack+Sans+Notch:wght@200..700&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
     <link rel="icon" href="assets/favicon.png">
-    <script src="scripts/projects.js" defer></script>
     <script src="scripts/theme.js" defer></script>
 </head>
 
@@ -82,16 +82,47 @@
                 .then(html => document.getElementById("navbar").innerHTML = html);
             </script>
         </header>
+
+        <div id="main_section">
+            <div id="splash_container">
+                <img id="splash_image" src="assets/splash_image_header_only.png" alt="Concept art of a farmer and a creature in a field after a hard day's work">
+                <div id="splash_overlay">
+                    <div id="splash_text">
+                        <a href="mailto:bridget.g.knight@gmail.com">bridget.g.knight@gmail.com</a>
+                        <ul>
+                            <li>concept art</li>
+                            <li>visual development</li>
+                            <li>technical design</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <section id="main_gallery">
+                <div id="mainGallery" class="gallery_grid"></div>
+            </section>
         
-        <div id="hero_container">
-            <img id="hero_image" src="assets/farmer_and_creature_updated_website.png">
+            <script src="/scripts/gallery.js"></script>
+            <script>
+                async function initGallery() {
+                    const mainGallery = new Gallery("mainGallery", "main_gallery");
+                    await mainGallery.load(); // wait until images are added
+                    setupGalleryLightbox();   // now images exist
+                }
+
+                initGallery(); // kick everything off
+            </script>
         </div>
-
-
     </div>
-    <div class="main_section" id="projects_section">
-
+    <div id="theme-toggle">
+        <input type="checkbox" class="mode_checkbox" id="mode_checkbox">
+        <label for="mode_checkbox" class="mode_checkbox-label">
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-sun"></i>
+            <span class="ball"></span>
+        </label>
     </div>
+
+
     <!--<div class="back_to_top">
         <button onclick="scrollToTop()" class="layered_button layered_button--white layered_button--small" id="top_button">Back to Top</button>
     </div>-->
