@@ -59,6 +59,57 @@ body {
     display: flex;
     flex-direction: column;
     transition: background 0.2s linear;
+    cursor: url("http://www.rw-designer.com/cursor-extern.php?id=131463"), auto;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.08;
+    background-image: url('../assets/grain_texture.jpg');
+    z-index: -100;
+    background-repeat: repeat;
+    background-size: 256px 256px;
+}
+
+.cursor-star {
+    position: fixed;
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+    z-index: 99999;
+    transform: rotate(var(--rotation)) scale(var(--scale));
+    background-image: url("../assets/sparklebulletpoint.svg");
+    filter: hue-rotate(-50deg) brightness(1.5);
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: starFade 0.8s ease forwards;
+}
+
+.cursor-orb {
+    position: fixed;
+    top: -30px;
+    left: -30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    background: radial-gradient(circle, rgba(255, 180, 220, 0.468) 0%, transparent 70%);
+    filter: blur(3px);
+    mix-blend-mode: screen;
+}
+
+@media (prefers-reduced-motion: reduce), (hover: none) {
+    .cursor-orb, .cursor-star { display: none; }
+}
+
+@keyframes starFade {
+    0%   { opacity: 1; transform: rotate(var(--rotation)) scale(var(--scale)); }
+    100% { opacity: 0; transform: rotate(var(--rotation)) scale(0) translateY(-10px); }
 }
 
 @property --blob1-x { syntax: '<percentage>'; inherits: false; initial-value: 20%; }
@@ -116,7 +167,21 @@ header {
     font-size: clamp(1.5rem, 4vw, 3.5rem);
 }
 
+#name a {
+    display: inline-flex;
+    flex-wrap: wrap;
+}
 
+.name-letter {
+    display: inline-block;
+    animation: letterWiggle 3s ease-in-out infinite;
+}
+
+@keyframes letterWiggle {
+    0%,  100% { transform: translateY(0)    rotate(0deg);   }
+    25%        { transform: translateY(-3px) rotate(-1.5deg); }
+    75%        { transform: translateY(2px)  rotate(1deg);   }
+}
 
 .header {
     display: flex;
@@ -305,7 +370,7 @@ header {
     box-sizing: border-box;
     width: 100%;
     min-width: 5%;
-    font-size: clamp(0.1rem, 2vw, 1.8rem);
+    font-size: clamp(0.1rem, 1.5vw, 1.8rem);
 }
 
 #splash_text a {
@@ -315,7 +380,7 @@ header {
     font-weight: 800;
     text-decoration: none;
     height: auto;
-    font-size: clamp(1px, 1.6vw, 4rem);
+    font-size: clamp(1px, 1.6vw, 1.8rem);
     font-style: italic;
     color: rgb(255, 234, 44);
     white-space: nowrap;
@@ -369,13 +434,41 @@ header {
     background-size: 300% 300%;
     -webkit-background-clip: text;
     background-clip: text;
-    animation: shimmer 3s linear infinite;
+    animation: shimmer 5s linear infinite;
 }
 
 @keyframes shimmer {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
+}
+
+#splash_name {
+    margin-left: 0.1em;
+    font-family: "Momo Trust Display";
+    font-weight: 800;
+    height: auto;
+    font-size: clamp(1.5rem, 5.5vw, 6rem);
+    color: transparent;
+    background: linear-gradient(
+        45deg,
+        #ffdd00,
+        #eb95eb,
+        #9cffff,
+        #ffdd00
+    );
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: shimmer 5s linear infinite;
+}
+
+#stretched_text{
+    font-family: inherit;
+    background: inherit;
+    margin-left: 0.29em;
+    transform: scaleX(1.16);
+    display: inline-block;
 }
 
 #main_gallery {
@@ -399,7 +492,8 @@ header {
     overflow: hidden;
     border-radius: 6px;
     margin: 0;
-    aspect-ratio: 1 / 1; /* ensures squares */
+    aspect-ratio: unset;
+    height: clamp(200px, 30vw, 420px);
     background: #111;
 }
 
@@ -520,6 +614,16 @@ header {
     opacity: 1;
 }
 
+.main_link {
+    width: fit-content;
+    margin: 0 auto;
+    margin-top: 0.5rem;
+    margin-bottom: 4rem;
+    text-align: center;  /* Centers the text inside the div */
+}
+
+
+
 #portrait {
     width: 100%;
     margin: auto;
@@ -552,11 +656,10 @@ header {
 }
 
 #blurb {
-    position: relative;
-    top: -3px;
+    width: fit-content;
+    margin: 0 auto;
     line-height: 25px;
     text-align: center;
-    display: inline-block;
     overflow-wrap: normal;
     word-wrap: normal;
 }
