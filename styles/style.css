@@ -102,6 +102,7 @@ body::after {
     background: radial-gradient(circle, rgba(255, 180, 220, 0.468) 0%, transparent 70%);
     filter: blur(3px);
     mix-blend-mode: screen;
+    will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce), (hover: none) {
@@ -122,9 +123,9 @@ body::after {
 
 body {
     background-image: 
-        radial-gradient(ellipse at var(--blob1-x) var(--blob1-y), rgba(255, 122, 193, 0.773) 0%, transparent 60%),
-        radial-gradient(ellipse at var(--blob2-x) var(--blob2-y), rgba(159, 210, 255, 0.745) 0%, transparent 55%),
-        radial-gradient(ellipse at var(--blob3-x) var(--blob3-y), rgba(144, 255, 163, 0.35) 0%, transparent 50%),
+        radial-gradient(ellipse at var(--blob1-x) var(--blob1-y), rgba(255, 122, 193, 0.47) 0%, transparent 60%),
+        radial-gradient(ellipse at var(--blob2-x) var(--blob2-y), rgba(159, 210, 255, 0.623) 0%, transparent 55%),
+        radial-gradient(ellipse at var(--blob3-x) var(--blob3-y), rgba(196, 255, 144, 0.53) 0%, transparent 50%),
         url('../assets/white-crumpled-paper-texture-background.jpg'); /* paper sits at the bottom of the stack */;
     animation: meshShift 8s ease-in-out infinite alternate;
 }
@@ -150,7 +151,7 @@ header {
 
 .header_text {
     color: var(--text-color);
-    font-size: 32px;
+    font-size: 48px;
     display: flex; 
     font-weight: bold;
     letter-spacing: 2px;
@@ -162,26 +163,30 @@ header {
 }
 
 #name {
-    font-family: "Le Petit Cochon";
-    font-weight: 800;
-    height: auto;
-    font-size: clamp(1.5rem, 4vw, 3.5rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
 }
 
 #name a {
     display: inline-flex;
     flex-wrap: wrap;
+    font-family: "Le Petit Cochon";
 }
-
 .name-letter {
     display: inline-block;
     animation: letterWiggle 3s ease-in-out infinite;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#name a.scatter-active .name-letter {
+    animation: none; /* Stop the wiggle animation when scattering */
 }
 
 @keyframes letterWiggle {
-    0%,  100% { transform: translateY(0)    rotate(0deg);   }
-    25%        { transform: translateY(-3px) rotate(-1.5deg); }
-    75%        { transform: translateY(2px)  rotate(1deg);   }
+    0%,  100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-3px) rotate(-1.5deg); }
+    75% { transform: translateY(2px) rotate(1deg); }
 }
 
 .header {
@@ -195,7 +200,6 @@ header {
 .nav_group {
     display: flex;
     gap: 1.5rem;
-    align-items: center;
     justify-content: space-between;
 }
 
@@ -363,11 +367,11 @@ header {
 
 #splash_text {
     position: absolute;
-    top: 25%;
+    top: 1%;
     left: 0;
-    margin-right: 5%;
-    padding-right: 5%;
-    padding-left: 5%;
+    margin-right: 2%;
+    padding-right: 2%;
+    padding-left: 2%;
     box-sizing: border-box;
     width: 100%;
     min-width: 5%;
@@ -481,6 +485,10 @@ header {
     mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
 }
 
+.gallery_wrapper {
+    position: relative;
+}
+
 .gallery_grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* exactly 3 columns */
@@ -489,12 +497,12 @@ header {
 
 .gallery_item {
     position: relative;
-    overflow: hidden;
     border-radius: 6px;
     margin: 0;
     aspect-ratio: unset;
     height: clamp(200px, 30vw, 420px);
     background: #111;
+    mask-image: radial-gradient(circle at center, black 0%, black 99%, transparent 100%);
 }
 
 .gallery_item img {
@@ -614,6 +622,197 @@ header {
     opacity: 1;
 }
 
+.featured_project {
+    margin: 6rem 0;
+    padding: 3rem 2rem;
+    background-color: rgba(255, 255, 255, 0.409);
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+}
+
+.featured_project h2 {
+    font-size: 14px;
+    color: var(--subtitle);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+}
+
+.featured_project h3 {
+    font-size: 32px;
+    color: var(--text-color);
+    margin-bottom: 2rem;
+}
+
+
+
+.showcase_main {
+    max-width: 100%;
+    margin: 0 auto 3rem;
+}
+
+.showcase_main img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.showcase_caption {
+    text-align: center;
+    font-size: 14px;
+    color: var(--subtitle);
+    margin-top: 1rem;
+}
+
+.process_sections {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin: 3rem 0 2rem;
+}
+
+.process_section h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.studies_grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+}
+
+.studies_grid img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+}
+
+.thumbnail_container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.thumbnail_container img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.reference_grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.reference_pair {
+    flex: none;
+}
+
+.reference_pair img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+}
+
+.reference_pair p {
+    font-size: 12px;
+    color: var(--subtitle);
+    text-align: center;
+}
+
+@media (max-width: 900px) {
+    .studies_grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .reference_grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.featured_project .cta_link {
+    display: block;
+    width: fit-content;
+    margin: 2rem auto 0;
+}
+
+@media (max-width: 900px) {
+    .process_grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .thumbnails_grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.split_section {
+    margin: 1rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.offset_section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    align-items: center;
+}
+
+.split_left {
+    /* Offset up */
+    transform: translateY(-80px);
+    padding-right: 2rem;
+}
+
+.split_right {
+    /* Offset down */
+    transform: translateY(80px);
+    padding-left: 2rem;
+}
+
+.tools_grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.tool {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 14px;
+}
+
+.tool i {
+    font-size: 2rem;
+    color: var(--blue);
+}
+
+@media (max-width: 900px) {
+    .offset_section {
+        grid-template-columns: 1fr;
+    }
+
+    .split_left,
+    .split_right {
+        transform: none;
+        padding: 0;
+    }
+
+    .stats_container,
+    .tools_grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 .main_link {
     width: fit-content;
     margin: 0 auto;
@@ -630,10 +829,50 @@ header {
     margin-top: 1.5em;
 }
 
-#portrait {
+.portrait_image {
     width: 100%;
-    margin: auto;
     height: auto;
+    display: block;
+    position: relative;
+}
+
+/* Blob shape - organic and y2k */
+.portrait_image.blob {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+}
+
+/* Flower shape - cute and playful */
+.portrait_image.flower {
+    border-radius: 50%;
+    clip-path: polygon(
+        50% 0%,
+        61% 35%,
+        98% 35%,
+        68% 57%,
+        79% 91%,
+        50% 70%,
+        21% 91%,
+        32% 57%,
+        2% 35%,
+        39% 35%
+    );
+}
+
+/* Circle - simple and clean */
+.portrait_image.circle {
+    border-radius: 50%;
+}
+
+/* Rounded square - modern */
+.portrait_image.rounded {
+    border-radius: 20px;
+}
+
+.portrait_image.blob {
+    width: 100%;
+    height: auto;
+    display: block;
+    position: relative;
 }
 
 #resume_link {
@@ -641,12 +880,15 @@ header {
     flex: 0 0 auto;
 }
 
-.subtitle_text {
-    height: fit-content;
-    position: relative;
-    color:var(--subtitle);
-    font-size:22px;
-    margin-top: 10px;
+.navbar_subtitle {
+    font-size: 26px;
+    font-family: "Momo Trust Display";
+    font-weight: 350;
+    color: var(--subtitle);
+    margin: 0;
+    margin-top: -0.5rem;
+    letter-spacing: 1px;
+    white-space: nowrap;
 }
 
 #center {
@@ -664,8 +906,7 @@ header {
 #blurb {
     width: fit-content;
     margin: 0 auto;
-    line-height: 25px;
-    text-align: center;
+    line-height: 30px;
     overflow-wrap: normal;
     word-wrap: normal;
 }
@@ -934,11 +1175,98 @@ code {
 }
 
 .links {
+    font-size: 20px;
     display: flex;
     gap: 1.5rem;
     white-space: nowrap;
     align-self: flex-end;
     margin-bottom: 2%;
+}
+
+.accent {
+    position: absolute;
+    pointer-events: none;
+    z-index: 5;
+    width: 120px;
+    height: auto;
+}
+
+.accent img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.featured_section {
+    position: relative;
+    margin: 4rem 0;
+    padding: 2rem;
+}
+
+.featured_content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.featured_image {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden; /* This clips the accent if it goes outside */
+}
+
+.featured_image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.featured_text {
+    display: flex;
+    flex-direction: column;
+}
+
+/* For accents positioned within/over images */
+.accent_overlay {
+    position: absolute;
+    pointer-events: none;
+    width: 100px;
+    z-index: 20;
+    height: auto;
+}
+
+.accent_corner {
+    top: -20px;
+    right: -15px;
+    /* Adjust these to position it how you want */
+}
+
+.cta_link {
+    display: block !important;
+    width: 100%;
+    text-align: right;
+    color: var(--card-accent);
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.2s ease;
+    padding-right: 1rem;
+}
+
+.cta_link:hover {
+    transform: translateY(-2px);
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+    .featured_content {
+        grid-template-columns: 1fr;
+    }
+
+    .accent_overlay {
+        display: none;
+    }
 }
 
 #footer {
@@ -1079,12 +1407,12 @@ code {
 
 #blurb::after {
     position: relative;
-    top:3px;
+    top:1px;
     left:-5px;
     content: "";
     width: 5px;
     height: 20px;
-    background: var(--medium-pink);
+    background: var(--card-accent);
     display: inline-block;
     white-space: nowrap;
 

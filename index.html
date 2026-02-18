@@ -24,8 +24,12 @@
     <link rel="preload" as="image" href="assets/splash_image_overlay_only.webp">
     <link rel="stylesheet" href="styles/style.css">
     <link rel="icon" href="assets/favicon.png">
-    <script src="scripts/cursor_trail.js"></script>
+    <link rel="preload" as="image" href="assets/featured_project/NarrativeEnvironment.webp">
+    <link rel="preload" as="image" href="assets/featured_project/Thumbnails.png">
+    <link rel="preload" as="image" href="assets/featured_project/ValueComp2.jpg">
+    <script src="scripts/blob.js" defer></script>
     <script src="scripts/theme.js" defer></script>
+    <script src="scripts/cursor_trail.js"></script>
 </head>
 
 <body data-theme="light">
@@ -35,47 +39,62 @@
         height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <svg style="display:none" aria-hidden="true">
-        <filter id="noise">
-            <feTurbulence type="fractalNoise" baseFrequency="0.65"       numOctaves="3" stitchTiles="stitch"/>
-            <feColorMatrix type="saturate" values="0"/>
-        </filter>
-    </svg>
     <div id="center">
         <header>
             <div id="navbar"></div>
             <script>
                 fetch("/navbar.html")
-                        .then(response => response.text())
-                        .then(html => {
-                            document.getElementById("navbar").innerHTML = html;
-                            
-                            // NOW run the letter wiggle script, after the navbar is injected
-                            const link = document.querySelector('#name a');
-                            if (!link) {
-                                console.log("Name link not found");
-                                return;
-                            } else {
-                                console.log("Name link found:", link.textContent);
-                            }
-                            
-                            const text = link.textContent.trim();
-                            link.textContent = '';
-                            
-                            text.split('').forEach((char, i) => {
-                                const span = document.createElement('span');
-                                span.textContent = char === ' ' ? '\u00A0' : char;
-                                span.className = 'name-letter';
-                                span.style.animationDelay = `${i * 0.08}s`;
-                                link.appendChild(span);
-                            });
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById("navbar").innerHTML = html;
+
+                    const link = document.querySelector('#name a');
+                    if (!link) {
+                        console.log("Name link not found");
+                        return;
+                    }
+
+                    link.addEventListener('mouseenter', () => {
+                        link.classList.add('scatter-active');
+                        const letters = link.querySelectorAll('.name-letter');
+                        letters.forEach((letter, index) => {
+                            setTimeout(() => {
+                                // Gentle wave pattern - alternates up and down
+                                const yOffset = (index % 2 === 0 ? -8 : 8);
+                                const xOffset = (index - (letters.length / 2)) * 3; // Spreads them out gradually
+                                const rotation = (index % 2 === 0 ? -5 : 5); // Slight tilt
+                                letter.style.transform = `translateX(${xOffset}px) translateY(${yOffset}px) rotate(${rotation}deg)`;
+                            }, index * 30);
                         });
+                    });
+
+                    link.addEventListener('mouseleave', () => {
+                        link.classList.remove('scatter-active');
+                        const letters = link.querySelectorAll('.name-letter');
+                        letters.forEach((letter, index) => {
+                            setTimeout(() => {
+                                letter.style.transform = '';
+                            }, index * 50); // Add the same stagger delay
+                        });
+                    });
+                    
+                    const text = link.textContent.trim();
+                    link.textContent = '';
+                    
+                    text.split('').forEach((char, i) => {
+                        const span = document.createElement('span');
+                        span.textContent = char === ' ' ? '\u00A0' : char;
+                        span.className = 'name-letter';
+                        span.style.animationDelay = `${i * 0.08}s`;
+                        link.appendChild(span);
+                    });
+                });
             </script>
         </header>
 
         <div id="main_section">
             <div id="splash_container">
-                <img id="splash_image" src="assets/splash_image_overlay_only.webp" alt="Concept art of a farmer and a creature in a field after a hard day's work">
+            <img id="splash_image" src="assets/splash_image_overlay_only.webp" alt="Concept art of a farmer and a creature in a field after a hard day's work">
                 <div id="splash_overlay">
                     <div id="splash_text">
                         <div id="splash_name">BRIDGET <div id="stretched_text">KNIGHT</div></div>
@@ -88,7 +107,25 @@
                     </div>
                 </div>
             </div>
-            <div id="main_gallery" class="gallery_grid"></div>
+            <div class="gallery_wrapper">
+                <div id="main_gallery" class="gallery_grid"></div>
+                <div class="accent" style="top: -2%; right: -3%; width: clamp(80px, 12vw, 150px);">
+                    <img src="assets/accents/greenarrow.gif" alt="">
+                </div>
+                <div class="accent" style="top: 18%; right: 61%; width: clamp(60px, 8vw, 180px); transform: scale(1.5);">
+                    <img src="assets/accents/yellowarrow.gif" alt="">
+                </div>
+                <div class="accent" style="top: 0%; left: 1%; width: clamp(80px, 12vw, 150px); transform: scale(1.5)">
+                    <img src="assets/accents/bluescribbles.png" alt="">
+                </div>
+                <div class="accent" style="top: 43%; left: -1%; width: clamp(80px, 12vw, 150px); transform: scale(1.5)">
+                    <img src="assets/accents/purplestar.gif" alt="">
+                </div>
+                <div class="accent" style="top: 46%; right: -3%; width: clamp(60px, 8vw, 180px); transform: scale(1.5)">
+                    <img src="assets/accents/hearts.gif" alt="">
+                </div>
+            </div>
+
             <script>
                 let current_gallery = "main_gallery";
                 let galleryItems = []; // store all items globally once loaded
@@ -188,52 +225,130 @@
                     });
                 }
             </script>
-            <div id="portfolio_invite" class="main_link">
+            <div class="main_link" id="portfolio_invite">
                 <h2>
-                    <a href="/gallery.html" class="link_float" style='color:var(--black)'>view full portfolio -></a>
+                    <a href="/gallery.html" class="link_float" style="color:black">
+                        view full portfolio >
+                    </a>
                 </h2>
             </div>
-            <div id="blurb">
-                Howdy! I'm a concept artist with an extensive background in both illustration and computer science. I'm interested in visual development, worldbuilding, and technical design including 3D modeling and software development. &nbsp;
-            </div>
-            <div id="read_more" class="main_link">
-                <h2>
-                    <a href="/about.html" class="link_float" style="color:var(--black);">read more -></a></div>
-                </h2>
-            </div>
-            <footer id="footer">
-                <div class="footer_grid">
-                    <!-- Left Column -->
-                    <div class="footer_column footer_left">
-                        <h3 id="footer_name">BRIDGET KNIGHT</h3>
-                        <p class="footer_subtitle">Concept Artist & Creative Technologist</p>
-                    </div>
 
-                    <!-- Middle Column -->
-                    <div class="footer_column footer_middle">
-                        <a href="mailto:bridget.g.knight@gmail.com" class="footer_email">bridget.g.knight@gmail.com</a>
+            <section class="featured_project" style="font-family: 'Poppins'">
+                <div class="accent" style="top: -2%; right: -3%; width: clamp(80px, 12vw, 150px); transform: rotate(20deg);">
+                    <img src="assets/accents/bluestars.png">
+                </div>
+                <h2>Featured Project</h2>
+                <h3>Narrative Environment Concept</h3>
+                
+                <!-- Final Illustration - Full Width -->
+                <div class="project_showcase">
+                    <div class="showcase_main">
+                        <img src="assets/featured_project/NarrativeEnvironment.webp" alt="Final illustration">
                     </div>
-
-                    <!-- Right Column -->
-                    <div class="footer_column footer_right">
-                        <p class="footer_social_label">say hi elsewhere:</p>
-                        <div class="footer_socials">
-                            <a href="https://linkedin.com/in/yourprofile" target="_blank" title="LinkedIn">
-                                <i class="fab fa-linkedin"></i>
-                            </a>
-                            <a href="https://twitter.com/yourprofile" target="_blank" title="Twitter">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <a href="https://instagram.com/yourprofile" target="_blank" title="Instagram">
-                                <i class="fab fa-instagram"></i>
-                            </a>
-                            <!-- Add more socials as needed -->
+                </div>
+            
+                <!-- Process Work -->
+                <div class="process_sections">
+                    <!-- Value Studies & Color Keys - 2 Column -->
+                    <div class="process_section">
+                        <h4>Value Studies & Color Keys</h4>
+                        <div class="studies_grid">
+                            <img src="assets/featured_project/ValueComp1.jpg" alt="Value comp 1">
+                            <img src="assets/featured_project/ValueComp2.jpg" alt="Value comp 2">
+                            <img src="assets/featured_project/ColorKey1.jpg" alt="Color key 1">
+                            <img src="assets/featured_project/ColorKey2.jpg" alt="Color key 2">
+                            <img src="assets/featured_project/ColorKey3.jpg" alt="Color key 3">
+                        </div>
+                    </div>
+            
+                    <!-- Thumbnails - Full Width -->
+                    <div class="process_section">
+                        <h4>Exploration Thumbnails</h4>
+                        <div class="thumbnail_container">
+                            <img src="assets/featured_project/Thumbnails.png" alt="Exploration thumbnails">
+                        </div>
+                    </div>
+            
+                    <!-- Technical References - 2 Column -->
+                    <div class="process_section">
+                        <h4>Technical References</h4>
+                        <div class="reference_grid">
+                            <div class="reference_pair">
+                                <img src="assets/featured_project/TightSketch.jpg" alt="Tight sketch">
+                                <p>Tight Sketch</p>
+                            </div>
+                            <div class="reference_pair">
+                                <img src="assets/featured_project/3dmodel.png" alt="3D model">
+                                <p>3D Model (Perspective Reference)</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </footer>   
+            
+                <a href="/projects/city.html" class="cta_link">see full project →</a>
+            </section>
+
+            <section class="featured_section">
+                <div class="featured_content">
+                    <div class="featured_text">
+                        <h2 style="margin-bottom: 1em;">about me!</h2>
+                        <div id="blurb" style="text-align: left;">                    
+                            Howdy! I'm a concept artist with an extensive background in both illustration and computer science. I'm interested in worldbuilding, visual development, and technical design for games and animation. &nbsp;
+                        </div>
+                        <a href="/about.html" class="cta_link link_float" style="color: var(--black); font-style: italic;">read more ></a>
+                    </div>
+                    <div class="featured_image">
+                        <img src="assets/portrait.jpg" alt="Your portrait" class="portrait_image blob">
+                    </div>
+                </div>
+            </section>
+            
+            <!--<div id="blurb">
+
+                    Howdy! I'm a concept artist with an extensive background in both illustration and computer science. I'm interested in worldbuilding, visual development, and technical design for games and animation. &nbsp;
+
+
+            </div>
+            <div class="main_link" id="read_more">
+                <h2>
+                    <a href="about.html" class="link_float" style="color:black">
+                        read more ->
+                    </a>
+                </h2>
+            </div>-->
         </div>
+        <footer id="footer">
+            <div class="footer_grid">
+                <!-- Left Column -->
+                <div class="footer_column footer_left">
+                    <h3 id="footer_name">BRIDGET KNIGHT</h3>
+                    <p class="footer_subtitle">Concept Artist & Creative Technologist</p>
+                </div>
+
+                <!-- Middle Column -->
+                <div class="footer_column footer_middle">
+                    <a href="mailto:bridget.g.knight@gmail.com" class="footer_email">bridget.g.knight@gmail.com</a>
+                </div>
+
+                <!-- Right Column -->
+                <div class="footer_column footer_right">
+                    <p class="footer_social_label">say hi elsewhere:</p>
+                    <div class="footer_socials">
+                        <a href="https://linkedin.com/in/bridgetgknight" target="_blank" title="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://artstation.com/bridgetknight" target="_blank" title="Twitter">
+                            <i class="fab fa-artstation"></i>
+                        </a>
+                        <a href="https://instagram.com/pixelbrit" target="_blank" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
+
 
 
     <!--<div class="back_to_top">

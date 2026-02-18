@@ -14,7 +14,13 @@ document.addEventListener('mousemove', (e) => {
 
     setTimeout(() => star.remove(), 800);
 });
+
 */
+
+const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+if (prefersReduced) {
+    // Skip cursor trail code
+}
 
 // Orb
 document.addEventListener('DOMContentLoaded', () => {
