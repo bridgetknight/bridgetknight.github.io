@@ -35,17 +35,24 @@
     --tag-text: #ffffff;
 }
 
+@font-face {
+    font-family: "Le Petit Cochon";
+    src: url("../assets/Petit Cochon.otf") format("truetype");
+}
+
 /* Reset some default browser styles */
-html, body, h1, h2, p, ul, li, a {
+* {
     margin: 0;
-    margin-top: 0.5rem;
     padding: 0;
-    scroll-behavior: smooth;
+}
+
+p, li {
+    max-width: 70ch;
 }
 
 /* Apply a basic font and background color to the entire page */
 body {
-    font-family: Hack;
+    font-family: Poppins, sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
     min-height: 100vh;
@@ -54,7 +61,33 @@ body {
     transition: background 0.2s linear;
 }
 
+@property --blob1-x { syntax: '<percentage>'; inherits: false; initial-value: 20%; }
+@property --blob1-y { syntax: '<percentage>'; inherits: false; initial-value: 50%; }
+@property --blob2-x { syntax: '<percentage>'; inherits: false; initial-value: 80%; }
+@property --blob2-y { syntax: '<percentage>'; inherits: false; initial-value: 20%; }
+@property --blob3-x { syntax: '<percentage>'; inherits: false; initial-value: 60%; }
+@property --blob3-y { syntax: '<percentage>'; inherits: false; initial-value: 80%; }
+
+body {
+    background-image: 
+        radial-gradient(ellipse at var(--blob1-x) var(--blob1-y), rgba(255, 180, 220, 0.45) 0%, transparent 60%),
+        radial-gradient(ellipse at var(--blob2-x) var(--blob2-y), rgba(180, 220, 255, 0.4) 0%, transparent 55%),
+        radial-gradient(ellipse at var(--blob3-x) var(--blob3-y), rgba(180, 255, 220, 0.35) 0%, transparent 50%),
+        url('../assets/white-crumpled-paper-texture-background.jpg'); /* paper sits at the bottom of the stack */;
+    animation: meshShift 12s ease-in-out infinite alternate;
+}
+
+@keyframes meshShift {
+    0%   { --blob1-x: 20%; --blob1-y: 50%; --blob2-x: 80%; --blob2-y: 20%; --blob3-x: 60%; --blob3-y: 80%; }
+    33%  { --blob1-x: 60%; --blob1-y: 30%; --blob2-x: 20%; --blob2-y: 70%; --blob3-x: 85%; --blob3-y: 55%; }
+    66%  { --blob1-x: 75%; --blob1-y: 70%; --blob2-x: 40%; --blob2-y: 15%; --blob3-x: 15%; --blob3-y: 45%; }
+    100% { --blob1-x: 20%; --blob1-y: 50%; --blob2-x: 80%; --blob2-y: 20%; --blob3-x: 60%; --blob3-y: 80%; }
+}
+
+
+
 header {
+    margin-top: 1.5rem;
     position: relative;
     z-index: 10;
 }
@@ -70,6 +103,20 @@ header {
     font-weight: bold;
     letter-spacing: 2px;
 }
+
+.header_text a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+#name {
+    font-family: "Le Petit Cochon";
+    font-weight: 800;
+    height: auto;
+    font-size: clamp(1.5rem, 4vw, 3.5rem);
+}
+
+
 
 .header {
     display: flex;
@@ -90,38 +137,42 @@ header {
     font-weight: bold;
 }
 
+[x-cloak] {
+    display: none !important;
+}
+
+[x-show="open"] {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .dropdown {
     position: relative;
     display: inline-block;
 }
 
-.dropdown-arrow {
-    line-height: 1;
-    text-decoration: none !important;
-}
-
 .dropdown-content {
-    display: block;
-    opacity: 0;
-    pointer-events: none;
     position: absolute;
-    top: 120%;
-    left: 50%;
-    border-radius: 0.5rem;
+    margin-top: 0.5rem;
+    min-width: 10em;
+    top: 100%;
+    left: 0;
     background: rgb(255, 255, 255);
     backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    border-radius: 0.5rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transform: translateX(-50%) translateY(-4px) translateZ(0);
-    transition: opacity 0.2s ease, transform 0.2s ease;
-    z-index: 10; /* above splash */
-    will-change: backdrop-filter;
+    z-index: 10;
+    transform-origin: top center;
 }
 
 .dropdown-content a {
     display: block;
     color: var(--medium-pink);
-    padding: 0.4rem 1rem 1rem;
+    padding: 1rem 1rem 1rem;
+}
+
+.dropdown-content[x-cloak] {
+    display: none !important;
 }
 
 .dropdown-content a:hover {
@@ -129,20 +180,42 @@ header {
     font-weight: bold;
 }
 
-.dropdown-open {
-    transform: translateY(-2px);
-    font-weight: bold;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(0);
-}
-
 .dropdown:hover .link_float {
     font-weight: bold;
+}
+
+.dropdown-enter,
+.dropdown-leave {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.dropdown-enter-start,
+.dropdown-leave-end {
+    opacity: 0;
+    transform: scaleY(0.85) translateY(-6px);
+}
+
+.dropdown-enter-end,
+.dropdown-leave-start {
+    opacity: 1;
+    transform: scaleY(1) translateY(0);
+}
+
+.dropdown::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 0.5rem; /* matches your margin-top on .dropdown-content */
+    background: transparent;
+}
+
+.dropdown:hover .link_float,
+.link_float:hover {
+    transform: translateY(-2px);
+    font-weight: bold;
+    text-decoration: underline;
 }
 
 .link_float span {
@@ -308,6 +381,11 @@ header {
 #main_gallery {
     margin-top: 1rem;
     box-sizing: border-box;
+    margin-bottom: 5rem;
+}
+#main_gallery {
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
 }
 
 .gallery_grid {
@@ -365,15 +443,11 @@ header {
     opacity: 0.7;
 }
 
-/* Lightbox overlay */
 .gallery_lightbox_overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    inset: 0;
     backdrop-filter: blur(6px) brightness(0.7);
-    background: rgba(0,0,0,0.4);
+    background: rgba(0, 0, 0, 0.4);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -390,43 +464,60 @@ header {
 
 .gallery_lightbox_container {
     position: relative;
-    max-width: 90%;
-    max-height: 90%;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: min(90vw, 900px);
+    max-height: 90vh;
 }
 
 .gallery_lightbox_container img {
     max-width: 100%;
-    max-height: 100%;
+    max-height: 80vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;   /* shows the full image, no cropping */
     display: block;
-    transition: transform 0.4s ease, opacity 0.4s ease;
+    border-radius: 4px;
+    transition: opacity 0.25s ease;
 }
 
-.gallery_lightbox_close,
-.gallery_lightbox_arrow {
-    position: absolute;
-    color: #fff;
-    font-size: 2rem;
-    cursor: pointer;
-    user-select: none;
-    z-index: 10001;
+.gallery_lightbox_container img.fading {
+    opacity: 0;
+}
+
+.gallery_lightbox_container figcaption {
+    color: white;
+    margin-top: 0.75rem;
+    font-size: 0.95rem;
+    opacity: 0.85;
 }
 
 .gallery_lightbox_close {
-    top: 10px;
-    right: 20px;
+    position: absolute;
+    top: -2rem;
+    right: 0;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+    user-select: none;
 }
 
-.gallery_lightbox_arrow.left {
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
+.gallery_lightbox_arrow {
+    color: #fff;
+    font-size: 2.5rem;
+    cursor: pointer;
+    user-select: none;
+    z-index: 10001;
+    padding: 1rem;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+    flex-shrink: 0;
 }
 
-.gallery_lightbox_arrow.right {
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
+.gallery_lightbox_arrow:hover {
+    opacity: 1;
 }
 
 #portrait {
@@ -449,8 +540,11 @@ header {
 }
 
 #center {
-    padding: 0rem 1rem;
-    height: fit-content;
+    width: 100%;
+    max-width: 1600px; /* generous ceiling for very wide monitors */
+    margin: 0 auto;   /* this is the key — centers it on wide screens */
+    padding: 0 2rem;
+    box-sizing: border-box;
 }
 
 .main_section {
@@ -587,7 +681,7 @@ header {
 }
 
 .layered_button {
-    width: 200px;
+    width: 120px;
     position: relative;
     display: inline-block;
     cursor: pointer;
@@ -596,7 +690,7 @@ header {
     vertical-align: middle;
     text-decoration: none;
     font-size: inherit;
-    font-family: inherit;
+    font-family: Poppins;
     font-weight: 600;
     padding: 1.15em 0.1em;
     text-transform: uppercase;
@@ -757,13 +851,26 @@ code {
     display: inline-flex;
     align-items: center;
     vertical-align: middle;
-    transition: transform 0.25s ease-in-out, font-weight 0.25s ease-in-out, text-decoration 0.25s ease-in-out;
+    transition: transform 0.25s ease-in-out;
+    /* Reserve space for bold state so width never changes */
+    position: relative;
 }
 
 .link_float:hover {
     transform: translateY(-2px);
     font-weight:bold;
     text-decoration:underline;
+}
+
+/* invisible bold copy that holds the width */
+.link_float::after {
+    content: attr(data-text);
+    font-weight: bold;
+    height: 0;
+    visibility: hidden;
+    overflow: hidden;
+    display: block;
+    pointer-events: none;
 }
 
 .link_bold:hover {
@@ -798,9 +905,13 @@ code {
 }
 
 
-@media (max-width: 1100px) {
+@media (max-width: 900px) {
     .mobile-only {
         display: inline;
+    }
+
+    .dropdown-trigger {
+        pointer-events: auto;
     }
 
     .back_to_top {

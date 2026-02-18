@@ -6,53 +6,13 @@
 
 <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSDE5BTWLD"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
         gtag('config', 'G-PSDE5BTWLD');
-        
-
-        document.addEventListener("DOMContentLoaded", () => {
-        // Wait until navbar is loaded
-            const navbarInterval = setInterval(() => {
-                const dropdown = document.querySelector(".dropdown");
-                
-                if (!dropdown) return; // not loaded yet
-
-                clearInterval(navbarInterval);
-
-                const trigger = dropdown.querySelector(".dropdown-trigger");
-                const dropdownContent = dropdown.querySelector(".dropdown-content");
-                let closeTimeout;
-
-                const openDropdown = () => {
-                    clearTimeout(closeTimeout);
-                    dropdownContent.style.opacity = "1";
-                    dropdownContent.style.pointerEvents = "auto";
-                    dropdownContent.style.transform = "translateX(-50%) translateY(0)";
-                    trigger.classList.add("dropdown-open"); // keep link floated
-                };
-
-                const closeDropdown = () => {
-                    dropdownContent.style.opacity = "0";
-                    dropdownContent.style.pointerEvents = "none";
-                    dropdownContent.style.transform = "translateX(-50%) translateY(-4px)";
-                    trigger.classList.remove("dropdown-open"); // return link to normal
-                };
-
-                // When mouse enters either the trigger or the dropdown content
-                [trigger, dropdownContent].forEach(el => {
-                    el.addEventListener("mouseenter", openDropdown);
-                    el.addEventListener("mouseleave", () => {
-                        closeTimeout = setTimeout(closeDropdown, 200); // keep open longer
-                    });
-                });
-            }, 100);
-        });
-
-
     </script>
 
     <meta name="description" content="Boston-based concept artist with a computer science background creating visual development, environments, and characters for games and animation. Savannah College of Art and Design master's of art student. Bachelor's of science in computer science. Portfolio of Bridget Knight.">
@@ -61,6 +21,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel='stylesheet' href='//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack-subset.css'>
     <link href="https://fonts.googleapis.com/css2?family=Elms+Sans:ital,wght@0,100..900;1,100..900&family=Momo+Trust+Display&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Stack+Sans+Notch:wght@200..700&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="assets/splash_image_overlay_only.webp">
     <link rel="stylesheet" href="styles/style.css">
     <link rel="icon" href="assets/favicon.png">
     <script src="scripts/theme.js" defer></script>
@@ -73,6 +34,12 @@
         height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
+    <svg style="display:none" aria-hidden="true">
+        <filter id="noise">
+            <feTurbulence type="fractalNoise" baseFrequency="0.65"       numOctaves="3" stitchTiles="stitch"/>
+            <feColorMatrix type="saturate" values="0"/>
+        </filter>
+    </svg>
     <div id="center">
         <header>
             <div id="navbar"></div>
@@ -85,7 +52,7 @@
 
         <div id="main_section">
             <div id="splash_container">
-                <img id="splash_image" src="assets/splash_image_header_only.png" alt="Concept art of a farmer and a creature in a field after a hard day's work">
+                <img id="splash_image" src="assets/splash_image_overlay_only.webp" alt="Concept art of a farmer and a creature in a field after a hard day's work">
                 <div id="splash_overlay">
                     <div id="splash_text">
                         <a href="mailto:bridget.g.knight@gmail.com">bridget.g.knight@gmail.com</a>
@@ -97,19 +64,105 @@
                     </div>
                 </div>
             </div>
-            <section id="main_gallery">
-                <div id="mainGallery" class="gallery_grid"></div>
-            </section>
-        
-            <script src="/scripts/gallery.js"></script>
+            <div id="main_gallery" class="gallery_grid"></div>
             <script>
-                async function initGallery() {
-                    const mainGallery = new Gallery("mainGallery", "main_gallery");
-                    await mainGallery.load(); // wait until images are added
-                    setupGalleryLightbox();   // now images exist
-                }
+                let current_gallery = "main_gallery";
+                let galleryItems = []; // store all items globally once loaded
 
-                initGallery(); // kick everything off
+                fetch('/scripts/artwork_directory.json')
+                .then(res => res.json())
+                .then(data => {
+                    const gallery = data[current_gallery];
+                    galleryItems = gallery; // save for lightbox navigation
+                    const container = document.getElementById(current_gallery);
+
+                    gallery.forEach((item, index) => {
+                        const fig = document.createElement('figure');
+                        fig.className = 'gallery_item';
+                        fig.innerHTML = `
+                            <img src="/assets/main_gallery/${item.file}" alt="${item.title}" loading="lazy">
+                            <figcaption>
+                                <span>${item.title}</span>
+                                <span>${item.year}</span>
+                            </figcaption>
+                        `;
+                        container.appendChild(fig);
+                        fig.addEventListener('click', () => openLightbox(index));
+                    });
+                });
+
+                function openLightbox(index) {
+                    const overlay = document.createElement('div');
+                    overlay.className = 'gallery_lightbox_overlay active';
+                    overlay.innerHTML = `
+                        <span class="gallery_lightbox_arrow left">&#8592;</span>
+                        <div class="gallery_lightbox_container">
+                            <span class="gallery_lightbox_close">&times;</span>
+                            <img src="" alt="">
+                            <figcaption></figcaption>
+                        </div>
+                        <span class="gallery_lightbox_arrow right">&#8594;</span>
+                    `;
+                    document.body.appendChild(overlay);
+
+                    function loadImage(i) {
+                        const item = galleryItems[i];
+                        const img = overlay.querySelector('img');
+                        const caption = overlay.querySelector('figcaption');
+
+                        img.classList.add('fading');
+                        setTimeout(() => {
+                            img.src = `/assets/main_gallery/${item.file}`;
+                            img.alt = item.title;
+                            caption.textContent = `${item.title} — ${item.year}`;
+                            img.onload = () => img.classList.remove('fading');
+                        }, 250);
+                    }
+
+                    loadImage(index);
+
+                    overlay.querySelector('.gallery_lightbox_arrow.left').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        index = (index - 1 + galleryItems.length) % galleryItems.length;
+                        loadImage(index);
+                    });
+
+                    overlay.querySelector('.gallery_lightbox_arrow.right').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        index = (index + 1) % galleryItems.length;
+                        loadImage(index);
+                    });
+
+                    overlay.querySelector('.gallery_lightbox_close').addEventListener('click', () => overlay.remove());
+
+                    overlay.addEventListener('click', (e) => {
+                        if (!e.target.closest('.gallery_lightbox_container') && 
+                            !e.target.closest('.gallery_lightbox_arrow')) {
+                            overlay.remove();
+                        }
+                    });
+
+                    // keyboard navigation
+                    function onKey(e) {
+                        if (e.key === 'ArrowRight') {
+                            index = (index + 1) % galleryItems.length;
+                            loadImage(index);
+                        } else if (e.key === 'ArrowLeft') {
+                            index = (index - 1 + galleryItems.length) % galleryItems.length;
+                            loadImage(index);
+                        } else if (e.key === 'Escape') {
+                            overlay.remove();
+                            document.removeEventListener('keydown', onKey);
+                        }
+                    }
+                    document.addEventListener('keydown', onKey);
+                    overlay.addEventListener('click', (e) => {
+                        if (!e.target.closest('.gallery_lightbox_container') &&
+                            !e.target.closest('.gallery_lightbox_arrow')) {
+                            document.removeEventListener('keydown', onKey);
+                        }
+                    });
+                }
             </script>
         </div>
     </div>

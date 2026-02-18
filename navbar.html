@@ -1,38 +1,45 @@
 <div id="header">
-    <div class="header_text" id="name">
-        <img id="name_logo" src="assets/websitelogo.png">
-    </div>
-
-    <div class="nav_group">
-        <nav class="links">
-            <div class="dropdown">
-                <a href="/gallery.html" class="link_float dropdown-trigger" style="color:var(--medium-pink)">art
-                    <span class="dropdown-arrow">&#9660;</span>
-                </a>
-                <div class="dropdown-content">
-                    <a href="/gallery.html">concept art</a>
-                    <a href="/traditionalart.html">illustration</a>
-                    <a href="/digitalart.html">sketches</a>
-                </div>
-            </div>
-
-            <a href="https://www.linkedin.com/in/bridgetgknight/" class="link_float" style="color:var(--purple)">tech</a>
-            <a href="https://britknight17.wixsite.com/portfolio" class="link_float" style="color:var(--blue)">about</a>
-            <a href="#projects_header" class="link_float" style="color:var(--green)">contact</a>
-
-            <div id="theme-toggle">
-                <input type="checkbox" class="mode_checkbox" id="mode_checkbox">
-                <label for="mode_checkbox" class="mode_checkbox-label">
-                    <i class="fas fa-moon"></i>
-                    <i class="fas fa-sun"></i>
-                    <span class="ball"></span>
-                </label>
-            </div>
-        </nav>
-        <div id="resume_link">
-            <a href="docs/knight_bridget_resume.pdf" download>
-                <button class="layered_button layered_button--pink">download my resume</button>
+    <div class="left_group">
+        <div class="header_text" id="name">
+            <a href="/index.html" class="name_link">
+                BRIDGET KNIGHT
             </a>
         </div>
+    </div>
+    <nav class="links">
+        <div class="dropdown" x-data="{ open: false }"
+        @mouseenter="if(window.innerWidth>900) open=true"
+        @mouseleave="if(window.innerWidth>900) open=false"
+        @click="if(window.innerWidth<=900) open=!open"
+        @click.outside="open=false">
+        
+        <a href="/gallery.html" class="link_float dropdown-trigger" style="color:var(--medium-pink)">
+            portfolio
+        </a>
+
+        <div class="dropdown-content"
+        x-show="open"
+        x-cloak
+        x-transition:enter="dropdown-enter"
+        x-transition:enter-start="dropdown-enter-start"
+        x-transition:enter-end="dropdown-enter-end"
+        x-transition:leave="dropdown-leave"
+        x-transition:leave-start="dropdown-leave-start"
+        x-transition:leave-end="dropdown-leave-end">
+            <a href="/gallery.html#concept_art">concept art</a>
+            <a href="/gallery.html#illustrations">illustration</a>
+            <a href="/gallery.html#sketches">sketches</a>
+            <a href="/gallery.html#graphic_design">graphic design</a>
+        </div>
+    </div>
+
+        <a href="tech.html" class="link_float" style="color:var(--purple)">tech</a>
+        <a href="about.html" class="link_float" style="color:var(--blue)">about</a>
+        <a href="about.html#contact" class="link_float" style="color:var(--green)">contact</a>
+    </nav>
+    <div id="resume_link">
+        <a href="docs/knight_bridget_resume.pdf" download>
+            <button class="layered_button layered_button--pink">resume</button>
+        </a>
     </div>
 </div>
