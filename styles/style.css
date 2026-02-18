@@ -68,11 +68,12 @@ body::after {
     inset: 0;
     z-index: 1;
     pointer-events: none;
-    opacity: 0.08;
+    opacity: 0.18;
     background-image: url('../assets/grain_texture.jpg');
     z-index: -100;
     background-repeat: repeat;
     background-size: 256px 256px;
+    mix-blend-mode:multiply;
 }
 
 .cursor-star {
@@ -121,11 +122,11 @@ body::after {
 
 body {
     background-image: 
-        radial-gradient(ellipse at var(--blob1-x) var(--blob1-y), rgba(255, 180, 220, 0.45) 0%, transparent 60%),
-        radial-gradient(ellipse at var(--blob2-x) var(--blob2-y), rgba(180, 220, 255, 0.4) 0%, transparent 55%),
-        radial-gradient(ellipse at var(--blob3-x) var(--blob3-y), rgba(180, 255, 220, 0.35) 0%, transparent 50%),
+        radial-gradient(ellipse at var(--blob1-x) var(--blob1-y), rgba(255, 122, 193, 0.773) 0%, transparent 60%),
+        radial-gradient(ellipse at var(--blob2-x) var(--blob2-y), rgba(159, 210, 255, 0.745) 0%, transparent 55%),
+        radial-gradient(ellipse at var(--blob3-x) var(--blob3-y), rgba(144, 255, 163, 0.35) 0%, transparent 50%),
         url('../assets/white-crumpled-paper-texture-background.jpg'); /* paper sits at the bottom of the stack */;
-    animation: meshShift 12s ease-in-out infinite alternate;
+    animation: meshShift 8s ease-in-out infinite alternate;
 }
 
 @keyframes meshShift {
@@ -378,7 +379,6 @@ header {
     margin-left: 4%;
     font-family: Poppins;
     font-weight: 800;
-    text-decoration: none;
     height: auto;
     font-size: clamp(1px, 1.6vw, 1.8rem);
     font-style: italic;
@@ -474,7 +474,7 @@ header {
 #main_gallery {
     margin-top: 1rem;
     box-sizing: border-box;
-    margin-bottom: 5rem;
+    margin-bottom: 1.5rem;
 }
 #main_gallery {
     -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
@@ -618,11 +618,17 @@ header {
     width: fit-content;
     margin: 0 auto;
     margin-top: 0.5rem;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
     text-align: center;  /* Centers the text inside the div */
 }
 
+#portfolio_invite {
 
+}
+
+#read_more {
+    margin-top: 1.5em;
+}
 
 #portrait {
     width: 100%;
@@ -935,19 +941,103 @@ code {
     margin-bottom: 2%;
 }
 
-#footer_link  {
-    position: relative;
-    display: inline-block;
-    margin: auto;
-    margin-bottom: 10px;
-    height: 2.5rem;
+#footer {
+    margin-top: 6rem;
+    padding: 3rem 0;
+    border-top: 1px solid var(--subtitle);
+    width: 100%;
 }
 
-#footer {
-    position: relative;
+.footer_grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
     width: 100%;
-    text-align: center;
-    margin-top: 100px;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    box-sizing: border-box;
+}
+
+.footer_column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.footer_left {
+    align-items: flex-start;
+}
+
+.footer_right {
+    align-items: flex-end;
+}
+
+#footer_name {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--text-color);
+    margin: 0;
+    margin-bottom: 0.5rem;
+}
+
+.footer_subtitle {
+    font-size: 14px;
+    color: var(--subtitle);
+    margin: 0;
+}
+
+.footer_email {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 16px;
+    transition: font-weight 0.2s ease;
+}
+
+.footer_email:hover {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.footer_social_label {
+    font-size: 14px;
+    color: var(--subtitle);
+    margin: 0 0 1rem 0;
+}
+
+.footer_socials {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.footer_socials a {
+    color: var(--text-color);
+    transition: transform 0.2s ease, color 0.2s ease;
+    text-decoration: none;
+}
+
+.footer_socials a:hover {
+    transform: translateY(-3px);
+    color: var(--medium-pink);
+}
+
+/* Mobile responsive */
+@media (max-width: 900px) {
+    .footer_grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+
+    .footer_column {
+        align-items: center !important;
+    }
+
+    .footer_socials {
+        justify-content: center;
+    }
 }
 
 .link_float {
@@ -987,14 +1077,14 @@ code {
     white-space: nowrap;
 }
 
-#about_me::after {
+#blurb::after {
     position: relative;
     top:3px;
     left:-5px;
     content: "";
-    width: 6px;
+    width: 5px;
     height: 20px;
-    background: #ec7fff;
+    background: var(--medium-pink);
     display: inline-block;
     white-space: nowrap;
 
