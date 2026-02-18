@@ -23,9 +23,36 @@
                 .then(response => response.text())
                 .then(html => {
                     document.getElementById("navbar").innerHTML = html;
-                
+
                     const link = document.querySelector('#name a');
-                    if (!link) return;
+                    if (!link) {
+                        console.log("Name link not found");
+                        return;
+                    }
+
+                    link.addEventListener('mouseenter', () => {
+                        link.classList.add('scatter-active');
+                        const letters = link.querySelectorAll('.name-letter');
+                        letters.forEach((letter, index) => {
+                            setTimeout(() => {
+                                // Gentle wave pattern - alternates up and down
+                                const yOffset = (index % 2 === 0 ? -8 : 8);
+                                const xOffset = (index - (letters.length / 2)) * 3; // Spreads them out gradually
+                                const rotation = (index % 2 === 0 ? -5 : 5); // Slight tilt
+                                letter.style.transform = `translateX(${xOffset}px) translateY(${yOffset}px) rotate(${rotation}deg)`;
+                            }, index * 30);
+                        });
+                    });
+
+                    link.addEventListener('mouseleave', () => {
+                        link.classList.remove('scatter-active');
+                        const letters = link.querySelectorAll('.name-letter');
+                        letters.forEach((letter, index) => {
+                            setTimeout(() => {
+                                letter.style.transform = '';
+                            }, index * 50); // Add the same stagger delay
+                        });
+                    });
                     
                     const text = link.textContent.trim();
                     link.textContent = '';
@@ -36,30 +63,6 @@
                         span.className = 'name-letter';
                         span.style.animationDelay = `${i * 0.08}s`;
                         link.appendChild(span);
-                    });
-
-                    link.addEventListener('mouseenter', () => {
-                        link.classList.add('scatter-active');
-                        const letters = link.querySelectorAll('.name-letter');
-                        letters.forEach((letter, index) => {
-                            setTimeout(() => {
-                                const direction = index % 2 === 0 ? 1 : -1;
-                                const randomX = direction * (Math.random() * 20 + 10);
-                                const randomY = (Math.random() - 0.5) * 25;
-                                const randomRotate = (Math.random() - 0.5) * 30;
-                                letter.style.transform = `translateX(${randomX}px) translateY(${randomY}px) rotate(${randomRotate}deg)`;
-                            }, index * 30);
-                        });
-                    });
-                    
-                    link.addEventListener('mouseleave', () => {
-                        link.classList.remove('scatter-active');
-                        const letters = link.querySelectorAll('.name-letter');
-                        letters.forEach((letter, index) => {
-                            setTimeout(() => {
-                                letter.style.transform = '';
-                            }, index * 30);
-                        });
                     });
                 });
             </script>
@@ -107,7 +110,11 @@
                             section.appendChild(heading);
 
                             const gallery = document.createElement('div');
-                            gallery.className = 'portfolio_gallery';
+                            if (category === 'concept_art') {
+                                gallery.className = 'portfolio_gallery';
+                            } else {
+                                gallery.className = 'masonry_gallery';
+                            }
                             gallery.dataset.category = category;
 
                             allGalleryItems[category].forEach((item, index) => {

@@ -51,6 +51,17 @@ p, li {
 }
 
 /* Apply a basic font and background color to the entire page */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -101;
+    pointer-events: none;
+    background-image: url('../assets/white-crumpled-paper-texture-background.jpg');
+    -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 95%);
+    mask-image: linear-gradient(to bottom, black 80%, transparent 95%);
+}
+
 body {
     font-family: Poppins, sans-serif;
     background-color: var(--background-color);
@@ -60,20 +71,35 @@ body {
     flex-direction: column;
     transition: background 0.2s linear;
     cursor: url("http://www.rw-designer.com/cursor-extern.php?id=131463"), auto;
+    
+    background-image: 
+        radial-gradient(ellipse at var(--blob1-x) var(--blob1-y), rgba(255, 122, 193, 0.47) 0%, transparent 60%),
+        radial-gradient(ellipse at var(--blob2-x) var(--blob2-y), rgba(159, 210, 255, 0.623) 0%, transparent 55%),
+        radial-gradient(ellipse at var(--blob3-x) var(--blob3-y), rgba(196, 255, 144, 0.53) 0%, transparent 50%);
+    animation: meshShift 8s ease-in-out infinite alternate;
 }
 
 body::after {
     content: "";
     position: fixed;
     inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    opacity: 0.18;
-    background-image: url('../assets/grain_texture.jpg');
     z-index: -100;
+    pointer-events: none;
+    opacity: 30%;
+    background-image: url('../assets/grain_texture.jpg');
     background-repeat: repeat;
-    background-size: 256px 256px;
-    mix-blend-mode:multiply;
+    background-size: 512px 512px;
+    mix-blend-mode: multiply;
+    filter: grayscale(100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 95%);
+    mask-image: linear-gradient(to bottom, black 80%, transparent 95%);
+}
+
+@keyframes meshShift {
+    0%   { --blob1-x: 20%; --blob1-y: 50%; --blob2-x: 80%; --blob2-y: 20%; --blob3-x: 60%; --blob3-y: 80%; }
+    33%  { --blob1-x: 60%; --blob1-y: 30%; --blob2-x: 20%; --blob2-y: 70%; --blob3-x: 85%; --blob3-y: 55%; }
+    66%  { --blob1-x: 75%; --blob1-y: 70%; --blob2-x: 40%; --blob2-y: 15%; --blob3-x: 15%; --blob3-y: 45%; }
+    100% { --blob1-x: 20%; --blob1-y: 50%; --blob2-x: 80%; --blob2-y: 20%; --blob3-x: 60%; --blob3-y: 80%; }
 }
 
 .cursor-star {
@@ -120,15 +146,6 @@ body::after {
 @property --blob2-y { syntax: '<percentage>'; inherits: false; initial-value: 20%; }
 @property --blob3-x { syntax: '<percentage>'; inherits: false; initial-value: 60%; }
 @property --blob3-y { syntax: '<percentage>'; inherits: false; initial-value: 80%; }
-
-body {
-    background-image: 
-        radial-gradient(ellipse at var(--blob1-x) var(--blob1-y), rgba(255, 122, 193, 0.47) 0%, transparent 60%),
-        radial-gradient(ellipse at var(--blob2-x) var(--blob2-y), rgba(159, 210, 255, 0.623) 0%, transparent 55%),
-        radial-gradient(ellipse at var(--blob3-x) var(--blob3-y), rgba(196, 255, 144, 0.53) 0%, transparent 50%),
-        url('../assets/white-crumpled-paper-texture-background.jpg'); /* paper sits at the bottom of the stack */;
-    animation: meshShift 8s ease-in-out infinite alternate;
-}
 
 @keyframes meshShift {
     0%   { --blob1-x: 20%; --blob1-y: 50%; --blob2-x: 80%; --blob2-y: 20%; --blob3-x: 60%; --blob3-y: 80%; }
@@ -489,20 +506,24 @@ header {
     position: relative;
 }
 
+/* BASE GALLERY - for home page only */
 .gallery_grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* exactly 3 columns */
-    gap: 1rem; /* very small space between images */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
 }
 
 .gallery_item {
     position: relative;
     border-radius: 6px;
     margin: 0;
-    aspect-ratio: unset;
-    height: clamp(200px, 30vw, 420px);
     background: #111;
-    mask-image: radial-gradient(circle at center, black 0%, black 99%, transparent 100%);
+    overflow: hidden;
+}
+
+.gallery_grid .gallery_item {
+    height: clamp(200px, 30vw, 420px);
+    aspect-ratio: unset;
 }
 
 .gallery_item img {
@@ -1425,6 +1446,181 @@ code {
     }
 }
 
+/* PORTFOLIO PAGE */
+.portfolio_header h1 {
+    font-size: 48px;
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.portfolio_subtitle {
+    font-size: 18px;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    width: fit-content;
+    color: var(--subtitle);
+}
+
+.portfolio_header {
+    text-align: center;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeInHeader 0.8s ease forwards;
+    animation-delay: 0.2s;
+}
+
+.portfolio_section {
+    margin-bottom: 6rem;
+}
+
+/* PORTFOLIO PAGES - grid layout */
+.portfolio_gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 3rem;
+    margin-bottom: 5rem;
+}
+
+.portfolio_gallery .gallery_item {
+    height: auto;
+    aspect-ratio: unset;
+}
+
+.portfolio_gallery .gallery_item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.portfolio_gallery .gallery_item figcaption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0.75rem;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    font-size: 0.95rem;
+}
+
+.portfolio_gallery .gallery_item:hover figcaption {
+    opacity: 1;
+}
+
+.portfolio_gallery .gallery_item figcaption span:last-child {
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+/* MASONRY - for illustration, sketches, graphic design */
+.masonry_gallery {
+    display: unset !important;
+    column-count: 3;
+    column-gap: 1rem;
+    margin-top: 3rem;
+    margin-bottom: 5rem;
+}
+
+.masonry_gallery .gallery_item {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+    height: auto !important;
+    aspect-ratio: unset !important;
+}
+
+.masonry_gallery .gallery_item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.masonry_gallery .gallery_item figcaption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0.75rem;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    font-size: 0.95rem;
+}
+
+.masonry_gallery .gallery_item:hover figcaption {
+    opacity: 1;
+}
+
+.masonry_gallery .gallery_item figcaption span:last-child {
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+/* CONCEPT ART - single column */
+#concept_art .portfolio_gallery {
+    grid-template-columns: 1fr;
+}
+
+#concept_art .gallery_item {
+    width: 100%;
+}
+
+#concept_art .gallery_item img {
+    width: 100%;
+    height: auto;
+}
+
+#concept_art {
+    margin-top: 3rem;
+}
+
+#concept_art .portfolio_category_heading {
+    margin-bottom: 3rem;
+}
+
+#illustrations .portfolio_gallery .gallery_item,
+#sketches .portfolio_gallery .gallery_item,
+#graphic_design .portfolio_gallery .gallery_item {
+    height: auto !important;
+    aspect-ratio: unset !important;
+}
+
+@media (max-width: 1200px) {
+    .portfolio_gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .masonry_gallery {
+        column-count: 2;
+    }
+}
+
+@media (max-width: 900px) {
+    .portfolio_gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .masonry_gallery {
+        column-count: 1;
+    }
+}
 
 @media (max-width: 900px) {
     .mobile-only {
