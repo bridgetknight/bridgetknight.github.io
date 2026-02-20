@@ -73,6 +73,8 @@
             position: relative;
             /* tall enough to contain the fanned photos */
             height: 520px;
+            margin-right: 1rem;
+            margin-left: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -120,52 +122,65 @@
         }
 
         /* when .burst class is added by JS each satellite flies out */
+        /* ── FLUID BURST: all positions scale with --r ───────── */
+        .photo_cluster {
+            --r: clamp(80px, 16vw, 210px);
+        }
+
+        .photo_main {
+            width: clamp(130px, 17vw, 220px);
+            height: clamp(165px, 22vw, 280px);
+        }
+
+        .photo_satellite {
+            width: clamp(100px, 13vw, 160px);
+            height: clamp(125px, 17vw, 200px);
+        }
+
         .photo_cluster.burst .photo_satellite:nth-child(2) {
             opacity: 1;
-            transform: translate(-210px, -140px) rotate(-12deg) scale(1);
+            transform: translate(calc(var(--r) * -1.0), calc(var(--r) * -0.67)) rotate(-12deg) scale(1);
             transition-delay: 0.05s;
         }
         .photo_cluster.burst .photo_satellite:nth-child(3) {
             opacity: 1;
-            transform: translate(-240px, 60px) rotate(-7deg) scale(1);
+            transform: translate(calc(var(--r) * -1.14), calc(var(--r) * 0.29)) rotate(-7deg) scale(1);
             transition-delay: 0.1s;
         }
-        /* bottom-left: rotated further left to match the left-side lean */
         .photo_cluster.burst .photo_satellite:nth-child(4) {
             opacity: 1;
-            transform: translate(-130px, 230px) rotate(-14deg) scale(1);
+            transform: translate(calc(var(--r) * -0.62), calc(var(--r) * 1.1)) rotate(-14deg) scale(1);
             transition-delay: 0.15s;
         }
         .photo_cluster.burst .photo_satellite:nth-child(5) {
             opacity: 1;
-            transform: translate(110px, 220px) rotate(10deg) scale(1);
+            transform: translate(calc(var(--r) * 0.52), calc(var(--r) * 1.05)) rotate(10deg) scale(1);
             transition-delay: 0.2s;
         }
         .photo_cluster.burst .photo_satellite:nth-child(6) {
             opacity: 1;
-            transform: translate(220px, 50px) rotate(8deg) scale(1);
+            transform: translate(calc(var(--r) * 1.05), calc(var(--r) * 0.24)) rotate(8deg) scale(1);
             transition-delay: 0.25s;
         }
         .photo_cluster.burst .photo_satellite:nth-child(7) {
             opacity: 1;
-            transform: translate(190px, -160px) rotate(-5deg) scale(1);
+            transform: translate(calc(var(--r) * 0.9), calc(var(--r) * -0.76)) rotate(-5deg) scale(1);
             transition-delay: 0.3s;
         }
-        /* new: top-right gap filler */
         .photo_cluster.burst .photo_satellite:nth-child(8) {
             opacity: 1;
-            transform: translate(80px, -240px) rotate(9deg) scale(1);
+            transform: translate(calc(var(--r) * 0.38), calc(var(--r) * -1.14)) rotate(9deg) scale(1);
             transition-delay: 0.35s;
         }
 
-        /* hover: smooth outward nudge — each photo moves away from centre */
-        .photo_cluster.burst .photo_satellite:nth-child(2):hover { transform: translate(-230px, -158px) rotate(-12deg) scale(1.04); }
-        .photo_cluster.burst .photo_satellite:nth-child(3):hover { transform: translate(-262px,  68px)  rotate(-7deg)  scale(1.04); }
-        .photo_cluster.burst .photo_satellite:nth-child(4):hover { transform: translate(-148px,  252px) rotate(-14deg) scale(1.04); }
-        .photo_cluster.burst .photo_satellite:nth-child(5):hover { transform: translate( 125px,  242px) rotate(10deg)  scale(1.04); }
-        .photo_cluster.burst .photo_satellite:nth-child(6):hover { transform: translate( 240px,   58px) rotate(8deg)   scale(1.04); }
-        .photo_cluster.burst .photo_satellite:nth-child(7):hover { transform: translate( 208px, -178px) rotate(-5deg)  scale(1.04); }
-        .photo_cluster.burst .photo_satellite:nth-child(8):hover { transform: translate(  92px, -262px) rotate(9deg)   scale(1.04); }
+        /* hover nudge */
+        .photo_cluster.burst .photo_satellite:nth-child(2):hover { transform: translate(calc(var(--r) * -1.1),  calc(var(--r) * -0.74)) rotate(-12deg) scale(1.04); }
+        .photo_cluster.burst .photo_satellite:nth-child(3):hover { transform: translate(calc(var(--r) * -1.25), calc(var(--r) * 0.32))  rotate(-7deg)  scale(1.04); }
+        .photo_cluster.burst .photo_satellite:nth-child(4):hover { transform: translate(calc(var(--r) * -0.7),  calc(var(--r) * 1.2))   rotate(-14deg) scale(1.04); }
+        .photo_cluster.burst .photo_satellite:nth-child(5):hover { transform: translate(calc(var(--r) * 0.6),   calc(var(--r) * 1.16))  rotate(10deg)  scale(1.04); }
+        .photo_cluster.burst .photo_satellite:nth-child(6):hover { transform: translate(calc(var(--r) * 1.14),  calc(var(--r) * 0.28))  rotate(8deg)   scale(1.04); }
+        .photo_cluster.burst .photo_satellite:nth-child(7):hover { transform: translate(calc(var(--r) * 0.99),  calc(var(--r) * -0.84)) rotate(-5deg)  scale(1.04); }
+        .photo_cluster.burst .photo_satellite:nth-child(8):hover { transform: translate(calc(var(--r) * 0.44),  calc(var(--r) * -1.25)) rotate(9deg)   scale(1.04); }
 
         /* polaroid caption strip */
         .photo_frame.polaroid {
@@ -479,7 +494,7 @@
             gap: 0.4rem;
         }
 
-        /* ── RESPONSIVE ──────────────────────────────────────── */
+/* ── RESPONSIVE ──────────────────────────────────────── */
         @media (max-width: 1100px) {
             .about_split {
                 grid-template-columns: 1fr;
@@ -487,7 +502,7 @@
             }
 
             .photo_cluster {
-                height: 420px;
+                height: clamp(320px, 55vw, 520px);
                 margin: 0 auto;
                 max-width: 500px;
                 width: 100%;
@@ -501,27 +516,33 @@
 
         @media (max-width: 600px) {
             .photo_cluster {
-                height: 360px;
+                overflow: hidden;
+                max-width: 100%;
+                height: 70vw;
             }
 
-            .photo_main {
-                width: 170px;
-                height: 220px;
+            .photo_cluster.burst .photo_satellite:nth-child(2):hover,
+            .photo_cluster.burst .photo_satellite:nth-child(3):hover,
+            .photo_cluster.burst .photo_satellite:nth-child(4):hover,
+            .photo_cluster.burst .photo_satellite:nth-child(5):hover,
+            .photo_cluster.burst .photo_satellite:nth-child(6):hover,
+            .photo_cluster.burst .photo_satellite:nth-child(7):hover,
+            .photo_cluster.burst .photo_satellite:nth-child(8):hover {
+                transform: unset;
             }
 
-            .photo_satellite {
-                width: 120px;
-                height: 150px;
+            .photo_satellite.tapped {
+                transform: translate(0, 0) rotate(0deg) scale(1.12) !important;
+                z-index: 30 !important;
+                box-shadow: 0 12px 40px rgba(0,0,0,0.25),
+                            0 0 0 3px rgba(255,200,220,0.8) !important;
+                transition: transform 0.35s cubic-bezier(0.34, 1.28, 0.64, 1),
+                            box-shadow 0.25s ease !important;
             }
 
-            /* tighten the burst radii on mobile */
-            .photo_cluster.burst .photo_satellite:nth-child(2) { transform: translate(-150px, -100px) rotate(-12deg) scale(1); }
-            .photo_cluster.burst .photo_satellite:nth-child(3) { transform: translate(-170px, 45px)  rotate(-7deg)  scale(1); }
-            .photo_cluster.burst .photo_satellite:nth-child(4) { transform: translate(-90px,  170px) rotate(-14deg) scale(1); }
-            .photo_cluster.burst .photo_satellite:nth-child(5) { transform: translate(80px,   170px) rotate(10deg)  scale(1); }
-            .photo_cluster.burst .photo_satellite:nth-child(6) { transform: translate(155px,  40px)  rotate(8deg)   scale(1); }
-            .photo_cluster.burst .photo_satellite:nth-child(7) { transform: translate(135px, -120px) rotate(-5deg)  scale(1); }
-            .photo_cluster.burst .photo_satellite:nth-child(8) { transform: translate(55px,  -175px) rotate(9deg)   scale(1); }
+            .marsh_annotation {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -751,16 +772,40 @@
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // small delay so the user sees the main photo first
                     setTimeout(() => cluster.classList.add('burst'), 200);
-                    observer.unobserve(cluster); // only fire once
+                    observer.unobserve(cluster);
                 }
             });
-        }, {
-            threshold: 0.35  // 35% of cluster visible before burst fires
-        });
+        }, { threshold: 0.35 });
 
         observer.observe(cluster);
+
+        // ── TAP TO CENTER on touch devices ───────────────────
+        // on mobile, tapping a satellite photo brings it to center;
+        // tapping again or tapping elsewhere sends it back
+        if (window.matchMedia('(hover: none)').matches) {
+            const satellites = cluster.querySelectorAll('.photo_satellite');
+
+            satellites.forEach(photo => {
+                photo.addEventListener('click', e => {
+                    e.stopPropagation();
+                    const isAlreadyTapped = photo.classList.contains('tapped');
+
+                    // untap any currently tapped photo first
+                    satellites.forEach(p => p.classList.remove('tapped'));
+
+                    // if it wasn't tapped, tap it
+                    if (!isAlreadyTapped) {
+                        photo.classList.add('tapped');
+                    }
+                });
+            });
+
+            // tap anywhere else on cluster to dismiss
+            cluster.addEventListener('click', () => {
+                satellites.forEach(p => p.classList.remove('tapped'));
+            });
+        }
 
         // ── CONTACT FORM — Formspree AJAX submit ─────────────
         const form = document.getElementById('contact_form');
