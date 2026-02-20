@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Bridget Knight</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="icon" href="assets/favicon.png">
+    <script src="scripts/theme.js" defer></script>
+    <script src="scripts/cursor_trail.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <script src="scripts/footer.js" defer></script>
+
+    <style>
+        /* ── PAGE HEADER ─────────────────────────────────────── */
+        .about_header {
+            position: relative;
+            padding: 3rem 0 2rem;
+            opacity: 0;
+            transform: translateY(-16px);
+            animation: fadeInHeader 0.7s ease forwards;
+            animation-delay: 0.15s;
+        }
+
+        .about_header h1 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800;
+            line-height: 1;
+            margin: 0;
+            color: black;
+            display: inline-block;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .about_header h1::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 6px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='6'%3E%3Cpath d='M0 3 Q5 0 10 3 Q15 6 20 3' fill='none' stroke='%23d78ca0' stroke-width='2'/%3E%3C/svg%3E");
+            background-repeat: repeat-x;
+            background-size: 20px 6px;
+            animation: waveScroll 0.6s steps(2) infinite;
+        }
+
+        .about_header .header_sub {
+            font-size: clamp(0.75rem, 1.5vw, 0.8rem);
+            letter-spacing: 0.25em;
+            text-transform: lowercase;
+            color: var(--subtitle);
+            margin-top: 0.75rem;
+            font-style: italic;
+        }
+
+       /* ── SPLIT SECTION ───────────────────────────────────── */
+        .about_split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: start;
+            margin: 4rem 0 8rem;
+            /* trigger point for IntersectionObserver */
+        }
+
+        /* ── PHOTO CLUSTER (left side) ───────────────────────── */
+        .photo_cluster {
+            position: relative;
+            /* tall enough to contain the fanned photos */
+            height: 520px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photo_frame {
+            position: absolute;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15),
+                        0 0 0 3px rgba(255,255,255,0.6);
+            transition: box-shadow 0.25s ease, transform 0.25s ease;
+        }
+
+        .photo_frame:hover {
+            box-shadow: 0 8px 32px rgba(255,130,190,0.25),
+                        0 0 0 3px rgba(255,200,220,0.7);
+            z-index: 20 !important;
+        }
+
+        .photo_frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* main portrait — centre, largest, always on top */
+        .photo_main {
+            width: 220px;
+            height: 280px;
+            z-index: 10;
+            transform: rotate(-1deg);
+            /* starts visible immediately */
+            opacity: 1;
+        }
+
+        /* satellite photos — hidden behind main until scroll triggers */
+        .photo_satellite {
+            opacity: 0;
+            transform: translate(0, 0) rotate(0deg) scale(0.7);
+            transition: opacity 0.6s ease, transform 0.7s cubic-bezier(0.34, 1.28, 0.64, 1);
+            width: 160px;
+            height: 200px;
+        }
+
+        /* when .burst class is added by JS each satellite flies out */
+        .photo_cluster.burst .photo_satellite:nth-child(2) {
+            opacity: 1;
+            transform: translate(-210px, -140px) rotate(-12deg) scale(1);
+            transition-delay: 0.05s;
+        }
+        .photo_cluster.burst .photo_satellite:nth-child(3) {
+            opacity: 1;
+            transform: translate(-240px, 60px) rotate(-7deg) scale(1);
+            transition-delay: 0.1s;
+        }
+        /* bottom-left: rotated further left to match the left-side lean */
+        .photo_cluster.burst .photo_satellite:nth-child(4) {
+            opacity: 1;
+            transform: translate(-130px, 230px) rotate(-14deg) scale(1);
+            transition-delay: 0.15s;
+        }
+        .photo_cluster.burst .photo_satellite:nth-child(5) {
+            opacity: 1;
+            transform: translate(110px, 220px) rotate(10deg) scale(1);
+            transition-delay: 0.2s;
+        }
+        .photo_cluster.burst .photo_satellite:nth-child(6) {
+            opacity: 1;
+            transform: translate(220px, 50px) rotate(8deg) scale(1);
+            transition-delay: 0.25s;
+        }
+        .photo_cluster.burst .photo_satellite:nth-child(7) {
+            opacity: 1;
+            transform: translate(190px, -160px) rotate(-5deg) scale(1);
+            transition-delay: 0.3s;
+        }
+        /* new: top-right gap filler */
+        .photo_cluster.burst .photo_satellite:nth-child(8) {
+            opacity: 1;
+            transform: translate(80px, -240px) rotate(9deg) scale(1);
+            transition-delay: 0.35s;
+        }
+
+        /* hover: smooth outward nudge — each photo moves away from centre */
+        .photo_cluster.burst .photo_satellite:nth-child(2):hover { transform: translate(-230px, -158px) rotate(-12deg) scale(1.04); }
+        .photo_cluster.burst .photo_satellite:nth-child(3):hover { transform: translate(-262px,  68px)  rotate(-7deg)  scale(1.04); }
+        .photo_cluster.burst .photo_satellite:nth-child(4):hover { transform: translate(-148px,  252px) rotate(-14deg) scale(1.04); }
+        .photo_cluster.burst .photo_satellite:nth-child(5):hover { transform: translate( 125px,  242px) rotate(10deg)  scale(1.04); }
+        .photo_cluster.burst .photo_satellite:nth-child(6):hover { transform: translate( 240px,   58px) rotate(8deg)   scale(1.04); }
+        .photo_cluster.burst .photo_satellite:nth-child(7):hover { transform: translate( 208px, -178px) rotate(-5deg)  scale(1.04); }
+        .photo_cluster.burst .photo_satellite:nth-child(8):hover { transform: translate(  92px, -262px) rotate(9deg)   scale(1.04); }
+
+        /* polaroid caption strip */
+        .photo_frame.polaroid {
+            background: white;
+            padding: 8px 8px 28px;
+            border-radius: 4px;
+        }
+
+        .photo_frame.polaroid img {
+            border-radius: 2px;
+        }
+
+        .photo_caption {
+            font-family: "Caveat Brush", cursive;
+            font-size: 1rem;
+            color: #555;
+            text-align: center;
+            padding-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .marsh_arrow {
+            width: 55px;
+            height: 46px;
+            filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1));
+        }
+
+        .marsh_label {
+            font-family: "Caveat Brush", cursive;
+            font-size: 1.5rem;
+            color: #3a8a5a;
+            white-space: nowrap;
+            /* slight rotation for that handwritten feel */
+            transform: rotate(-4deg);
+            display: inline-block;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+        }
+
+        /* marsh annotation — sits outside the photo frame */
+        .marsh_annotation {
+            position: absolute;
+            /* positioned relative to the cluster centre;
+               adjust these to sit just below the marsh photo's burst position */
+            transform: translate(310px, 180px);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 2px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease 0.8s; /* fades in after burst */
+            z-index: 15;
+        }
+
+        .photo_cluster.burst .marsh_annotation {
+            opacity: 1;
+        }
+
+        /* ── BIO SECTION (right side) ────────────────────────── */
+        .about_bio {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding-top: 1rem;
+        }
+
+        .about_bio h2 {
+            font-family: "Le Petit Cochon", cursive;
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            color: transparent;
+            background: linear-gradient(45deg, var(--medium-pink), var(--purple), var(--teal));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmer 6s linear infinite;
+            display: inline-block;
+            position: relative;
+            padding-bottom: 10px;
+            margin-bottom: 0.5rem;
+        }
+
+        .about_bio h2::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 6px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='6'%3E%3Cpath d='M0 3 Q5 0 10 3 Q15 6 20 3' fill='none' stroke='%23d78ca0' stroke-width='2'/%3E%3C/svg%3E");
+            background-repeat: repeat-x;
+            background-size: 20px 6px;
+            animation: waveScroll 0.6s steps(2) infinite;
+        }
+
+        .about_bio p {
+            font-size: 0.95rem;
+            line-height: 1.85;
+            color: var(--text-color);
+            max-width: 60ch;
+        }
+
+        .resume_links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .resume_btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.2rem;
+            border-radius: 999px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1.5px solid var(--medium-pink);
+            color: var(--card-accent);
+            background: rgba(255, 180, 220, 0.08);
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+        }
+
+        .resume_btn:hover {
+            background: rgba(255, 180, 220, 0.18);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255,130,190,0.2);
+        }
+
+        /* ── CONTACT SECTION ─────────────────────────────────── */
+        .contact_section {
+            margin: 2rem 0 6rem;
+        }
+
+        .contact_section h2 {
+            font-family: "Momo Trust Display", cursive;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            color: black;
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmer 6s linear infinite;
+            display: inline-block;
+            position: relative;
+            padding-bottom: 10px;
+            margin-bottom: 3rem;
+        }
+
+        .contact_section h2::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 6px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='6'%3E%3Cpath d='M0 3 Q5 0 10 3 Q15 6 20 3' fill='none' stroke='%23d78ca0' stroke-width='2'/%3E%3C/svg%3E");
+            background-repeat: repeat-x;
+            background-size: 20px 6px;
+            animation: waveScroll 0.6s steps(2) infinite;
+        }
+
+        .contact_grid {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        /* links column */
+        .contact_links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact_link_item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 0.9rem;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            background: rgba(255,245,250,0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,180,220,0.15);
+            transition: background 0.2s, transform 0.2s, border-color 0.2s;
+        }
+
+        .contact_link_item:hover {
+            background: rgba(255,180,220,0.12);
+            border-color: rgba(255,180,220,0.4);
+            transform: translateX(4px);
+        }
+
+        .contact_link_item i {
+            font-size: 1.3rem;
+            width: 1.5rem;
+            text-align: center;
+            color: var(--medium-pink);
+            flex-shrink: 0;
+        }
+
+        .contact_link_label {
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+        }
+
+        .contact_link_title {
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .contact_link_sub {
+            font-size: 0.75rem;
+            color: var(--subtitle);
+        }
+
+        /* form column */
+        .contact_form {
+            background: rgba(255,245,250,0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,180,220,0.2);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .contact_form h3 {
+            font-family: "Caveat Brush", cursive;
+            font-size: 1.4rem;
+            color: var(--card-accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .form_group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .form_group label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--subtitle);
+        }
+
+        .form_group input,
+        .form_group textarea {
+            background: rgba(255,255,255,0.6);
+            border: 1px solid rgba(255,180,220,0.3);
+            border-radius: 8px;
+            padding: 0.65rem 0.9rem;
+            font-family: Poppins, sans-serif;
+            font-size: 0.88rem;
+            color: var(--text-color);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            resize: none;
+        }
+
+        .form_group input:focus,
+        .form_group textarea:focus {
+            border-color: var(--medium-pink);
+            box-shadow: 0 0 0 3px rgba(215,140,160,0.15);
+        }
+
+        .form_group textarea {
+            min-height: 120px;
+        }
+
+        .form_submit {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1.6rem;
+            background: var(--card-accent);
+            color: white;
+            border: none;
+            border-radius: 999px;
+            font-family: Poppins, sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+            margin-top: 0.5rem;
+        }
+
+        .form_submit:hover {
+            background: var(--medium-pink);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(215,140,160,0.3);
+        }
+
+        .form_success {
+            display: none;
+            color: var(--green);
+            font-size: 0.88rem;
+            font-weight: 600;
+            margin-top: 0.75rem;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* ── RESPONSIVE ──────────────────────────────────────── */
+        @media (max-width: 1100px) {
+            .about_split {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .photo_cluster {
+                height: 420px;
+                margin: 0 auto;
+                max-width: 500px;
+                width: 100%;
+            }
+
+            .contact_grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .photo_cluster {
+                height: 360px;
+            }
+
+            .photo_main {
+                width: 170px;
+                height: 220px;
+            }
+
+            .photo_satellite {
+                width: 120px;
+                height: 150px;
+            }
+
+            /* tighten the burst radii on mobile */
+            .photo_cluster.burst .photo_satellite:nth-child(2) { transform: translate(-150px, -100px) rotate(-12deg) scale(1); }
+            .photo_cluster.burst .photo_satellite:nth-child(3) { transform: translate(-170px, 45px)  rotate(-7deg)  scale(1); }
+            .photo_cluster.burst .photo_satellite:nth-child(4) { transform: translate(-90px,  170px) rotate(-14deg) scale(1); }
+            .photo_cluster.burst .photo_satellite:nth-child(5) { transform: translate(80px,   170px) rotate(10deg)  scale(1); }
+            .photo_cluster.burst .photo_satellite:nth-child(6) { transform: translate(155px,  40px)  rotate(8deg)   scale(1); }
+            .photo_cluster.burst .photo_satellite:nth-child(7) { transform: translate(135px, -120px) rotate(-5deg)  scale(1); }
+            .photo_cluster.burst .photo_satellite:nth-child(8) { transform: translate(55px,  -175px) rotate(9deg)   scale(1); }
+        }
+    </style>
+</head>
+
+<body data-theme="light">
+    <div id="center">
+        <header>
+            <div id="navbar"></div>
+            <script src="scripts/navbar.js" defer></script>
+        </header>
+
+        <div id="main_section">
+
+            <!-- ── PAGE HEADER ─────────────────────────────── -->
+            <div class="about_header">
+                <h1>about me</h1>
+                <p class="header_sub">concept artist · creative technologist · outdoor enthusiast</p>
+            </div>
+
+            <!-- ── SPLIT: PHOTOS + BIO ──────────────────────── -->
+            <div class="about_split" id="about_split">
+
+                <!-- LEFT: photo cluster -->
+                <div class="photo_cluster" id="photo_cluster">
+
+                    <!-- satellite photos (rendered behind main in DOM,
+                         z-index keeps main on top; JS adds .burst on scroll) -->
+
+                    <!-- 1: arboretum plant -->
+                    <div class="photo_frame photo_satellite polaroid">
+                        <img src="assets/about/arboretum.jpg" alt="Taking a photo of a plant at the arboretum">
+                        <div class="photo_caption">arboretum days</div>
+                    </div>
+
+                    <!-- 2: kayak feet -->
+                    <div class="photo_frame photo_satellite polaroid">
+                        <img src="assets/about/kayak.png" alt="Feet in a kayak on a misty morning">
+                        <div class="photo_caption">misty morning</div>
+                    </div>
+
+                    <!-- 3: hiking from behind -->
+                    <div class="photo_frame photo_satellite polaroid">
+                        <img src="assets/about/hiking.png" alt="Hiking down a rocky mountain">
+                        <div class="photo_caption">summit descent</div>
+                    </div>
+
+                    <!-- 4: berry picking -->
+                    <div class="photo_frame photo_satellite polaroid">
+                        <img src="assets/about/berries.png" alt="Picking berries">
+                        <div class="photo_caption">berry season</div>
+                    </div>
+
+                    <!-- 5: bird on hand -->
+                    <div class="photo_frame photo_satellite polaroid">
+                        <img src="assets/about/birding.png" alt="Bird perched on my hand in the woods">
+                        <div class="photo_caption">new friend</div>
+                    </div>
+
+                    <!-- 6: marsh selfie -->
+                    <div class="photo_frame photo_satellite polaroid" id="marsh_photo">
+                        <img src="assets/about/marsh.png" alt="Selfie at the Great Marsh in Marblehead">
+                        <div class="photo_caption">great marsh, MA</div>
+                    </div>
+
+                    <!-- 7: nintendo store -->
+                    <div class="photo_frame photo_satellite polaroid">
+                        <img src="assets/about/nintendo.png" alt="Posing next to the Link statue at the Nintendo Store">
+                        <div class="photo_caption">nintendo store :)</div>
+                    </div>
+
+                    <!-- marsh annotation — separate from the frame so overflow:hidden doesn't clip it -->
+                    <div class="marsh_annotation" id="marsh_annotation">
+                        <div class="marsh_annotation_inner">
+                            <svg class="marsh_arrow" viewBox="0 0 60 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- curves from bottom-right up to top-left -->
+                                <path d="M 52 45 C 40 35, 20 25, 8 8" stroke="#58b884" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+                                <!-- arrowhead pointing up-left -->
+                                <path d="M 8 8 L 18 10 M 8 8 L 12 18" stroke="#58b884" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+                            </svg>
+                            <span class="marsh_label">i worked on a marsh!</span>
+                        </div>
+                    </div>
+
+                    <!-- MAIN portrait — last in DOM so it's on top naturally -->
+                    <div class="photo_frame photo_main polaroid">
+                        <img src="assets/portrait.jpg" alt="Bridget Knight">
+                    </div>
+
+                </div>
+
+                <!-- RIGHT: bio -->
+                <div class="about_bio">
+                    <h2>HOWDY!</h2>
+
+                    <p>
+                        I'm Bridget, a concept artist and creative technologist based in Greater Boston, MA.
+                        I'm currently pursuing my MA in Illustration at the Savannah College of Art and Design,
+                        after completing a BS in Computer Science. I'm wholeheartedly dedicated to giving my art to the world through worldbuilding, visual development, and technical design for
+                        games and animation, while drawing on my past experiences as a software engineer.
+                    </p>
+
+                    <p>
+                        When I'm not drawing, I'm usually outside: hiking, kayaking, birding, or foraging.
+                        I spent three months doing ecological restoration work at the Great Marsh in
+                        northeastern Massachusetts, which was one of the stranger and better decisions I've made.
+                    </p>
+
+                    <p>
+                        I have a background in embedded systems, full-stack development, and computer vision,
+                        and I'm currently learning Blender and technical art tools to bridge that background
+                        with my art practice. Feel free to get in touch!
+                    </p>
+
+                    <div class="resume_links">
+                        <a href="assets/resume_art.pdf" target="_blank" class="resume_btn">
+                            <i class="fas fa-file-alt"></i> Art Resume
+                        </a>
+                        <a href="assets/resume_software.pdf" target="_blank" class="resume_btn">
+                            <i class="fas fa-code"></i> Software Resume
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── CONTACT ──────────────────────────────────── -->
+            <section class="contact_section" id="contact_section">
+                <h2>get in touch</h2>
+
+                <div class="contact_grid">
+
+                    <!-- links -->
+                    <div class="contact_links">
+                        <a href="mailto:bridget.g.knight@gmail.com" class="contact_link_item">
+                            <i class="fas fa-envelope"></i>
+                            <div class="contact_link_label">
+                                <span class="contact_link_title">Email</span>
+                                <span class="contact_link_sub">bridget.g.knight@gmail.com</span>
+                            </div>
+                        </a>
+                        <a href="https://linkedin.com/in/bridgetgknight" target="_blank" class="contact_link_item">
+                            <i class="fab fa-linkedin"></i>
+                            <div class="contact_link_label">
+                                <span class="contact_link_title">LinkedIn</span>
+                                <span class="contact_link_sub">bridgetgknight</span>
+                            </div>
+                        </a>
+                        <a href="https://artstation.com/bridgetknight" target="_blank" class="contact_link_item">
+                            <i class="fab fa-artstation"></i>
+                            <div class="contact_link_label">
+                                <span class="contact_link_title">ArtStation</span>
+                                <span class="contact_link_sub">bridgetknight</span>
+                            </div>
+                        </a>
+                        <a href="https://instagram.com/pixelbrit" target="_blank" class="contact_link_item">
+                            <i class="fab fa-instagram"></i>
+                            <div class="contact_link_label">
+                                <span class="contact_link_title">Instagram</span>
+                                <span class="contact_link_sub">@pixelbrit</span>
+                            </div>
+                        </a>
+                        <a href="assets/resume_art.pdf" target="_blank" class="contact_link_item">
+                            <i class="fas fa-file-image"></i>
+                            <div class="contact_link_label">
+                                <span class="contact_link_title">Art Resume</span>
+                                <span class="contact_link_sub">Download PDF</span>
+                            </div>
+                        </a>
+                        <a href="assets/resume_software.pdf" target="_blank" class="contact_link_item">
+                            <i class="fas fa-file-code"></i>
+                            <div class="contact_link_label">
+                                <span class="contact_link_title">Software Resume</span>
+                                <span class="contact_link_sub">Download PDF</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- form -->
+                    <!-- 
+                        FORMSPREE SETUP:
+                        1. Go to formspree.io and create a free account
+                        2. Create a new form — you'll get an endpoint like https://formspree.io/f/xxxxxxxx
+                        3. Replace YOUR_FORMSPREE_ID below with that ID (just the xxxxxxxx part)
+                    -->
+                    <div class="contact_form">
+                        <h3>send a message ✉</h3>
+                        <form
+                            action="https://formspree.io/f/xjgeeqgp"
+                            method="POST"
+                            id="contact_form"
+                        >
+                            <div class="form_group">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" name="name" placeholder="your name" required>
+                            </div>
+                            <div class="form_group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                            </div>
+                            <div class="form_group">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" name="subject" placeholder="what's up?">
+                            </div>
+                            <div class="form_group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" placeholder="say hello!" required></textarea>
+                            </div>
+                            <button type="submit" class="form_submit">
+                                <i class="fas fa-paper-plane"></i> Send it!
+                            </button>
+                            <div class="form_success" id="form_success">
+                                <i class="fas fa-check-circle"></i> Message sent — I'll get back to you soon!
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </section>
+
+        </div>
+
+    <div id="footer_container"></div>
+    </div>
+    <script>
+        // ── PHOTO BURST on scroll ─────────────────────────────
+        const cluster = document.getElementById('photo_cluster');
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // small delay so the user sees the main photo first
+                    setTimeout(() => cluster.classList.add('burst'), 200);
+                    observer.unobserve(cluster); // only fire once
+                }
+            });
+        }, {
+            threshold: 0.35  // 35% of cluster visible before burst fires
+        });
+
+        observer.observe(cluster);
+
+        // ── CONTACT FORM — Formspree AJAX submit ─────────────
+        const form = document.getElementById('contact_form');
+        const successMsg = document.getElementById('form_success');
+
+        form.addEventListener('submit', async e => {
+            e.preventDefault();
+            const data = new FormData(form);
+
+            try {
+                const res = await fetch(form.action, {
+                    method: 'POST',
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (res.ok) {
+                    form.reset();
+                    successMsg.style.display = 'flex';
+                    setTimeout(() => { successMsg.style.display = 'none'; }, 5000);
+                } else {
+                    alert('Something went wrong — try emailing me directly at bridget.g.knight@gmail.com!');
+                }
+            } catch {
+                alert('Something went wrong — try emailing me directly at bridget.g.knight@gmail.com!');
+            }
+        });
+    </script>
+</body>
+</html>

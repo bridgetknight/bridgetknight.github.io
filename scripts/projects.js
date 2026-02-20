@@ -1,74 +1,64 @@
-document.addEventListener('DOMContentLoaded', () => { 
-    document.querySelectorAll(".project_card").forEach(card => {
-        card.addEventListener("click", () => {
-            const content = card.querySelector(".project_content");
-            const isActive = content.classList.contains("active");
-            content.classList.toggle("active");
+document.addEventListener('DOMContentLoaded', () => {
 
-            // Scroll to the top of the card if not open
-            if (!isActive) {
-                setTimeout(() => {
-                    const title = card.querySelector(".project_title");
-                    
-                    // Calculate the offset of the title relative to the viewport
-                    const rect = title.getBoundingClientRect();
-                    const scrollTop = document.documentElement.scrollTop;
-
-                    // Adjust scrolling to be 30px above the title
-                    const offset = 30;
-                    const targetScrollPosition = rect.top + scrollTop - offset;
-
-                    window.scrollTo({
-                        top: targetScrollPosition,
-                        behavior: "smooth"
-                    });
-                }, 350); 
-            }
+    // ── PROJECT CARD SCROLL ──────────────────────────────
+    document.querySelectorAll('.project_card').forEach(card => {
+        card.addEventListener('click', () => {
+            const rect = card.getBoundingClientRect();
+            const scrollTop = document.documentElement.scrollTop;
+            window.scrollTo({ top: rect.top + scrollTop - 30, behavior: 'smooth' });
         });
     });
-});
 
-// Prevent click bubbling when trying to play videos
-document.querySelectorAll(".project_video video").forEach((video) => {
-    video.addEventListener("click", (event) => {
-        event.stopPropagation(); // Prevent click from bubbling up
-        // Allow the video to be played or paused by clicking anywhere on it
-        if (video.paused) {
-            video.play();
-        } else {
-            video.pause();
-        }
+    document.querySelectorAll('.project_card a').forEach(link => {
+        link.addEventListener('click', e => e.stopPropagation());
     });
-});
 
-// Prevent click bubbling for the repo_link div
-document.querySelectorAll(".repo_link").forEach((linkDiv) => {
-    linkDiv.addEventListener("click", (event) => {
-        event.stopPropagation(); // Prevent click from bubbling up
-        // Let the link's default behavior proceed
+    // prevent links inside cards from toggling the card
+    document.querySelectorAll('.project_card a').forEach(link => {
+        link.addEventListener('click', e => e.stopPropagation());
     });
+
+    // ── IMAGE LIGHTBOX ────────────────────────────────────────────
+    const lightbox = document.createElement('div');
+    lightbox.className = 'img_lightbox_overlay';
+    lightbox.innerHTML = '<img src="" alt="">';
+    document.body.appendChild(lightbox);
+
+    const lbImg = lightbox.querySelector('img');
+
+    document.querySelectorAll('.card_img_zoom').forEach(img => {
+        img.addEventListener('click', e => {
+            e.stopPropagation(); // don't trigger card toggle
+            lbImg.src = img.src;
+            lbImg.alt = img.alt;
+            lightbox.classList.add('active');
+        });
+    });
+
+    lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') lightbox.classList.remove('active');
+    });
+
+    // ── VIDEO CLICK (prevent card toggle, allow play/pause) ───────
+    document.querySelectorAll('.project_video video').forEach(video => {
+        video.addEventListener('click', e => {
+            e.stopPropagation();
+            video.paused ? video.play() : video.pause();
+        });
+    });
+
+    // ── BACK TO TOP ───────────────────────────────────────────────
+    window.addEventListener('scroll', () => {
+        const backToTop = document.querySelector('.back_to_top');
+        if (!backToTop) return;
+        const scrollLimit = window.innerWidth < 768 ? 1000 : 500;
+        backToTop.classList.toggle('visible', window.scrollY > scrollLimit);
+    });
+
 });
 
 function scrollToTop() {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-
-// Check if the screen is mobile or desktop
-function checkMobileOrNot() {
-    return window.innerWidth < 768;
-}
-
-// Don't show Back to Top at top of page
-window.addEventListener("scroll", () => {
-    const backToTop = document.querySelector(".back_to_top");
-    const scrollLimit = checkMobileOrNot() ? 1000 : 500;
-
-    if (window.scrollY > scrollLimit) {
-        backToTop.classList.add("visible");
-    } else {
-        backToTop.classList.remove("visible");
-    }
-});

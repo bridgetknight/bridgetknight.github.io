@@ -7,40 +7,88 @@
             <p class="navbar_subtitle">concept artist & creative technologist</p>
         </div>
     </div>
-    <nav class="links">
-        <div class="dropdown" x-data="{ open: false }"
-        @mouseenter="if(window.innerWidth>900) open=true"
-        @mouseleave="if(window.innerWidth>900) open=false"
-        @click="if(window.innerWidth<=900) open=!open"
-        @click.outside="open=false">
-        
-        <a href="/art.html" class="link_float dropdown-trigger" style="color:var(--medium-pink)">
-            portfolio
-        </a>
 
-        <div class="dropdown-content"
-        x-show="open"
-        x-cloak
-        x-transition:enter="dropdown-enter"
-        x-transition:enter-start="dropdown-enter-start"
-        x-transition:enter-end="dropdown-enter-end"
-        x-transition:leave="dropdown-leave"
-        x-transition:leave-start="dropdown-leave-start"
-        x-transition:leave-end="dropdown-leave-end">
+    <!-- desktop: nav + resume grouped together -->
+    <div class="right_group">
+        <nav class="links">
+            <div class="dropdown" x-data="{ open: false }"
+            @mouseenter="if(window.innerWidth>900) open=true"
+            @mouseleave="if(window.innerWidth>900) open=false"
+            @click="if(window.innerWidth<=900) open=!open"
+            @click.outside="open=false">
+
+                <a href="/art.html" class="link_float dropdown-trigger" style="color:var(--medium-pink)">
+                    portfolio
+                </a>
+
+                <div class="dropdown-content"
+                x-show="open"
+                x-cloak
+                x-transition:enter="dropdown-enter"
+                x-transition:enter-start="dropdown-enter-start"
+                x-transition:enter-end="dropdown-enter-end"
+                x-transition:leave="dropdown-leave"
+                x-transition:leave-start="dropdown-leave-start"
+                x-transition:leave-end="dropdown-leave-end">
+                    <a href="/conceptart.html">concept art</a>
+                    <a href="/illustrations.html">illustration</a>
+                    <a href="/sketches.html">sketches</a>
+                    <a href="/graphicdesign.html">graphic design</a>
+                </div>
+            </div>
+
+            <a href="tech.html" class="link_float" style="color:var(--purple)">tech</a>
+            <a href="about.html" class="link_float" style="color:var(--blue)">about</a>
+            <a href="about.html#contact_section" class="link_float" style="color:var(--green)">contact</a>
+        </nav>
+
+        <div id="resume_link">
+            <a href="docs/knight_bridget_resume.pdf" download>
+                <button class="layered_button layered_button--pink">resume</button>
+            </a>
+        </div>
+    </div>
+
+    <!-- mobile: hamburger button (hidden on desktop via CSS) -->
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</div>
+
+<!-- mobile drawer -->
+<div class="mobile_drawer" id="mobile_drawer">
+    <nav class="mobile_nav">
+        <a href="/art.html" style="color:var(--medium-pink)">portfolio</a>
+        <div class="mobile_sub">
             <a href="/conceptart.html">concept art</a>
             <a href="/illustrations.html">illustration</a>
             <a href="/sketches.html">sketches</a>
             <a href="/graphicdesign.html">graphic design</a>
         </div>
-    </div>
-
-        <a href="tech.html" class="link_float" style="color:var(--purple)">tech</a>
-        <a href="about.html" class="link_float" style="color:var(--blue)">about</a>
-        <a href="about.html#contact" class="link_float" style="color:var(--green)">contact</a>
+        <a href="tech.html" style="color:var(--purple)">tech</a>
+        <a href="about.html" style="color:var(--blue)">about</a>
+        <a href="about.html#contact_section" style="color:var(--green)">contact</a>
     </nav>
-    <div id="resume_link">
-        <a href="docs/knight_bridget_resume.pdf" download>
-            <button class="layered_button layered_button--pink">resume</button>
-        </a>
-    </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const hamburger = document.getElementById('hamburger');
+        const drawer = document.getElementById('mobile_drawer');
+        if (!hamburger || !drawer) return;
+
+        hamburger.addEventListener('click', () => {
+            const isOpen = drawer.classList.toggle('open');
+            hamburger.classList.toggle('open', isOpen);
+        });
+
+        drawer.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                drawer.classList.remove('open');
+                hamburger.classList.remove('open');
+            });
+        });
+    });
+</script>

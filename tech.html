@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Work | Bridget Knight</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="icon" href="assets/favicon.png">
+    <script src="scripts/theme.js" defer></script>
+    <script src="scripts/cursor_trail.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="scripts/footer.js" defer></script>
+
+    <style>
+
+        /* ── PAGE HEADER ─────────────────────────────────────── */
+        .tech_header {
+            position: relative;
+            padding: 2.5rem 0 2rem;
+            opacity: 0;
+            transform: translateY(-16px);
+            animation: fadeInHeader 0.7s ease forwards;
+            animation-delay: 0.15s;
+        }
+
+        .tech_header h1 {
+            font-family: "Momo Trust Display", cursive;
+            font-size: clamp(0.1rem, 7vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1;
+            margin: 0;
+            color: black;
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmer 5s linear infinite;
+            display: inline-block;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .tech_header .header_sub {
+            font-size: clamp(0.75rem, 1.5vw, 0.8rem);
+            letter-spacing: 0.25em;
+            text-transform: lowercase;
+            color: var(--subtitle);
+            margin-top: 0.75rem;
+            font-style: italic;
+        }
+
+        /* ── SECTION HEADINGS ────────────────────────────────── */
+        .tech_section {
+            margin-bottom: 5rem;
+            position: relative;
+        }
+
+        .tech_section_heading {
+            font-family: "Le Petit Cochon", cursive;
+            font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+            color: transparent;
+            background: linear-gradient(45deg, var(--medium-pink), var(--purple), var(--teal));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmer 6s linear infinite;
+            display: inline-block;
+            position: relative;
+            padding-bottom: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech_section_heading::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 6px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='6'%3E%3Cpath d='M0 3 Q5 0 10 3 Q15 6 20 3' fill='none' stroke='%23d78ca0' stroke-width='2'/%3E%3C/svg%3E");
+            background-repeat: repeat-x;
+            background-size: 20px 6px;
+            animation: waveScroll 0.6s steps(2) infinite;
+        }
+
+       /* ── PROJECT CARDS ───────────────────────────────────── */
+        .projects_grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .project_card {
+            background: rgba(255, 245, 250, 0.55);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 180, 220, 0.25);
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: box-shadow 0.25s ease, transform 0.2s ease, border-color 0.25s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: itemReveal 0.5s ease forwards;
+            animation-delay: calc(var(--i, 0) * 100ms);
+            height: fit-content;
+        }
+
+        .project_card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,180,220,0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .project_card:hover {
+            box-shadow: 0 8px 32px rgba(255, 130, 190, 0.2),
+                        0 0 0 1px rgba(255, 180, 220, 0.4);
+            transform: translateY(-3px);
+            border-color: rgba(255, 180, 220, 0.5);
+        }
+
+        /* inline media */
+        .card_expanded_inner img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 0.75rem 0;
+            display: block;
+        }
+
+        .project_video {
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 0.75rem 0;
+        }
+
+        .project_video video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .project_title {
+            font-family: "Le Petit Cochon", cursive;
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: var(--card-accent);
+            margin-bottom: 0.6rem;
+            line-height: 1.2;
+        }
+
+        .project_description {
+            font-size: 0.88rem;
+            color: var(--card-text);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 0.75rem;
+        }
+
+        .tag {
+            background: rgba(255, 180, 220, 0.15);
+            border: 1px solid rgba(255, 180, 220, 0.3);
+            color: var(--card-accent);
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .project_content {
+            max-height: none;
+            overflow: visible;
+            opacity: 1;
+        }
+
+        .card_expanded_inner {
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 180, 220, 0.2);
+            margin-top: 1rem;
+            font-size: 0.88rem;
+            color: var(--card-text);
+            line-height: 1.7;
+        }
+
+        .card_expanded_inner img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 0.75rem 0;
+        }
+
+        /* github link */
+        .github_link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--teal);
+            text-decoration: none;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .github_link:hover {
+            color: var(--purple);
+            transform: translateY(-1px);
+        }
+
+        .github_link img {
+            width: 1.1rem;
+            height: auto;
+            opacity: 0.7;
+        }
+
+        /* ── COMING SOON SECTION ─────────────────────────────── */
+        .coming_soon_grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .coming_soon_card {
+            background: rgba(255, 245, 250, 0.3);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px dashed rgba(255, 180, 220, 0.35);
+            border-radius: 12px;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            text-align: center;
+            position: relative;
+            overflow: visible;
+            opacity: 0;
+            animation: itemReveal 0.5s ease forwards;
+            animation-delay: calc(var(--i, 0) * 120ms);
+        }
+
+        .coming_soon_icon {
+            font-size: 2.5rem;
+            opacity: 0.5;
+        }
+
+        .coming_soon_title {
+            font-family: "Le Petit Cochon", cursive;
+            font-size: 1.3rem;
+            color: var(--subtitle);
+        }
+
+        .coming_soon_desc {
+            font-size: 0.82rem;
+            color: var(--subtitle);
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        /* ── THE STICKER ─────────────────────────────────────── */
+        .coming_soon_sticker {
+            position: absolute;
+            top: -1.2rem;
+            right: -0.8rem;
+            background: var(--card-accent);
+            color: white;
+            font-family: "Le Petit Cochon", cursive;
+            font-size: 0.85rem;
+            padding: 0.35rem 0.7rem;
+            border-radius: 4px;
+            box-shadow: 2px 3px 0px rgba(0,0,0,0.2);
+            letter-spacing: 0.05em;
+            z-index: 10;
+            animation: stickerShake 0.5s steps(2) infinite;
+            white-space: nowrap;
+            user-select: none;
+        }
+
+        .coming_soon_card:nth-child(even) .coming_soon_sticker {
+            animation: stickerShakeAlt 0.5s steps(2) infinite;
+        }
+
+        @keyframes stickerShake {
+            0%   { transform: rotate(4deg); }
+            100% { transform: rotate(10deg); }
+        }
+
+        @keyframes stickerShakeAlt {
+            0%   { transform: rotate(-4deg); }
+            100% { transform: rotate(-10deg); }
+        }
+
+        /* ── IMAGE LIGHTBOX ──────────────────────────────────── */
+        .card_img_zoom {
+            cursor: zoom-in;
+        }
+
+        .img_lightbox_overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 5, 15, 0.85);
+            backdrop-filter: blur(10px) saturate(1.4);
+            z-index: 20000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .img_lightbox_overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .img_lightbox_overlay img {
+            max-width: 90vw;
+            max-height: 88vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 180, 220, 0.2);
+            box-shadow: 0 0 60px rgba(255, 120, 180, 0.15);
+            cursor: zoom-out;
+        }
+
+        /* ── RESPONSIVE ──────────────────────────────────────── */
+        @media (max-width: 900px) {
+            .projects_grid {
+                grid-template-columns: 1fr;
+            }
+            .coming_soon_grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .coming_soon_grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body data-theme="light">
+    <div id="center">
+        <header>
+            <div id="navbar"></div>
+            <script src="scripts/navbar.js" defer></script>
+        </header>
+
+        <div id="main_section">
+
+            <!-- ── PAGE HEADER ─────────────────────────────── -->
+            <div class="tech_header">
+                <h1>technical work</h1>
+                <p class="header_sub">code, systems, & creative technology</p>
+            </div>
+
+            <!-- ── CS PROJECTS ─────────────────────────────── -->
+            <section class="tech_section">
+                <h2 class="tech_section_heading">Projects</h2>
+
+                <div class="projects_grid">
+
+                    <!-- SPROUTLING -->
+                    <div class="project_card" style="--i:0">
+                        <div class="project_title">Sproutling</div>
+                        <div class="project_description">
+                            An automatic plant watering system pairing an Arduino hardware device with a custom Android app — my undergraduate capstone.
+                        </div>
+                        <div class="tags">
+                            <span class="tag">Android</span>
+                            <span class="tag">Arduino</span>
+                            <span class="tag">Embedded Systems</span>
+                            <span class="tag">UI/UX</span>
+                        </div>
+                        <div class="project_content">
+                            <div class="card_expanded_inner">
+                                <img class="card_img_zoom" src="assets/sproutling_showcase.svg" alt="Sproutling app screenshots">
+                                <div class="project_video">
+                                    <video controls>
+                                        <source src="assets/sproutling_demo.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                                <p>Three key screens of the final mobile product: the initial landing screen, the landing screen with a plant added, and the settings screen. The hardware component used soil moisture sensors and a water pump controlled via Bluetooth from the app.</p>
+                                <a class="github_link" href="https://github.com/bridgetknight/sproutling" target="_blank" rel="noopener noreferrer">
+                                    <img src="assets/github-mark.svg" alt=""> View on GitHub
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MBTA -->
+                    <div class="project_card" style="--i:1">
+                        <div class="project_title">MBTA Trip Planner</div>
+                        <div class="project_description">
+                            A full-stack route planner for Boston's MBTA transit system, using Dijkstra's algorithm on a custom station graph with real-time API data.
+                        </div>
+                        <div class="tags">
+                            <span class="tag">MERN Stack</span>
+                            <span class="tag">UI/UX</span>
+                            <span class="tag">Algorithms</span>
+                            <span class="tag">REST APIs</span>
+                        </div>
+                        <div class="project_content">
+                            <div class="card_expanded_inner">
+                                <img class="card_img_zoom" src="assets/mbta_mockup.svg" alt="MBTA mockup full">
+                                <p>Built with the MERN stack and previously hosted on Render. Implements Dijkstra's algorithm on a hand-designed graph of MBTA stations to find optimal routes, pulling live departure data from the MBTA API and location search from the Radar API.</p>
+                                <a class="github_link" href="https://github.com/bridgetknight/mern-app" target="_blank" rel="noopener noreferrer">
+                                    <img src="assets/github-mark.svg" alt=""> View on GitHub
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+
+            <!-- ── COMING SOON ──────────────────────────────── -->
+            <section class="tech_section">
+                <h2 class="tech_section_heading">Coming Soon</h2>
+
+                <div class="coming_soon_grid">
+
+                    <div class="coming_soon_card" style="--i:0">
+                        <div class="coming_soon_sticker">COMING SOON!</div>
+                        <div class="coming_soon_icon">🎨</div>
+                        <div class="coming_soon_title">Technical Art</div>
+                        <div class="coming_soon_desc">Shaders, VFX, and procedural tools.</div>
+                    </div>
+
+                    <div class="coming_soon_card" style="--i:1">
+                        <div class="coming_soon_sticker">COMING SOON!</div>
+                        <div class="coming_soon_icon">🧊</div>
+                        <div class="coming_soon_title">3D & Blender</div>
+                        <div class="coming_soon_desc">Environment models, sculpts, and pipeline tools for concept art production.</div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+    <div id="footer_container"></div>
+    </div>
+    <script src="scripts/projects.js" defer></script>
+</body>
+</html>

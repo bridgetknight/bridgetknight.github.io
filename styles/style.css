@@ -181,6 +181,7 @@ header {
 
 #name {
     display: flex;
+    font-size: clamp(1em, 8vw, 3em);
     flex-direction: column;
     gap: 0.25rem;
 }
@@ -244,9 +245,10 @@ header {
     min-width: 10em;
     top: 100%;
     left: 0;
-    background: rgb(255, 255, 255);
-    backdrop-filter: blur(8px);
-    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.546);  /* was rgb(255,255,255) */
+    backdrop-filter: blur(12px) saturate(1.4);
+    -webkit-backdrop-filter: blur(12px) saturate(1.4);  /* Safari */
+    border-radius: 0.15rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     z-index: 10;
     transform-origin: top center;
@@ -340,9 +342,10 @@ header {
 
 #name_logo {
     position: relative;
-    width: 25rem;
+    width: 25em;
     height: auto;
     margin-top: -2%;
+    width: fit-content;
     margin-right: 1rem;
 }
 
@@ -511,25 +514,32 @@ header {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
+    transform: translateZ(0);
+    isolation: isolate;
 }
 
 .gallery_item {
-    position: relative;
-    border-radius: 6px;
-    margin: 0;
-    background: #111;
+    opacity: 0;
     overflow: hidden;
+    transform: translateZ(0);
+    border-radius: 3px;
+    animation: itemReveal 0.5s ease forwards;
 }
+
+/* JS sets --i on each item; delay cascades nicely */
+.gallery_item { animation-delay: calc(var(--i, 0) * 60ms); }
 
 .gallery_grid .gallery_item {
     height: clamp(200px, 30vw, 420px);
     aspect-ratio: unset;
+    isolation: isolate;
 }
 
 .gallery_item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    overflow: hidden;
     display: block;
     transition: transform 0.25s ease, filter 0.25s ease;
 }
@@ -539,6 +549,7 @@ header {
     transform: scale(1.03);
     filter: brightness(0.9);
     transition: transform 0.25s ease, filter 0.25s ease;
+    overflow: hidden;
 }
 
 .gallery_item figcaption {
@@ -569,8 +580,6 @@ header {
 .gallery_lightbox_overlay {
     position: fixed;
     inset: 0;
-    backdrop-filter: blur(6px) brightness(0.7);
-    background: rgba(0, 0, 0, 0.4);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -578,6 +587,9 @@ header {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
+    /* your new styles: */
+    background: rgba(10, 5, 15, 0.75);
+    backdrop-filter: blur(10px) saturate(1.4);
 }
 
 .gallery_lightbox_overlay.active {
@@ -586,12 +598,12 @@ header {
 }
 
 .gallery_lightbox_container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: min(90vw, 900px);
-    max-height: 90vh;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    background: rgba(255, 245, 250, 0.06);
+    border: 1px solid rgba(255, 180, 220, 0.2);
+    padding: 1.5rem;
+    box-shadow: 0 0 60px rgba(255, 120, 180, 0.15);
 }
 
 .gallery_lightbox_container img {
@@ -610,37 +622,46 @@ header {
 }
 
 .gallery_lightbox_container figcaption {
-    color: white;
-    margin-top: 0.75rem;
-    font-size: 0.95rem;
-    opacity: 0.85;
+    font-family: Poppins, sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    color: rgba(255, 230, 240, 0.75);
 }
 
 .gallery_lightbox_close {
-    position: absolute;
-    top: -2rem;
-    right: 0;
-    color: #fff;
-    font-size: 2rem;
-    cursor: pointer;
-    line-height: 1;
-    user-select: none;
+    font-family: "Le Petit Cochon", sans-serif;
+    font-size: 2.5rem;
+    color: var(--light-pink);
+    opacity: 0.8;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.gallery_lightbox_close:hover {
+    opacity: 1;
+    transform: rotate(15deg) scale(1.1);
 }
 
 .gallery_lightbox_arrow {
-    color: #fff;
-    font-size: 2.5rem;
-    cursor: pointer;
-    user-select: none;
-    z-index: 10001;
-    padding: 1rem;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--light-pink);
+    padding-bottom: 5px;
     opacity: 0.7;
-    transition: opacity 0.2s ease;
-    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 180, 220, 0.2);
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, opacity 0.2s, transform 0.2s;
 }
 
 .gallery_lightbox_arrow:hover {
     opacity: 1;
+    background: rgba(255, 180, 220, 0.15);
+    transform: scale(1.08);
 }
 
 .featured_project {
@@ -654,7 +675,7 @@ header {
 .featured_project h2 {
     font-size: 14px;
     color: var(--subtitle);
-    text-transform: uppercase;
+    text-transform: lowercase;
     letter-spacing: 2px;
     margin-bottom: 0.5rem;
 }
@@ -902,14 +923,20 @@ header {
 }
 
 .navbar_subtitle {
-    font-size: 26px;
+    font-size: clamp(0.1em, 6vw, 0.4em);
     font-family: "Momo Trust Display";
-    font-weight: 350;
+    font-weight: 100;
     color: var(--subtitle);
     margin: 0;
     margin-top: -0.5rem;
     letter-spacing: 1px;
     white-space: nowrap;
+}
+
+.right_group {
+    display: flex;
+    align-items: center;
+    gap:2.5rem;
 }
 
 #center {
@@ -1196,7 +1223,7 @@ code {
 }
 
 .links {
-    font-size: 20px;
+    font-size: clamp(0.1em, 1.5vw, 1em);
     display: flex;
     gap: 1.5rem;
     white-space: nowrap;
@@ -1280,15 +1307,6 @@ code {
     text-decoration: underline;
 }
 
-@media (max-width: 900px) {
-    .featured_content {
-        grid-template-columns: 1fr;
-    }
-
-    .accent_overlay {
-        display: none;
-    }
-}
 
 #footer {
     margin-top: 6rem;
@@ -1372,21 +1390,37 @@ code {
     color: var(--medium-pink);
 }
 
-/* Mobile responsive */
-@media (max-width: 900px) {
-    .footer_grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-        text-align: center;
-    }
+/* ── BACK TO TOP BAR — add to style.css ─────────────────── */
 
-    .footer_column {
-        align-items: center !important;
-    }
+.back_to_top_bar {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0 1rem;
+}
 
-    .footer_socials {
-        justify-content: center;
-    }
+.back_to_top_link {
+    background: none;
+    border: none;
+    font-family: "Poppins", cursive;
+    font-size: 1.1rem;
+    color: var(--card-accent);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    opacity: 0.7;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    letter-spacing: 0.05em;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(215, 140, 160, 0.25);
+}
+
+.back_to_top_link:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+    border-color: rgba(215, 140, 160, 0.5);
+    background: rgba(255, 180, 220, 0.06);
 }
 
 .link_float {
@@ -1442,32 +1476,55 @@ code {
 
 @keyframes cursor-blink {
     0% {
-      opacity: 0;
+        opacity: 0;
     }
 }
 
 /* PORTFOLIO PAGE */
 .portfolio_header h1 {
-    font-size: 48px;
+    font-size: clamp(0.1rem, 7vw, 3.5rem);
     font-weight: bold;
+    display: inline-block;
     color: var(--text-color);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.1rem;
 }
 
 .portfolio_subtitle {
-    font-size: 18px;
-    margin: 0 auto;
+    font-size: clamp(0.75rem, 1.5vw, 0.8rem);
     margin-bottom: 1rem;
-    width: fit-content;
     color: var(--subtitle);
 }
 
 .portfolio_header {
-    text-align: center;
     margin-bottom: 3rem;
     opacity: 0;
     animation: fadeInHeader 0.8s ease forwards;
     animation-delay: 0.2s;
+}
+
+.portfolio_category_heading::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 6px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='6'%3E%3Cpath d='M0 3 Q5 0 10 3 Q15 6 20 3' fill='none' stroke='%23d78ca0' stroke-width='2'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    background-size: 20px 6px;
+    animation: waveScroll 0.6s steps(2) infinite;
+}
+
+@keyframes waveScroll {
+    from { background-position: 0 0; }
+    to   { background-position: 20px 0; }
+}
+
+.portfolio_category_heading {
+    align-self: flex-end;
+    flex-shrink: 0;
+    display: inline-block;
+    position: relative;
 }
 
 .portfolio_section {
@@ -1483,9 +1540,24 @@ code {
     margin-bottom: 5rem;
 }
 
+/* coloured rule that stretches to fill the row */
+.category_rule {
+    flex: 1;
+    height: 2px;
+    border: none;
+    background: linear-gradient(
+        90deg,
+        var(--medium-pink),
+        var(--teal) 60%,
+        transparent
+    );
+    opacity: 0.4;
+}
+
 .portfolio_gallery .gallery_item {
     height: auto;
     aspect-ratio: unset;
+    isolation: isolate;
 }
 
 .portfolio_gallery .gallery_item img {
@@ -1523,21 +1595,25 @@ code {
 
 /* MASONRY - for illustration, sketches, graphic design */
 .masonry_gallery {
-    display: unset !important;
+    display: block;          /* columns layout needs block, not unset */
     column-count: 3;
     column-gap: 1rem;
     margin-top: 3rem;
     margin-bottom: 5rem;
+    transform: translateZ(0);
 }
 
 .masonry_gallery .gallery_item {
     break-inside: avoid;
+    isolation: isolate;
     margin-bottom: 1rem;
     position: relative;
     overflow: hidden;
     border-radius: 6px;
     height: auto !important;
     aspect-ratio: unset !important;
+    /* display:block so column layout sees each item correctly */
+    display: block;
 }
 
 .masonry_gallery .gallery_item img {
@@ -1562,6 +1638,11 @@ code {
     opacity: 0;
     transition: opacity 0.25s ease;
     font-size: 0.95rem;
+}
+
+.masonry_gallery .gallery_item:hover img {
+    transform: scale(1.03);
+    filter: brightness(0.9);
 }
 
 .masonry_gallery .gallery_item:hover figcaption {
@@ -1591,8 +1672,8 @@ code {
     margin-top: 3rem;
 }
 
-#concept_art .portfolio_category_heading {
-    margin-bottom: 3rem;
+#concept_art .portfolio_gallery {
+    grid-template-columns: 1fr !important;
 }
 
 #illustrations .portfolio_gallery .gallery_item,
@@ -1600,6 +1681,14 @@ code {
 #graphic_design .portfolio_gallery .gallery_item {
     height: auto !important;
     aspect-ratio: unset !important;
+}
+
+
+
+/* ── STAGGERED FADE-IN for gallery items ─────────────────── */
+@keyframes itemReveal {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 @media (max-width: 1200px) {
@@ -1612,7 +1701,86 @@ code {
     }
 }
 
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
 @media (max-width: 900px) {
+
+    /* ── NAVBAR ───────────────────────────────────────────── */
+    .mobile-only {
+        display: inline;
+    }
+
+    #header {
+        flex-direction: column;        /* name on top, right_group below */
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .left_group {
+        width: 100%;
+    }
+
+    .right_group {
+        width: 100%;
+        justify-content: space-between; /* links left, resume right */
+        gap: 1rem;
+    }
+
+    .links {
+        width: auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 1rem;
+        margin: 0;
+        align-self: center;
+        font-size: clamp(0.7rem, 3vw, 1rem);
+    }
+
+    #resume_link {
+        margin: 0;
+        flex-shrink: 0;
+    }
+
+    #name {
+        font-size: clamp(1.2rem, 6vw, 2rem);
+    }
+
+    .navbar_subtitle {
+        font-size: clamp(0.55rem, 2.5vw, 0.75rem);
+    }
+
+    /* ── DROPDOWN ─────────────────────────────────────────── */
+    .dropdown-trigger {
+        pointer-events: auto;
+    }
+
+    .dropdown-content {
+        min-width: 8em;
+        font-size: 0.85rem;
+    }
+
+    /* ── GALLERY LIGHTBOX ─────────────────────────────────── */
+    .gallery_lightbox_overlay {
+        gap: 0.5rem;
+        padding: 0 0.5rem;
+    }
+
+    .gallery_lightbox_container {
+        padding: 0.75rem;
+    }
+
+    .gallery_lightbox_arrow {
+        width: 2.4rem;
+        height: 2.4rem;
+        font-size: 1.4rem;
+        flex-shrink: 0;
+    }
+
+    /* ── PORTFOLIO GRIDS ──────────────────────────────────── */
     .portfolio_gallery {
         grid-template-columns: 1fr;
     }
@@ -1620,19 +1788,38 @@ code {
     .masonry_gallery {
         column-count: 1;
     }
-}
 
-@media (max-width: 900px) {
-    .mobile-only {
-        display: inline;
+    /* ── FEATURED PROJECT ─────────────────────────────────── */
+    .featured_content {
+        grid-template-columns: 1fr;
     }
 
-    .dropdown-trigger {
-        pointer-events: auto;
+    .accent_overlay {
+        display: none;
     }
 
-    .back_to_top {
-        right: 2%;
+    .studies_grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .reference_grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* ── MISC LAYOUT ──────────────────────────────────────── */
+    .offset_section {
+        grid-template-columns: 1fr;
+    }
+
+    .split_left,
+    .split_right {
+        transform: none;
+        padding: 0;
+    }
+
+    .stats_container,
+    .tools_grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
     #projects_list {
@@ -1641,63 +1828,287 @@ code {
         margin: auto;
     }
 
-    #header {
-        flex-direction: column-reverse;
-        align-items: center;
-    }
-
-    #portrait {
-        width: 200px;
-        margin-bottom: 20px;
-    }
-
-    #left_header {
-        width: 100%;
-        align-items: center;
-        text-align: center;
-    }
-
     #center {
-        width: 100%;
-        box-sizing: border-box;
-        margin: 0 auto;
+        padding: 0 1rem;
     }
 
-    .links {
-        width: 100%;
-        display: flex;
+    /* ── FOOTER ───────────────────────────────────────────── */
+    .footer_grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+
+    .footer_column {
+        align-items: center !important;
+    }
+
+    .footer_socials {
         justify-content: center;
-        gap: 20px;
-        margin: 40px auto;
     }
 
-    #name {
-        font-size: 28px;
-        text-align: center;
-    }
-
-    #subtitle {
-        text-align: center;
-    }
-
-    #resume_link {
-        margin-top: 20px;
-        margin-bottom: 15px;
-        position: relative;
-    }
-
-    #about_me {
-        position: relative;
-    }
-
-    #about_me::after {
-        position: relative;
-        display: inline-block;
-        vertical-align: middle;
+    /* ── BACK TO TOP ──────────────────────────────────────── */
+    .back_to_top {
+        right: 2%;
+        bottom: 4rem; /* above theme toggle */
     }
 
     #blurb_email {
         white-space: normal;
         width: 100%;
     }
+}
+
+/* ── SLIGHTLY WIDER MOBILE (600–900px) ──────────────────── */
+@media (max-width: 900px) and (min-width: 600px) {
+    .masonry_gallery {
+        column-count: 2;
+    }
+
+    .portfolio_gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ── SMALL PHONES (<480px) ──────────────────────────────── */
+@media (max-width: 480px) {
+
+    #header {
+        gap: 0.75rem;
+    }
+
+    .right_group {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .links {
+        gap: 0.75rem;
+    }
+
+    .layered_button {
+        width: 90px;
+        font-size: 0.75rem;
+        padding: 0.9em 0.1em;
+    }
+
+    /* tighten lightbox on tiny screens */
+    .gallery_lightbox_arrow {
+        width: 2rem;
+        height: 2rem;
+        font-size: 1.2rem;
+    }
+
+    .gallery_lightbox_container img {
+        max-height: 70vh;
+    }
+}
+
+/* ============================================================
+   ADD THESE TO style.css
+   ============================================================ */
+
+
+/* ── HAMBURGER BUTTON (mobile only) ─────────────────────── */
+.hamburger {
+    display: none; /* hidden on desktop */
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 2.2rem;
+    height: 2.2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    flex-shrink: 0;
+    z-index: 1000;
+}
+
+.hamburger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--text-color);
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+    transform-origin: center;
+}
+
+/* animate to X when open */
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+
+/* ── MOBILE DRAWER ───────────────────────────────────────── */
+.mobile_drawer {
+    display: none; /* hidden on desktop */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+    background: rgba(255, 245, 250, 0.92);
+    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    border-radius: 0 0 12px 12px;
+    margin: 0 -2rem; /* bleed to page edges */
+}
+
+.mobile_drawer.open {
+    max-height: 400px;
+}
+
+.mobile_nav {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem 2rem 1.5rem;
+    gap: 0;
+}
+
+.mobile_nav a {
+    font-family: Poppins, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0.65rem 0;
+    transition: opacity 0.15s ease;
+}
+
+.mobile_nav a:last-child {
+    border-bottom: none;
+}
+
+.mobile_nav a:hover {
+    opacity: 0.7;
+}
+
+/* sub-links (portfolio categories) — indented, smaller */
+.mobile_sub {
+    display: flex;
+    flex-direction: column;
+    padding-left: 1rem;
+    border-left: 2px solid rgba(215, 140, 160, 0.3);
+    margin: 0.25rem 0 0.25rem 0.5rem;
+}
+
+.mobile_sub a {
+    font-size: 0.88rem;
+    font-weight: 400;
+    color: var(--medium-pink) !important;
+    padding: 0.4rem 0;
+    border-bottom: none !important;
+}
+
+
+/* ── FEATURED PROJECT — frosted glass ────────────────────── */
+.featured_project {
+    margin: 6rem 0;
+    padding: 3rem 2rem;
+    background: rgba(255, 245, 250, 0.45);
+    backdrop-filter: blur(12px) saturate(1.3);
+    -webkit-backdrop-filter: blur(12px) saturate(1.3);
+    border: 1px solid rgba(255, 180, 220, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 32px rgba(255, 130, 190, 0.08);
+}
+
+
+/* ── MOBILE OVERRIDES ────────────────────────────────────── */
+@media (max-width: 900px) {
+
+    /* show hamburger, hide desktop nav + resume */
+    .hamburger {
+        display: flex;
+    }
+
+    .right_group {
+        display: none;
+    }
+
+    /* show drawer */
+    .mobile_drawer {
+        display: block;
+    }
+
+    /* header just name + hamburger side by side */
+    #header {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    .left_group {
+        flex: 1;
+        min-width: 0; /* allow name to shrink if needed */
+    }
+}
+
+
+/* ── ABOUT PAGE MOBILE FIXES ─────────────────────────────── */
+/* add these inside about.html's <style> block, or keep here
+   if you prefer everything centralised                       */
+
+/* hide marsh annotation on mobile — it overflows */
+@media (max-width: 900px) {
+    .marsh_annotation {
+        display: none;
+    }
+}
+
+.accent {
+    display: none;
+}
+
+/* keep photo cluster from bleeding above the bio text */
+@media (max-width: 1100px) {
+    .about_split {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .photo_cluster {
+        height: 460px;
+        max-width: 480px;
+        margin: 0 auto;
+        /* prevent overflow above the element */
+        overflow: visible;
+        position: relative;
+    }
+
+    /* slightly tighter burst so photos don't escape container width */
+    .photo_cluster.burst .photo_satellite:nth-child(2) { transform: translate(-175px, -120px) rotate(-12deg) scale(1); }
+    .photo_cluster.burst .photo_satellite:nth-child(3) { transform: translate(-200px,  50px)  rotate(-7deg)  scale(1); }
+    .photo_cluster.burst .photo_satellite:nth-child(4) { transform: translate(-110px,  200px) rotate(-14deg) scale(1); }
+    .photo_cluster.burst .photo_satellite:nth-child(5) { transform: translate( 90px,   200px) rotate(10deg)  scale(1); }
+    .photo_cluster.burst .photo_satellite:nth-child(6) { transform: translate(185px,   40px)  rotate(8deg)   scale(1); }
+    .photo_cluster.burst .photo_satellite:nth-child(7) { transform: translate(160px,  -135px) rotate(-5deg)  scale(1); }
+    .photo_cluster.burst .photo_satellite:nth-child(8) { transform: translate( 65px,  -210px) rotate(9deg)   scale(1); }
+}
+
+@media (max-width: 600px) {
+    .photo_cluster {
+        height: 340px;
+        max-width: 100%;
+    }
+
+    .photo_main {
+        width: 150px;
+        height: 190px;
+    }
+
+    .photo_satellite {
+        width: 105px;
+        height: 130px;
+    }
+
+    /* tighter on small phones */
+    .photo_cluster.burst .photo_satellite:nth-child(2) { transform: translate(-125px, -85px)  rotate(-12deg) scale(1); }
+    .photo_cluster.burst .photo_satellite:nth-child(3) { transform: translate(-140px,  35px)  rotate(-7deg)  scale(1); }
+    .photo_cluster.burst .photo_satellite:nth-child(4) { transform: translate(-75px,   150px) rotate(-14deg) scale(1); }
+    .photo_cluster.burst .photo_satellite:nth-child(5) { transform: translate( 60px,   148px) rotate(10deg)  scale(1); }
+    .photo_cluster.burst .photo_satellite:nth-child(6) { transform: translate(130px,   28px)  rotate(8deg)   scale(1); }
+    .photo_cluster.burst .photo_satellite:nth-child(7) { transform: translate(112px,  -105px) rotate(-5deg)  scale(1); }
+    .photo_cluster.burst .photo_satellite:nth-child(8) { transform: translate( 42px,  -155px) rotate(9deg)   scale(1); }
 }

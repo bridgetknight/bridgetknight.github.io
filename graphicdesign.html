@@ -11,65 +11,44 @@
     <script src="scripts/theme.js" defer></script>
     <script src="scripts/cursor_trail.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="scripts/footer.js" defer></script>
 </head>
+
+<style>
+    .portfolio_header {
+    text-align: center;
+    margin-bottom: 3rem;
+    width: fit-content;
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeInHeader 0.8s ease forwards;
+    animation-delay: 0.2s;
+}
+
+    .portfolio_header::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 6px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='6'%3E%3Cpath d='M0 3 Q5 0 10 3 Q15 6 20 3' fill='none' stroke='%23d78ca0' stroke-width='2'/%3E%3C/svg%3E");
+        background-repeat: repeat-x;
+        background-size: 20px 6px;
+        animation: waveScroll 0.6s steps(2) infinite;
+    }
+</style>
 
 <body data-theme="light">
     <div id="center">
         <header>
             <div id="navbar"></div>
-            <script>
-                fetch("/navbar.html")
-                .then(response => response.text())
-                .then(html => {
-                    document.getElementById("navbar").innerHTML = html;
-
-                    const link = document.querySelector('#name a');
-                    if (!link) {
-                        console.log("Name link not found");
-                        return;
-                    }
-
-                    link.addEventListener('mouseenter', () => {
-                        link.classList.add('scatter-active');
-                        const letters = link.querySelectorAll('.name-letter');
-                        letters.forEach((letter, index) => {
-                            setTimeout(() => {
-                                // Gentle wave pattern - alternates up and down
-                                const yOffset = (index % 2 === 0 ? -8 : 8);
-                                const xOffset = (index - (letters.length / 2)) * 3; // Spreads them out gradually
-                                const rotation = (index % 2 === 0 ? -5 : 5); // Slight tilt
-                                letter.style.transform = `translateX(${xOffset}px) translateY(${yOffset}px) rotate(${rotation}deg)`;
-                            }, index * 30);
-                        });
-                    });
-
-                    link.addEventListener('mouseleave', () => {
-                        link.classList.remove('scatter-active');
-                        const letters = link.querySelectorAll('.name-letter');
-                        letters.forEach((letter, index) => {
-                            setTimeout(() => {
-                                letter.style.transform = '';
-                            }, index * 50); // Add the same stagger delay
-                        });
-                    });
-                    
-                    const text = link.textContent.trim();
-                    link.textContent = '';
-                    
-                    text.split('').forEach((char, i) => {
-                        const span = document.createElement('span');
-                        span.textContent = char === ' ' ? '\u00A0' : char;
-                        span.className = 'name-letter';
-                        span.style.animationDelay = `${i * 0.08}s`;
-                        link.appendChild(span);
-                    });
-                });
-            </script>
+            <script src="scripts/navbar.js" defer></script>
         </header>
 
         <div id="main_section">
             <div class="portfolio_header">
-                <h1>Graphic Design</h1>
+                <h1>graphic design</h1>
             </div>
 
             <div class="masonry_gallery" id="design_gallery"></div>
@@ -176,31 +155,7 @@
             </script>
         </div>
 
-        <footer id="footer">
-            <div class="footer_grid">
-                <div class="footer_column footer_left">
-                    <h3 id="footer_name">BRIDGET KNIGHT</h3>
-                    <p class="footer_subtitle">Concept Artist & Creative Technologist</p>
-                </div>
-                <div class="footer_column footer_middle">
-                    <a href="mailto:bridget.g.knight@gmail.com" class="footer_email">bridget.g.knight@gmail.com</a>
-                </div>
-                <div class="footer_column footer_right">
-                    <p class="footer_social_label">say hi elsewhere:</p>
-                    <div class="footer_socials">
-                        <a href="https://linkedin.com/in/bridgetgknight" target="_blank" title="LinkedIn">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://artstation.com/bridgetknight" target="_blank" title="ArtStation">
-                            <i class="fab fa-artstation"></i>
-                        </a>
-                        <a href="https://instagram.com/pixelbrit" target="_blank" title="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </footer>
+    <div id="footer_container"></div>
     </div>
 </body>
 </html>

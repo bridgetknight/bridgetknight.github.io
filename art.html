@@ -11,233 +11,317 @@
     <script src="scripts/theme.js" defer></script>
     <script src="scripts/cursor_trail.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="scripts/footer.js" defer></script>
 
+    <style>
+        /* ── PAGE HEADER ─────────────────────────────────────────── */
+        .portfolio_header {
+            position: relative;
+            text-align: left;
+            margin-bottom: 1rem;
+            padding: 3rem 0 1rem;
+            overflow: visible;
+            opacity: 0;
+            transform: translateY(-16px);
+            animation: fadeInHeader 0.7s ease forwards;
+            animation-delay: 0.15s;
+        }
+
+        .portfolio_header h1 {
+            font-family: "Momo Trust Display", "Poppins", sans-serif;
+            font-size: clamp(0.1rem, 4vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1;
+            color: black;
+            text-transform: lowercase;
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmer 5s linear infinite;
+        }
+
+        .portfolio_header .header_sub {
+            font-family: Poppins, sans-serif;
+            font-size: clamp(0.75rem, 1.5vw, 0.8rem);
+            letter-spacing: 0.25em;
+            text-transform: lowercase;
+            font-weight: 400;
+            text-transform: lowercase;
+            font-style: italic;
+            color: var(--subtitle);
+            margin-top: 0.5rem;
+        }
+
+        /* ── CATEGORY SECTIONS ───────────────────────────────────── */
+        .portfolio_section {
+            position: relative;
+        }
+
+        .portfolio_section + .portfolio_section {
+            padding-top: 1rem;
+        }
+
+        .category_heading_row {
+            display: flex;
+            align-items: flex-end;
+            position: relative;
+        }
+
+        .portfolio_category_heading {
+            font-family: "Le Petit Cochon", cursive;
+            font-size: clamp(0.5rem, 4vw, 2.2rem);
+            font-weight: 400;
+            white-space: nowrap;
+            /* tiny bottom offset so the rule doesn't sit flush on descenders */
+            color: transparent;
+            background: linear-gradient(
+                45deg,
+                var(--medium-pink),
+                var(--purple),
+                var(--teal)
+            );
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-transform: UPPERCASE;
+            animation: shimmer 6s linear infinite;
+        }
+        
+        /* ── GALLERY ITEM — resting glow + stagger reveal ────────── */
+        .gallery_item {
+            box-shadow: 0 0 0 1.5px rgba(255, 180, 220, 0.18);
+            transition: box-shadow 0.25s ease, transform 0.25s ease;
+            overflow: hidden;
+            opacity: 0;
+            animation: itemReveal 0.5s ease forwards;
+            animation-delay: calc(var(--i, 0) * 60ms);
+        }
+
+        .gallery_item:hover {
+            box-shadow: 0 6px 24px rgba(255, 130, 190, 0.22),
+                        0 0 0 1.5px rgba(255, 180, 220, 0.4);
+        }
+
+        @keyframes itemReveal {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── LIGHTBOX ────────────────────────────────────────────── */
+        .gallery_lightbox_overlay {
+            background: rgba(10, 5, 15, 0.75);
+            backdrop-filter: blur(10px) saturate(1.4);
+        }
+
+        .gallery_lightbox_container {
+            background: rgba(255, 245, 250, 0.06);
+            border: 1px solid rgba(255, 180, 220, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 0 60px rgba(255, 120, 180, 0.15);
+        }
+
+        .gallery_lightbox_close {
+            font-size: 2.5rem;
+            color: white;
+            opacity: 0.8;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        .gallery_lightbox_close:hover {
+            opacity: 1;
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        .gallery_lightbox_arrow {
+            font-size: 2rem;
+            color: white;
+            opacity: 0.7;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 180, 220, 0.2);
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, opacity 0.2s, transform 0.2s;
+            flex-shrink: 0;
+        }
+        .gallery_lightbox_arrow:hover {
+            opacity: 1;
+            background: rgba(255, 180, 220, 0.15);
+            transform: scale(1.08);
+        }
+
+        .gallery_lightbox_container figcaption {
+            font-family: Poppins, sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            color: rgba(255, 230, 240, 0.75);
+        }
+
+        /* ── CONCEPT ART single column ───────────────────────────── */
+        #concept_art .portfolio_gallery {
+            grid-template-columns: 1fr !important;
+        }
+
+        #illustrations .masonry_gallery {
+            column-count: 2;
+            column-fill: balance;
+        }
+
+        #illustrations .masonry_gallery .gallery_item {
+            width: 100%;
+        }
+    </style>
 </head>
 
 <body data-theme="light">
     <div id="center">
         <header>
             <div id="navbar"></div>
-            <script>
-                fetch("/navbar.html")
-                .then(response => response.text())
-                .then(html => {
-                    document.getElementById("navbar").innerHTML = html;
-
-                    const link = document.querySelector('#name a');
-                    if (!link) {
-                        console.log("Name link not found");
-                        return;
-                    }
-
-                    link.addEventListener('mouseenter', () => {
-                        link.classList.add('scatter-active');
-                        const letters = link.querySelectorAll('.name-letter');
-                        letters.forEach((letter, index) => {
-                            setTimeout(() => {
-                                // Gentle wave pattern - alternates up and down
-                                const yOffset = (index % 2 === 0 ? -8 : 8);
-                                const xOffset = (index - (letters.length / 2)) * 3; // Spreads them out gradually
-                                const rotation = (index % 2 === 0 ? -5 : 5); // Slight tilt
-                                letter.style.transform = `translateX(${xOffset}px) translateY(${yOffset}px) rotate(${rotation}deg)`;
-                            }, index * 30);
-                        });
-                    });
-
-                    link.addEventListener('mouseleave', () => {
-                        link.classList.remove('scatter-active');
-                        const letters = link.querySelectorAll('.name-letter');
-                        letters.forEach((letter, index) => {
-                            setTimeout(() => {
-                                letter.style.transform = '';
-                            }, index * 50); // Add the same stagger delay
-                        });
-                    });
-                    
-                    const text = link.textContent.trim();
-                    link.textContent = '';
-                    
-                    text.split('').forEach((char, i) => {
-                        const span = document.createElement('span');
-                        span.textContent = char === ' ' ? '\u00A0' : char;
-                        span.className = 'name-letter';
-                        span.style.animationDelay = `${i * 0.08}s`;
-                        link.appendChild(span);
-                    });
-                });
-            </script>
+            <script src="scripts/navbar.js" defer></script>
         </header>
 
         <div id="main_section">
             <div class="portfolio_header">
-                <h1>Portfolio</h1>
-                <p class="portfolio_subtitle">All Works</p>
+                <h1>PORTFOLIO</h1>
+                <p class="header_sub">All Works</p>
             </div>
 
             <div id="portfolio_container"></div>
-
-            <script>
-                let allGalleryItems = {};
-
-                fetch('/scripts/artwork_directory.json')
-                .then(res => res.json())
-                .then(data => {
-                    const categories = ['concept_art', 'illustrations', 'sketches', 'graphic_design'];
-                    const categoryNames = {
-                        'concept_art': 'Concept Art',
-                        'illustrations': 'Illustrations',
-                        'sketches': 'Sketches',
-                        'graphic_design': 'Graphic Design'
-                    };
-
-                    const container = document.getElementById('portfolio_container');
-
-                    categories.forEach(category => {
-                        if (data[category] && data[category].length > 0) {
-                            allGalleryItems[category] = data[category].map(item => ({
-                                ...item,
-                                folder: category
-                            }));
-
-                            // Create section
-                            const section = document.createElement('section');
-                            section.className = 'portfolio_section';
-                            section.id = category;
-
-                            const heading = document.createElement('h2');
-                            heading.className = 'portfolio_category_heading';
-                            heading.textContent = categoryNames[category];
-                            section.appendChild(heading);
-
-                            const gallery = document.createElement('div');
-                            if (category === 'concept_art') {
-                                gallery.className = 'portfolio_gallery';
-                            } else {
-                                gallery.className = 'masonry_gallery';
-                            }
-                            gallery.dataset.category = category;
-
-                            allGalleryItems[category].forEach((item, index) => {
-                                const fig = document.createElement('figure');
-                                fig.className = 'gallery_item';
-                                fig.innerHTML = `
-                                    <img src="/assets/${item.folder}/${item.file}" alt="${item.title}" loading="lazy">
-                                    <figcaption>
-                                        <span>${item.title}</span>
-                                        <span>${item.year}</span>
-                                    </figcaption>
-                                `;
-                                gallery.appendChild(fig);
-                                fig.addEventListener('click', () => openLightbox(category, index));
-                            });
-
-                            section.appendChild(gallery);
-                            container.appendChild(section);
-                        }
-                    });
-                });
-
-                function openLightbox(category, index) {
-                    const items = allGalleryItems[category];
-                    
-                    const overlay = document.createElement('div');
-                    overlay.className = 'gallery_lightbox_overlay active';
-                    overlay.innerHTML = `
-                        <span class="gallery_lightbox_arrow left">&#8592;</span>
-                        <div class="gallery_lightbox_container">
-                            <span class="gallery_lightbox_close">&times;</span>
-                            <img src="" alt="">
-                            <figcaption></figcaption>
-                        </div>
-                        <span class="gallery_lightbox_arrow right">&#8594;</span>
-                    `;
-                    document.body.appendChild(overlay);
-
-                    function loadImage(i) {
-                        const item = items[i];
-                        const img = overlay.querySelector('img');
-                        const caption = overlay.querySelector('figcaption');
-
-                        img.classList.add('fading');
-                        setTimeout(() => {
-                            img.src = `/assets/${item.folder}/${item.file}`;
-                            img.alt = item.title;
-                            caption.textContent = `${item.title} — ${item.year}`;
-                            img.onload = () => img.classList.remove('fading');
-                        }, 250);
-                    }
-
-                    loadImage(index);
-
-                    overlay.querySelector('.gallery_lightbox_arrow.left').addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        index = (index - 1 + items.length) % items.length;
-                        loadImage(index);
-                    });
-
-                    overlay.querySelector('.gallery_lightbox_arrow.right').addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        index = (index + 1) % items.length;
-                        loadImage(index);
-                    });
-
-                    overlay.querySelector('.gallery_lightbox_close').addEventListener('click', () => overlay.remove());
-
-                    overlay.addEventListener('click', (e) => {
-                        if (!e.target.closest('.gallery_lightbox_container') && 
-                            !e.target.closest('.gallery_lightbox_arrow')) {
-                            overlay.remove();
-                        }
-                    });
-
-                    function onKey(e) {
-                        if (e.key === 'ArrowRight') {
-                            index = (index + 1) % items.length;
-                            loadImage(index);
-                        } else if (e.key === 'ArrowLeft') {
-                            index = (index - 1 + items.length) % items.length;
-                            loadImage(index);
-                        } else if (e.key === 'Escape') {
-                            overlay.remove();
-                            document.removeEventListener('keydown', onKey);
-                        }
-                    }
-                    document.addEventListener('keydown', onKey);
-                    overlay.addEventListener('click', (e) => {
-                        if (!e.target.closest('.gallery_lightbox_container') &&
-                            !e.target.closest('.gallery_lightbox_arrow')) {
-                            document.removeEventListener('keydown', onKey);
-                        }
-                    });
-                }
-            </script>
         </div>
 
-        <footer id="footer">
-            <div class="footer_grid">
-                <div class="footer_column footer_left">
-                    <h3 id="footer_name">BRIDGET KNIGHT</h3>
-                    <p class="footer_subtitle">Concept Artist & Creative Technologist</p>
-                </div>
-                <div class="footer_column footer_middle">
-                    <a href="mailto:bridget.g.knight@gmail.com" class="footer_email">bridget.g.knight@gmail.com</a>
-                </div>
-                <div class="footer_column footer_right">
-                    <p class="footer_social_label">say hi elsewhere:</p>
-                    <div class="footer_socials">
-                        <a href="https://linkedin.com/in/bridgetgknight" target="_blank" title="LinkedIn">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://artstation.com/bridgetknight" target="_blank" title="ArtStation">
-                            <i class="fab fa-artstation"></i>
-                        </a>
-                        <a href="https://instagram.com/pixelbrit" target="_blank" title="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </footer>
+    <div id="footer_container"></div>
     </div>
+
+    <script>
+        let allGalleryItems = {};
+
+        fetch('/scripts/artwork_directory.json')
+        .then(res => res.json())
+        .then(data => {
+            const categories = ['concept_art', 'illustrations', 'sketches', 'graphic_design'];
+            const categoryNames = {
+                concept_art:    'Concept Art',
+                illustrations:  'Illustrations',
+                sketches:       'Sketches',
+                graphic_design: 'Graphic Design',
+            };
+
+            const container = document.getElementById('portfolio_container');
+
+            categories.forEach(category => {
+                if (!data[category] || data[category].length === 0) return;
+
+                allGalleryItems[category] = data[category].map(item => ({ ...item, folder: category }));
+
+                const section = document.createElement('section');
+                section.className = 'portfolio_section';
+                section.id = category;
+
+                const headingRow = document.createElement('div');
+                headingRow.className = 'category_heading_row';
+
+                const heading = document.createElement('h2');
+                heading.className = 'portfolio_category_heading';
+                heading.textContent = categoryNames[category];
+
+                headingRow.appendChild(heading);
+                section.appendChild(headingRow);
+
+                const gallery = document.createElement('div');
+                gallery.className = category === 'concept_art' ? 'portfolio_gallery' : 'masonry_gallery';
+                gallery.dataset.category = category;
+
+                allGalleryItems[category].forEach((item, index) => {
+                    const fig = document.createElement('figure');
+                    fig.className = 'gallery_item';
+                    fig.style.setProperty('--i', index);
+                    fig.innerHTML = `
+                        <img src="/assets/${item.folder}/${item.file}" alt="${item.title}" loading="lazy">
+                        <figcaption>
+                            <span>${item.title}</span>
+                            <span>${item.year}</span>
+                        </figcaption>
+                    `;
+                    gallery.appendChild(fig);
+                    fig.addEventListener('click', () => openLightbox(category, index));
+                });
+
+                section.appendChild(gallery);
+                container.appendChild(section);
+            });
+        });
+
+        function openLightbox(category, index) {
+            const items = allGalleryItems[category];
+
+            const overlay = document.createElement('div');
+            overlay.className = 'gallery_lightbox_overlay active';
+            overlay.innerHTML = `
+                <span class="gallery_lightbox_arrow left">&#8592;</span>
+                <div class="gallery_lightbox_container">
+                    <span class="gallery_lightbox_close">&times;</span>
+                    <img src="" alt="">
+                    <figcaption></figcaption>
+                </div>
+                <span class="gallery_lightbox_arrow right">&#8594;</span>
+            `;
+            document.body.appendChild(overlay);
+
+            function loadImage(i) {
+                const item = items[i];
+                const img = overlay.querySelector('img');
+                const caption = overlay.querySelector('figcaption');
+                img.classList.add('fading');
+                setTimeout(() => {
+                    img.src = `/assets/${item.folder}/${item.file}`;
+                    img.alt = item.title;
+                    caption.textContent = `${item.title} — ${item.year}`;
+                    img.onload = () => img.classList.remove('fading');
+                }, 250);
+            }
+
+            // FIX: one clean close function, referenced everywhere
+            function closeOverlay() {
+                overlay.remove();
+                document.removeEventListener('keydown', onKey);
+            }
+
+            loadImage(index);
+
+            // FIX: single overlay click handler — only fires on the backdrop itself,
+            // not on the container or arrows (which stopPropagation or are checked here)
+            overlay.addEventListener('click', e => {
+                const onArrow     = e.target.closest('.gallery_lightbox_arrow');
+                const onContainer = e.target.closest('.gallery_lightbox_container');
+                if (!onArrow && !onContainer) closeOverlay();
+            });
+
+            overlay.querySelector('.gallery_lightbox_arrow.left').addEventListener('click', e => {
+                e.stopPropagation();
+                index = (index - 1 + items.length) % items.length;
+                loadImage(index);
+            });
+            overlay.querySelector('.gallery_lightbox_arrow.right').addEventListener('click', e => {
+                e.stopPropagation();
+                index = (index + 1) % items.length;
+                loadImage(index);
+            });
+            overlay.querySelector('.gallery_lightbox_close').addEventListener('click', e => {
+                e.stopPropagation();
+                closeOverlay();
+            });
+
+            function onKey(e) {
+                if      (e.key === 'ArrowRight') { index = (index + 1) % items.length; loadImage(index); }
+                else if (e.key === 'ArrowLeft')  { index = (index - 1 + items.length) % items.length; loadImage(index); }
+                else if (e.key === 'Escape')     { closeOverlay(); }
+            }
+            document.addEventListener('keydown', onKey);
+        }
+    </script>
 </body>
 </html>
