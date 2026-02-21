@@ -57,9 +57,7 @@ body::before {
     inset: 0;
     z-index: -101;
     pointer-events: none;
-    background-image: url('../assets/white-crumpled-paper-texture-background.jpg');
-    -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 95%);
-    mask-image: linear-gradient(to bottom, black 80%, transparent 95%);
+    background-image: url('../assets/white-crumpled-paper-texture-background.webp');
 }
 
 body {
@@ -77,6 +75,7 @@ body {
         radial-gradient(ellipse at var(--blob2-x) var(--blob2-y), rgba(159, 210, 255, 0.623) 0%, transparent 55%),
         radial-gradient(ellipse at var(--blob3-x) var(--blob3-y), rgba(196, 255, 144, 0.53) 0%, transparent 50%);
     animation: meshShift 8s ease-in-out infinite alternate;
+    will-change: background-image; 
 }
 
 body::after {
@@ -86,13 +85,17 @@ body::after {
     z-index: -100;
     pointer-events: none;
     opacity: 30%;
-    background-image: url('../assets/grain_texture.jpg');
+    background-image: url('../assets/grain_texture.webp');
     background-repeat: repeat;
     background-size: 512px 512px;
     mix-blend-mode: multiply;
     filter: grayscale(100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 95%);
-    mask-image: linear-gradient(to bottom, black 80%, transparent 95%);
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+body::before, body::after {
+    will-change: transform;
 }
 
 @keyframes meshShift {
@@ -241,6 +244,7 @@ header {
 
 .dropdown-content {
     position: absolute;
+    isolation: isolate;
     margin-top: 0.5rem;
     min-width: 10em;
     top: 100%;
@@ -250,7 +254,7 @@ header {
     -webkit-backdrop-filter: blur(12px) saturate(1.4);  /* Safari */
     border-radius: 0.15rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    z-index: 10;
+    z-index: 100;
     transform-origin: top center;
 }
 
@@ -312,14 +316,17 @@ header {
 }
 
 #header {
-    display: flex;
+    width: 100%;
     margin-bottom: 2rem;
+}
+
+.header_inner {
+    display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     gap: 3rem;
     width: 100%;
-
-    /* Page-load animation */
     opacity: 0;
     transform: translateY(-20px);
     animation: fadeInHeader 0.8s ease forwards;
@@ -542,6 +549,8 @@ header {
     overflow: hidden;
     display: block;
     transition: transform 0.25s ease, filter 0.25s ease;
+    transform: translateZ(0);
+    will-change: transform;
 }
 
 
@@ -2069,12 +2078,12 @@ code {
     }
 
     .photo_cluster {
-        height: 460px;
-        max-width: 480px;
+        height: auto;
+        padding: clamp(80px, 18vw, 160px); /* absorbs satellite overflow in all directions */
+        max-width: 500px;
+        width: 100%;
         margin: 0 auto;
-        /* prevent overflow above the element */
         overflow: visible;
-        position: relative;
     }
 
     /* slightly tighter burst so photos don't escape container width */
@@ -2089,10 +2098,11 @@ code {
 
 @media (max-width: 600px) {
     .photo_cluster {
-        height: 340px;
+        overflow: visible;
+        height: auto;
+        padding: clamp(60px, 15vw, 120px);
         max-width: 100%;
     }
-
     .photo_main {
         width: 150px;
         height: 190px;

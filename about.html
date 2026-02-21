@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
-    <link rel="icon" href="assets/favicon.png">
+    <link rel="icon" href="assets/favicon.webp">
     <script src="scripts/theme.js" defer></script>
     <script src="scripts/cursor_trail.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -211,7 +211,7 @@
         }
 
         .marsh_label {
-            font-family: "Caveat Brush", cursive;
+            font-family: "Caveat Brush";
             font-size: 1.5rem;
             color: #3a8a5a;
             white-space: nowrap;
@@ -318,7 +318,7 @@
         }
 
         .contact_section h2 {
-            font-family: "Momo Trust Display", cursive;
+            font-family: "Momo Trust Display";
             font-size: clamp(1.8rem, 4vw, 2.8rem);
             color: black;
             background-size: 200% 200%;
@@ -414,7 +414,7 @@
         }
 
         .contact_form h3 {
-            font-family: "Caveat Brush", cursive;
+            font-family: "Caveat Brush";
             font-size: 1.4rem;
             color: var(--card-accent);
             margin-bottom: 1.5rem;
@@ -559,7 +559,7 @@
             <!-- ── PAGE HEADER ─────────────────────────────── -->
             <div class="about_header">
                 <h1>about me</h1>
-                <p class="header_sub">concept artist · creative technologist · outdoor enthusiast</p>
+                <p class="header_sub">concept artist · technical design · outdoor enthusiast</p>
             </div>
 
             <!-- ── SPLIT: PHOTOS + BIO ──────────────────────── -->
@@ -573,43 +573,43 @@
 
                     <!-- 1: arboretum plant -->
                     <div class="photo_frame photo_satellite polaroid">
-                        <img src="assets/about/arboretum.jpg" alt="Taking a photo of a plant at the arboretum">
+                        <img src="assets/about/arboretum.webp" alt="Taking a photo of a plant at the arboretum">
                         <div class="photo_caption">arboretum days</div>
                     </div>
 
                     <!-- 2: kayak feet -->
                     <div class="photo_frame photo_satellite polaroid">
-                        <img src="assets/about/kayak.png" alt="Feet in a kayak on a misty morning">
+                        <img src="assets/about/kayak.webp" alt="Feet in a kayak on a misty morning">
                         <div class="photo_caption">misty morning</div>
                     </div>
 
                     <!-- 3: hiking from behind -->
                     <div class="photo_frame photo_satellite polaroid">
-                        <img src="assets/about/hiking.png" alt="Hiking down a rocky mountain">
+                        <img src="assets/about/hiking.webp" alt="Hiking down a rocky mountain">
                         <div class="photo_caption">summit descent</div>
                     </div>
 
                     <!-- 4: berry picking -->
                     <div class="photo_frame photo_satellite polaroid">
-                        <img src="assets/about/berries.png" alt="Picking berries">
+                        <img src="assets/about/berries.webp" alt="Picking berries">
                         <div class="photo_caption">berry season</div>
                     </div>
 
                     <!-- 5: bird on hand -->
                     <div class="photo_frame photo_satellite polaroid">
-                        <img src="assets/about/birding.png" alt="Bird perched on my hand in the woods">
+                        <img src="assets/about/birding.webp" alt="Bird perched on my hand in the woods">
                         <div class="photo_caption">new friend</div>
                     </div>
 
                     <!-- 6: marsh selfie -->
                     <div class="photo_frame photo_satellite polaroid" id="marsh_photo">
-                        <img src="assets/about/marsh.png" alt="Selfie at the Great Marsh in Marblehead">
+                        <img src="assets/about/marsh.webp" alt="Selfie at the Great Marsh in Marblehead">
                         <div class="photo_caption">great marsh, MA</div>
                     </div>
 
                     <!-- 7: nintendo store -->
                     <div class="photo_frame photo_satellite polaroid">
-                        <img src="assets/about/nintendo.png" alt="Posing next to the Link statue at the Nintendo Store">
+                        <img src="assets/about/nintendo.webp" alt="Posing next to the Link statue at the Nintendo Store">
                         <div class="photo_caption">nintendo store :)</div>
                     </div>
 
@@ -628,7 +628,7 @@
 
                     <!-- MAIN portrait — last in DOM so it's on top naturally -->
                     <div class="photo_frame photo_main polaroid">
-                        <img src="assets/portrait.jpg" alt="Bridget Knight">
+                        <img src="assets/portrait.webp" alt="Bridget Knight">
                     </div>
 
                 </div>
@@ -703,17 +703,24 @@
                                 <span class="contact_link_sub">@pixelbrit</span>
                             </div>
                         </a>
-                        <a href="assets/resume_art.pdf" target="_blank" class="contact_link_item">
+                        <a href="https://github.com/bridgetknight" target="_blank" class="contact_link_item">
+                            <i class="fab fa-github"></i>
+                            <div class="contact_link_label">
+                                <span class="contact_link_title">GitHub</span>
+                                <span class="contact_link_sub">bridgetknight</span>
+                            </div>
+                        </a>
+                        <a href="docs/BridgetKnight_ArtResume.pdf" target="_blank" class="contact_link_item">
                             <i class="fas fa-file-image"></i>
                             <div class="contact_link_label">
                                 <span class="contact_link_title">Art Resume</span>
                                 <span class="contact_link_sub">Download PDF</span>
                             </div>
                         </a>
-                        <a href="assets/resume_software.pdf" target="_blank" class="contact_link_item">
+                        <a href="docs/BridgetKnight_TechResume.pdf" target="_blank" class="contact_link_item">
                             <i class="fas fa-file-code"></i>
                             <div class="contact_link_label">
-                                <span class="contact_link_title">Software Resume</span>
+                                <span class="contact_link_title">Tech Resume</span>
                                 <span class="contact_link_sub">Download PDF</span>
                             </div>
                         </a>
@@ -750,7 +757,7 @@
                                 <textarea id="message" name="message" placeholder="say hello!" required></textarea>
                             </div>
                             <button type="submit" class="form_submit">
-                                <i class="fas fa-paper-plane"></i> Send it!
+                                <i class="fas fa-paper-plane"></i> send it!
                             </button>
                             <div class="form_success" id="form_success">
                                 <i class="fas fa-check-circle"></i> Message sent — I'll get back to you soon!

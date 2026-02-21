@@ -1,60 +1,64 @@
+<link href="https://fonts.googleapis.com/css2?family=Elms+Sans:ital,wght@0,100..900;1,100..900&family=Momo+Trust+Display&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Stack+Sans+Notch:wght@200..700&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+
 <div id="header">
-    <div class="left_group">
-        <div class="header_text" id="name">
-            <a href="/index.html" class="name_link">
-                BRIDGET KNIGHT
-            </a>
-            <p class="navbar_subtitle">concept artist & creative technologist</p>
-        </div>
-    </div>
-
-    <!-- desktop: nav + resume grouped together -->
-    <div class="right_group">
-        <nav class="links">
-            <div class="dropdown" x-data="{ open: false }"
-            @mouseenter="if(window.innerWidth>900) open=true"
-            @mouseleave="if(window.innerWidth>900) open=false"
-            @click="if(window.innerWidth<=900) open=!open"
-            @click.outside="open=false">
-
-                <a href="/art.html" class="link_float dropdown-trigger" style="color:var(--medium-pink)">
-                    portfolio
+    <div class="header_inner">
+        <div class="left_group">
+            <div class="header_text" id="name">
+                <a href="/index.html" class="name_link">
+                    BRIDGET KNIGHT
                 </a>
-
-                <div class="dropdown-content"
-                x-show="open"
-                x-cloak
-                x-transition:enter="dropdown-enter"
-                x-transition:enter-start="dropdown-enter-start"
-                x-transition:enter-end="dropdown-enter-end"
-                x-transition:leave="dropdown-leave"
-                x-transition:leave-start="dropdown-leave-start"
-                x-transition:leave-end="dropdown-leave-end">
-                    <a href="/conceptart.html">concept art</a>
-                    <a href="/illustrations.html">illustration</a>
-                    <a href="/sketches.html">sketches</a>
-                    <a href="/graphicdesign.html">graphic design</a>
-                </div>
+                <p class="navbar_subtitle">concept artist & creative technologist</p>
             </div>
-
-            <a href="tech.html" class="link_float" style="color:var(--purple)">tech</a>
-            <a href="about.html" class="link_float" style="color:var(--blue)">about</a>
-            <a href="about.html#contact_section" class="link_float" style="color:var(--green)">contact</a>
-        </nav>
-
-        <div id="resume_link">
-            <a href="docs/knight_bridget_resume.pdf" download>
-                <button class="layered_button layered_button--pink">resume</button>
-            </a>
         </div>
-    </div>
 
-    <!-- mobile: hamburger button (hidden on desktop via CSS) -->
-    <button class="hamburger" id="hamburger" aria-label="Open menu">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
+        <!-- desktop: nav + resume grouped together -->
+        <div class="right_group">
+            <nav class="links">
+                <div class="dropdown" x-data="{ open: false }"
+                @mouseenter="if(window.innerWidth>900) open=true"
+                @mouseleave="if(window.innerWidth>900) open=false"
+                @click="if(window.innerWidth<=900) open=!open"
+                @click.outside="open=false">
+
+                    <a href="/art.html" class="link_float dropdown-trigger" style="color:var(--medium-pink)">
+                        portfolio
+                    </a>
+
+                    <div class="dropdown-content"
+                    x-show="open"
+                    x-cloak
+                    x-transition:enter="dropdown-enter"
+                    x-transition:enter-start="dropdown-enter-start"
+                    x-transition:enter-end="dropdown-enter-end"
+                    x-transition:leave="dropdown-leave"
+                    x-transition:leave-start="dropdown-leave-start"
+                    x-transition:leave-end="dropdown-leave-end">
+                        <a href="/conceptart.html">concept art</a>
+                        <a href="/illustrations.html">illustration</a>
+                        <a href="/sketches.html">sketches</a>
+                        <a href="/graphicdesign.html">graphic design</a>
+                    </div>
+                </div>
+
+                <a href="tech.html" class="link_float" style="color:var(--purple)">tech</a>
+                <a href="about.html" class="link_float" style="color:var(--blue)">about</a>
+                <a href="about.html#contact_section" class="link_float" style="color:var(--green)">contact</a>
+            </nav>
+
+            <div id="resume_link">
+                <a href="docs/BridgetKnight_ArtResume.pdf" download>
+                    <button class="layered_button layered_button--pink">resume</button>
+                </a>
+            </div>
+        </div>
+
+        <!-- mobile: hamburger button (hidden on desktop via CSS) -->
+        <button class="hamburger" id="hamburger" aria-label="Open menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
 </div>
 
 <!-- mobile drawer -->
