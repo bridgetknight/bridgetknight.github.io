@@ -2081,11 +2081,13 @@ code {
     .marsh_annotation {
         display: none;
     }
+
+    .accent {
+        display: none;
+    }
 }
 
-.accent {
-    display: none;
-}
+
 
 /* keep photo cluster from bleeding above the bio text */
 @media (max-width: 1100px) {
