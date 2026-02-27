@@ -13,7 +13,11 @@
             <p class="footer_subtitle">Concept Artist & Creative Technologist</p>
         </div>
         <div class="footer_column">
-            <a href="mailto:bridget.g.knight@gmail.com" class="footer_email">bridget.g.knight@gmail.com</a>
+            <div class="footer_email" id="footer_email" onclick="copyEmail()" style="cursor:pointer; display:flex; align-items:center; justify-content:center; gap:0.4rem;" title="Click to copy">
+                bridget.g.knight@gmail.com
+                <i class="fas fa-copy" style="font-size:0.8rem; opacity:0.6;"></i>
+                <span id="copy_confirm" style="font-size:0.75rem; color:var(--green); opacity:0; transition: opacity 0.3s ease;">copied!</span>
+            </div>
         </div>
         <div class="footer_column footer_right">
             <p class="footer_social_label">say hi elsewhere:</p>
