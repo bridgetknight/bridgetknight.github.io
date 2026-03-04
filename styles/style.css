@@ -770,6 +770,8 @@ header {
 }
 
 .reference_pair p {
+    margin: 0 auto;
+    width: fit-content;
     font-size: 12px;
     color: var(--subtitle);
     text-align: center;
