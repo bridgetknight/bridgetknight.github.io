@@ -87,18 +87,21 @@
 
        /* ── PROJECT CARDS ───────────────────────────────────── */
         .projects_grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
+            columns: 3 300px;
+            column-gap: 1.5rem;
+            width: 100%;
         }
 
         .project_card {
+            break-inside: avoid;
+            display: inline-block;
+            margin-bottom: 0.1rem;
             background: rgba(255, 245, 250, 0.55);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 180, 220, 0.25);
             border-radius: 12px;
-            padding: 1.5rem;
+            padding: 1.5rem 1.5rem 0rem 1.5rem;
             transition: box-shadow 0.25s ease, transform 0.2s ease, border-color 0.25s ease;
             position: relative;
             overflow: hidden;
@@ -370,7 +373,7 @@
 
             <!-- ── CS PROJECTS ─────────────────────────────── -->
             <section class="tech_section">
-                <div class="accent" style="top: 5%; right: 0%; width: clamp(80px, 12vw, 150px); transform: rotate(30deg);">
+                <div class="accent" style="top: 2%; right: 0%; width: clamp(80px, 12vw, 150px); transform: rotate(30deg);">
                     <img src="assets/accents/purplestar.gif" alt="">
                 </div>
                 <h2 class="tech_section_heading">Projects</h2>
@@ -425,6 +428,54 @@
                                 <a class="github_link" href="https://github.com/bridgetknight/CSC485_F2023/tree/main/projects/picar" target="_blank" rel="noopener noreferrer">
                                     <img src="assets/github-mark.svg" alt=""> View on GitHub
                                 </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MALARIA REPORTS -->
+                    <div class="project_card" style="--i:0">
+                        <div class="project_title">Malaria Case Reports Dashboard</div>
+                        <div class="project_description">
+                            An interactive data visualization dashboard built with JavaScript, HTML, CSS, Python, and SQL, displaying malaria case data in Senegal from 2000-2025, utilizing matplotlib and leaflet for dynamic charts and maps. 
+                        </div>
+                        <div class="tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Data Visualization</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Public Health Data</span>
+                        </div>
+                        <div class="project_content">
+                            <div class="card_expanded_inner">
+                                <img class="card_img_zoom" src="assets/projects/malaria-reports/BroadInstitute_MalariaReports.png" alt="Malaria reports dashboard">
+                                <img class="card_img_zoom" src="assets/projects/malaria-reports/BroadInstitute_MalariaReports2.png" alt="Final version of the first page, showing the location of the sample, read information, and drug resistance markers.">
+                                <p><i>Above: Collection of screenshots from the Malaria Reports dashboard.</i><br>This project was developed to visualize and analyze malaria case data in Senegal from 2000-2025, providing insights into the distribution and progression of the disease, as well as informing drug development and public health interventions at a glance. Completed for the Broad Institute of MTI and Harvard during a 4-year software engineeringinternship.</p>
+                                <a class="github_link" href="">
+                                    <img src="assets/github-mark.svg" alt=""> View on GitHub
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- SEQUENCING DATA SEARCH ENGINE -->
+                    <div class="project_card" style="--i:0">
+                        <div class="project_title">Genomic Sequencing Data Search Engine</div>
+                        <div class="project_description">
+                            A search engine for genomic sequencing data, built with in Jupyter Notebooks, designed to efficiently index and query large datasets of disease samples for research and visualization purposes.
+                        </div>
+                        <div class="tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Jupyter Notebooks</span>
+                            <span class="tag">Data Indexing</span>
+                            <span class="tag">Bioinformatics</span>
+                        </div>
+                        <div class="project_content">
+                            <div class="card_expanded_inner">
+                                <img class="card_img_zoom" src="assets/projects/search-engine/SearchEngine.png" alt="Genomic search engine screenshots">
+                                <img class="card_img_zoom" src="assets/projects/search-engine/SearchEngine.gif" alt="Genomic search engine screenshots">
+                                <p><i>Above: Media from the malaria sequencing sample data search engine.</i><br>This project was developed to provide researchers with a powerful tool for indexing and querying large datasets of malaria sequencing samples, enabling efficient, customizable retrieval of relevant data for analysis and research. Completed during a 4-year internship for the Broad Institute of MIT and Harvard; also used at Harvard School of Public Health.</p>
+                                <!--<a class="github_link" href="">
+                                    <img src="assets/github-mark.svg" alt=""> View on GitHub
+                                </a>-->
                             </div>
                         </div>
                     </div>
