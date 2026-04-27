@@ -1719,7 +1719,7 @@ code {
     to   { opacity: 1; transform: translateY(0); }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1000px) {
     .portfolio_gallery {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -1729,6 +1729,12 @@ code {
     }
 }
 
+/* Hide accents when window is too small */
+@media screen and (max-width: 1200px) {
+    .accent {
+        display: none;
+    }
+}
 
 /* ============================================================
    MOBILE
