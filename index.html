@@ -95,7 +95,15 @@
                         const fig = document.createElement('figure');
                         fig.className = 'gallery_item';
                         fig.innerHTML = `
-                            <img src="/assets/main_gallery/${item.file}" alt="${item.title}" loading="lazy">
+                            <img src="/assets/main_gallery/${item.file}" 
+                            alt="${item.title}" 
+                            loading="lazy"
+                            style="
+                            object-position: ${item.focus || 'center'}; 
+                            --item-zoom: ${item.zoom || 1};
+                            object-fit: cover; 
+                            width: 100%; 
+                            height: 100%;">
                             <figcaption>
                                 <span>${item.title}</span>
                                 <span>${item.year}</span>

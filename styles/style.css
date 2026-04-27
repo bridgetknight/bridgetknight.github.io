@@ -549,13 +549,13 @@ header {
     overflow: hidden;
     display: block;
     transition: transform 0.25s ease, filter 0.25s ease;
-    transform: translateZ(0);
+    transform: scale(var(--item-zoom, 1));
     will-change: transform;
 }
 
 
 .gallery_item:hover img {
-    transform: scale(1.03);
+    transform: scale(calc(var(--item-zoom, 1) * 1.03));
     filter: brightness(0.9);
     transition: transform 0.25s ease, filter 0.25s ease;
     overflow: hidden;

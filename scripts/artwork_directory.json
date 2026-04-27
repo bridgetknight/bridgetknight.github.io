@@ -139,32 +139,42 @@
         {
             "file": "BridgetKnight_Audubon_Poster.webp",
             "title": "Mass Audubon Poster",
-            "year": 2026
+            "year": 2026,
+            "focus": "top"
         },
         {
-            "file": "BridgetKnight_CountdownTouchdown.webp",
-            "title": "Countdown Touchdown",
-            "year": 2026
+            "file": "BridgetKnight_Public_Health_Editorial.webp",
+            "title": "Public Health Climate EPA Editorial",
+            "year": 2026,
+            "focus": "top"
         },
         {
-            "file": "BridgetKnight_NormanRockwellStyleSelfPortrait_2025.webp",
-            "title": "Norman Rockwell-Inspired Self Portrait",
-            "year": 2025
-        },
-        {
-            "file": "BridgetKnight_SunlitPortrait.webp",
-            "title": "Sunlit Portrait",
-            "year": 2025
+            "file": "BridgetKnight_ProjectHailMary_Cover.webp",
+            "title": "Project Hail Mary Cover Reimagined",
+            "year": 2026,
+            "focus": "right"
         },
         {
             "file": "CombatSloth_Revised.webp",
             "title": "Combat Sloth",
-            "year": 2025
+            "year": 2025,
+            "focus": "left bottom",
+            "zoom": 1.4
+        },
+
+        {
+            "file": "BridgetKnight_CountdownTouchdown.webp",
+            "title": "Countdown Touchdown",
+            "year": 2026,
+            "focus": "left bottom",
+            "zoom": 1.5
         },
         {
-            "file": "shadows.webp",
-            "title": "Shadows",
-            "year": 2025
+            "file": "BridgetKnight_NormanRockwellStyleSelfPortrait_2025.webp",
+            "title": "Self Portrait",
+            "year": 2026,
+            "focus":"45% center",
+            "zoom": 1.5
         }
     ],
     "sketches": [
