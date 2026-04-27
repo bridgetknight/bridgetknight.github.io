@@ -163,7 +163,13 @@
 
         /* ── CONCEPT ART single column ───────────────────────────── */
         #concept_art .portfolio_gallery {
-            grid-template-columns: 1fr !important;
+            display: block;
+            column-count: 2;
+        }
+
+        #concept_art .portfolio_gallery .gallery_item {
+            width: 100%;
+            margin-bottom: 0.75rem;
         }
 
         #illustrations .masonry_gallery {
