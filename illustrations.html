@@ -12,36 +12,38 @@
     <script src="scripts/cursor_trail.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="scripts/footer.js" defer></script>
+
+    <style>
+        .portfolio_header {
+        text-align: center;
+        margin-bottom: 3rem;
+        width: fit-content;
+        margin: 0 auto;
+        opacity: 0;
+        animation: fadeInHeader 0.8s ease forwards;
+        animation-delay: 0.2s;
+    }
+
+        .portfolio_header::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 6px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='6'%3E%3Cpath d='M0 3 Q5 0 10 3 Q15 6 20 3' fill='none' stroke='%23d78ca0' stroke-width='2'/%3E%3C/svg%3E");
+            background-repeat: repeat-x;
+            background-size: 20px 6px;
+            animation: waveScroll 0.6s steps(2) infinite;
+        }
+
+        .masonry_gallery {
+            column-count: 2;
+        }
+    </style>
 </head>
 
-<style>
-    .portfolio_header {
-    text-align: center;
-    margin-bottom: 3rem;
-    width: fit-content;
-    margin: 0 auto;
-    opacity: 0;
-    animation: fadeInHeader 0.8s ease forwards;
-    animation-delay: 0.2s;
-}
 
-    .portfolio_header::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        height: 6px;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='6'%3E%3Cpath d='M0 3 Q5 0 10 3 Q15 6 20 3' fill='none' stroke='%23d78ca0' stroke-width='2'/%3E%3C/svg%3E");
-        background-repeat: repeat-x;
-        background-size: 20px 6px;
-        animation: waveScroll 0.6s steps(2) infinite;
-    }
-
-    .masonry_gallery {
-        column-count: 2;
-    }
-</style>
 
 <body data-theme="light">
     <div id="center">
@@ -56,110 +58,14 @@
             </div>
 
             <div class="masonry_gallery" id="design_gallery"></div>
-
-            <script>
-                let galleryItems = [];
-
-                fetch('/scripts/artwork_directory.json')
-                .then(res => res.json())
-                .then(data => {
-                    galleryItems = data.illustrations.map(item => ({
-                        ...item,
-                        folder: 'illustrations'
-                    }));
-
-                    const gallery = document.getElementById('design_gallery');
-                    
-                    galleryItems.forEach((item, index) => {
-                        const fig = document.createElement('figure');
-                        fig.className = 'gallery_item';
-                        fig.innerHTML = `
-                            <img src="/assets/${item.folder}/${item.file}" alt="${item.title}" loading="lazy">
-                            <figcaption>
-                                <span>${item.title}</span>
-                                <span>${item.year}</span>
-                            </figcaption>
-                        `;
-                        gallery.appendChild(fig);
-                        fig.addEventListener('click', () => openLightbox(index));
-                    });
-                });
-
-                function openLightbox(index) {
-                    const overlay = document.createElement('div');
-                    overlay.className = 'gallery_lightbox_overlay active';
-                    overlay.innerHTML = `
-                        <span class="gallery_lightbox_arrow left">&#8592;</span>
-                        <div class="gallery_lightbox_container">
-                            <span class="gallery_lightbox_close">&times;</span>
-                            <img src="" alt="">
-                            <figcaption></figcaption>
-                        </div>
-                        <span class="gallery_lightbox_arrow right">&#8594;</span>
-                    `;
-                    document.body.appendChild(overlay);
-
-                    function loadImage(i) {
-                        const item = galleryItems[i];
-                        const img = overlay.querySelector('img');
-                        const caption = overlay.querySelector('figcaption');
-
-                        img.classList.add('fading');
-                        setTimeout(() => {
-                            img.src = `/assets/${item.folder}/${item.file}`;
-                            img.alt = item.title;
-                            caption.textContent = `${item.title} — ${item.year}`;
-                            img.onload = () => img.classList.remove('fading');
-                        }, 250);
-                    }
-
-                    loadImage(index);
-
-                    overlay.querySelector('.gallery_lightbox_arrow.left').addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        index = (index - 1 + galleryItems.length) % galleryItems.length;
-                        loadImage(index);
-                    });
-
-                    overlay.querySelector('.gallery_lightbox_arrow.right').addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        index = (index + 1) % galleryItems.length;
-                        loadImage(index);
-                    });
-
-                    overlay.querySelector('.gallery_lightbox_close').addEventListener('click', () => overlay.remove());
-
-                    overlay.addEventListener('click', (e) => {
-                        if (!e.target.closest('.gallery_lightbox_container') && 
-                            !e.target.closest('.gallery_lightbox_arrow')) {
-                            overlay.remove();
-                        }
-                    });
-
-                    function onKey(e) {
-                        if (e.key === 'ArrowRight') {
-                            index = (index + 1) % galleryItems.length;
-                            loadImage(index);
-                        } else if (e.key === 'ArrowLeft') {
-                            index = (index - 1 + galleryItems.length) % galleryItems.length;
-                            loadImage(index);
-                        } else if (e.key === 'Escape') {
-                            overlay.remove();
-                            document.removeEventListener('keydown', onKey);
-                        }
-                    }
-                    document.addEventListener('keydown', onKey);
-                    overlay.addEventListener('click', (e) => {
-                        if (!e.target.closest('.gallery_lightbox_container') &&
-                            !e.target.closest('.gallery_lightbox_arrow')) {
-                            document.removeEventListener('keydown', onKey);
-                        }
-                    });
-                }
-            </script>
         </div>
-
     <div id="footer_container"></div>
     </div>
+    <script src="/scripts/gallery.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            renderGallery('design_gallery', 'illustrations');
+        });
+    </script>
 </body>
 </html>
