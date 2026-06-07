@@ -192,7 +192,13 @@
                 <h1>PORTFOLIO</h1>
                 <p class="header_sub">All Works</p>
             </div>
-
+            <nav class="portfolio_toc">
+                <span class="portfolio_toc_label">navigate ></span>
+                <a href="#editorial" >science & editorial</a>
+                <a href="#concept-art">concept art</a>
+                <a href="#personal-work">personal work</a>
+                <a href="#sketches">sketches & studies</a>
+            </nav>
             <div id="portfolio_container"></div>
         </div>
 
@@ -215,56 +221,75 @@
  
                 // ── ILLUSTRATIONS ─────────────────────────────────
                 {
-                    section_label: "Illustrations",
+                    id: "editorial",
+                    section_label: "science communication & editorial",
                     heading: "Science Communication & Editorial",
                     note: "Photoshop, Illustrator, Clip Studio Paint",
                     ids: [
                         "mass-audubon-poster",
                         "halocline-environment",
                         "planetary-collision",
+                        "solar-prominences-editorial",
                         "climate-editorial",
                         "public-health-editorial",
-                        "pattie-gonia-editorial",
                         "project-hail-mary",
-                        "countdown-touchdown"
-                    ]
+                        "countdown-touchdown",
+                        "sproutling-poster",
+                        "pattie-gonia-editorial"                        
+                    ],
+                    columns: 3
                 },
+ 
+                // ── CONCEPT ART ───────────────────────────────────
                 {
+                    id: "concept-art",
+                    section_label: "Concept Art",
+                    heading: "Concept Art",
+                    note: "Photoshop, Clip Studio Paint, Illustrator",
+                    ids: [
+                        "narrative-environment",
+                        "miner-character",
+                        "haddock-character",
+                        "hike-new-england-backgrounds",
+                        "hike-new-england-poses",
+                        "llbean-concept-sheet"
+                    ],
+                    columns: 3
+                },
+
+                // ── PERSONAL WORK ──────────────────────────────────────
+                {
+                    id: "personal-work",
+                    section_label: "portraits & personal work",
                     heading: "Portraits & Personal Work",
                     note: "Digital and traditional media",
                     ids: [
+                        "hard-days-work",    
                         "self-portrait-rockwell",
                         "self-portrait-illustrator",
                         "sunlit-portrait",
                         "shadows",
                         "alpine-shaman",
-                        "the-atom",
-                        "welcoming-party",
                         "combat-sloth",
+                        "welcoming-party",
+                        "the-atom",
                         "mountain-landscape",
-                        "resident-evil-fanart"
-                    ]
-                },
- 
-                // ── CONCEPT ART ───────────────────────────────────
-                {
-                    section_label: "Concept Art",
-                    heading: "Character & Environment Concepts",
-                    note: "Photoshop, Clip Studio Paint",
-                    ids: [
-                        "miner-character",
-                        "haddock-character",
-                        "hike-new-england-backgrounds",
-                        "hike-new-england-poses"
-                    ]
+                        "resident-evil-fanart",
+                        "cat-stickers"
+                    ],
+                    columns: 3
                 },
  
                 // ── SKETCHES ──────────────────────────────────────
                 {
-                    section_label: "Sketches & Process",
+                    id: "sketches",
+                    section_label: "observational work & studies",
                     heading: "Observational Work & Studies",
-                    note: "Traditional media — sketchbook, pencil, ink",
+                    note: "Traditional & digital media — sketchbook, pencil, ink, Photoshop",
                     ids: [
+                        "plein-air-1",
+                        "plein-air-3",
+                        "plein-air-4",
                         "sketchbook-environments-1",
                         "sketchbook-environments-2",
                         "sketchbook-environments-3",
@@ -274,12 +299,15 @@
                         "sketchbook-portraits-1",
                         "sketchbook-portraits-2",
                         "sketchbook-portraits-3"
-                    ]
+                    ],
+                    columns: 3
                 }
             ];
  
             renderProjectClusters('portfolio_container', clusters);
         });
+
+        
     </script>
 
 </body>

@@ -3,15 +3,15 @@
 
         {
             "id": "black-hole-sim",
-            "file": "BridgetKnight_BlackHoleSimulation.webp",
+            "file": "BlackHoleRenderPost.webp",
             "folder": "works/black_hole_sim",
             "title": "Physically-Based Black Hole Simulation",
-            "year": 2025,
+            "year": 2026,
             "tags": ["technical_art", "featured"],
-            "tools": "Blender, Maya, Python",
-            "caption": "Physically-based gravitational lensing simulation built from Schwarzschild optics with volumetric accretion disk rendering pipeline",
-            "project_page": "projects/black-hole-sim.html",
-            "artstation": "https://www.artstation.com/"
+            "tools": "Blender, Maya, Python, Photoshop",
+            "caption": "Physics-based gravitational lensing simulation built from Schwarzschild optics with volumetric accretion disk rendering pipeline",
+            "artstation": "https://www.artstation.com/",
+            "project_page": "black_hole_sim.html"
         },
 
         {
@@ -23,7 +23,7 @@
             "tags": ["technical_art", "illustrations", "featured"],
             "tools": "Blender, Photoshop",
             "caption": "Underwater bioluminescent environment exploring the halocline — 3D and 2D approaches",
-            "project_page": "projects/halocline.html"
+            "project_page": "halocline.html"
         },
 
         {
@@ -39,15 +39,26 @@
         },
 
         {
+            "id": "hard-days-work",
+            "file": "farmer_and_creature.webp",
+            "folder": "gallery",
+            "title": "Hard Day's Work",
+            "year": 2025,
+            "tags": ["illustrations", "concept_art"],
+            "tools": "Clip Studio Paint",
+            "caption": "Concept for a farmer and her pitchfork-tailed creature"
+        },
+
+        {
             "id": "narrative-environment",
-            "file": "BridgetKnight_Environment.webp",
-            "folder": "works/narrative-environment",
+            "file": "BridgetKnight_NarrativeEnvironment.webp",
+            "folder": "works/narrative_environment",
             "title": "Narrative Environment: Abandoned City",
             "year": 2026,
-            "tags": ["technical_art", "illustrations"],
+            "tags": ["technical_art", "illustrations", "concept_art"],
             "tools": "Blender, Photoshop, Clip Studio Paint",
             "caption": "Sci-fi narrative environment concept — 3D blockout, value studies, color keys, and final digital painting",
-            "project_page": "projects/narrative-environment.html"
+            "project_page": "narrative_environment.html"
         },
 
         {
@@ -57,9 +68,9 @@
             "title": "Mass Audubon Poster",
             "year": 2026,
             "tags": ["illustrations", "graphic_design", "featured"],
-            "tools": "Photoshop, Illustrator",
+            "tools": "Clip Studio Paint, Photoshop",
             "caption": "Conservation poster for Mass Audubon's Great Marsh restoration project",
-            "project_page": "projects/mass-audubon-poster.html"
+            "project_page": "mass_audubon_poster.html"
         },
 
         {
@@ -69,7 +80,7 @@
             "title": "Project Hail Mary Cover Reimagined",
             "year": 2026,
             "tags": ["illustrations", "graphic_design", "featured"],
-            "tools": "Photoshop, Illustrator",
+            "tools": "Clip Studio Paint, Photoshop",
             "caption": "Book cover redesign for Andy Weir's Project Hail Mary"
         },
 
@@ -82,17 +93,6 @@
             "tags": ["illustrations", "featured"],
             "tools": "Photoshop, Clip Studio Paint",
             "caption": "Figure on a desert planet watching a planetary collision — personal work"
-        },
-
-        {
-            "id": "climate-editorial",
-            "file": "BridgetKnight_Climate_EPA_Editorial.webp",
-            "folder": "gallery",
-            "title": "Climate EPA Editorial",
-            "year": 2026,
-            "tags": ["illustrations", "graphic_design"],
-            "tools": "Photoshop, Illustrator",
-            "caption": "Editorial illustration on EPA climate policy"
         },
 
         {
@@ -141,7 +141,7 @@
 
         {
             "id": "self-portrait-illustrator",
-            "file": "BridgetKnight_SelfPortrait.jpg",
+            "file": "BridgetKnight_SelfPortrait.webp",
             "folder": "gallery",
             "title": "Adobe Illustrator Self Portrait",
             "year": 2026,
@@ -152,7 +152,7 @@
 
         {
             "id": "alpine-shaman",
-            "file": "BridgetKnight_TheAlpineShaman.jpg",
+            "file": "BridgetKnight_TheAlpineShaman.webp",
             "folder": "gallery",
             "title": "The Alpine Shaman",
             "year": 2026,
@@ -312,7 +312,8 @@
             "year": 2025,
             "tags": ["graphic_design"],
             "tools": "Illustrator, Photoshop",
-            "caption": "Scientific research poster presented at Massachusetts Undergraduate Research Conference"
+            "caption": "Scientific research poster presented at Massachusetts Undergraduate Research Conference",
+            "project_page": "tech.html#sproutling_card"
         },
 
         {
@@ -412,6 +413,116 @@
             "tags": ["sketches"],
             "tools": "Traditional",
             "caption": "Portrait studies from sketchbook"
+        },
+
+        {
+            "id": "solar-prominences-editorial",
+            "file": "BridgetKnight_SolarProminences_Editorial_Gradient.webp",
+            "folder": "works/solar_prominences",
+            "title": "Solar Prominence Editorial Illustration",
+            "year": 2026,
+            "tags": ["graphic_design", "illustration"],
+            "tools": "Clip Studio Paint, Photoshop",
+            "caption": "Editorial illustration for groundbreaking research on the dynamics of solar prominences",
+            "project_page": "solar_prominences.html"
+        },
+
+        {
+            "id": "solar-prominences-editorial-mockup",
+            "file": "BridgetKnight_SolarProminences_Editorial_Mockup.webp",
+            "folder": "works/solar_prominences",
+            "title": "Solar Prominence Editorial Illustration Mockup",
+            "year": 2026,
+            "tags": ["graphic_design", "illustration"],
+            "tools": "Photoshop",
+            "caption": "Mockup for editorial illustration about the dynamics of solar prominences"
+        },
+
+        {
+            "id": "solar-prominences-editorial-colors",
+            "file": "BridgetKnight_SolarProminences_Editorial_Colors.webp",
+            "folder":"works/solar_prominences",
+            "title": "Solar Prominence Editorial Illustration Color Compositions",
+            "year": 2026,
+            "tags": ["graphic_design", "illustration"],
+            "tools": "Clip Studio Paint",
+            "caption": "Color compositions for editorial illustration about solar prominences"
+        },
+
+        {
+            "id": "solar-prominences-editorial-thumbnails",
+            "file": "BridgetKnight_SolarProminences_Editorial_Thumbnails.webp",
+            "folder": "works/solar_prominences",
+            "title": "Solar Prominence Editorial Illustration Thumbnails",
+            "year": 2026,
+            "tags": ["graphic_design", "illustration"],
+            "tools": "Clip Studio Paint",
+            "caption": "Thumbnails for solar prominence editorial illustration"
+        },
+                {
+            "id": "solar-prominences-editorial-solid",
+            "file": "BridgetKnight_SolarProminences_Editorial_Solid.webp",
+            "folder": "works/solar_prominences",
+            "title": "Solar Prominence Editorial Illustration",
+            "year": 2026,
+            "tags": ["graphic_design", "illustration"],
+            "tools": "Clip Studio Paint, Photoshop",
+            "caption": "Alternative version 1 of editorial illustration for groundbreaking research on the dynamics of solar prominences"
+        },
+
+        {
+            "id": "solar-prominences-editorial-space",
+            "file": "BridgetKnight_SolarProminences_Editorial_Space.webp",
+            "folder": "works/solar_prominences",
+            "title": "Solar Prominence Editorial Illustration",
+            "year": 2026,
+            "tags": ["graphic_design", "illustration"],
+            "tools": "Clip Studio Paint, Photoshop",
+            "caption": "Alternative version 2 of editorial illustration for groundbreaking research on the dynamics of solar prominences"
+        },
+
+        {
+            "id": "plein-air-1",
+            "file": "PleinAir1.webp",
+            "folder": "gallery",
+            "title": "Digital Plein Air Painting 1",
+            "year": 2026,
+            "tags": ["sketches"],
+            "tools": "Photoshop",
+            "caption": "Digital plein air painting"
+        },
+
+        {
+            "id": "plein-air-3",
+            "file": "PleinAir3.webp",
+            "folder": "gallery",
+            "title": "Digital Plein Air Painting 1",
+            "year": 2026,
+            "tags": ["sketches"],
+            "tools": "Photoshop",
+            "caption": "Digital plein air painting"
+        },
+
+        {
+            "id": "plein-air-4",
+            "file": "PleinAir4.webp",
+            "folder": "gallery",
+            "title": "Digital Plein Air Painting 1",
+            "year": 2026,
+            "tags": ["sketches"],
+            "tools": "Photoshop",
+            "caption": "Digital plein air painting"
+        },
+
+        {
+            "id": "llbean-concept-sheet",
+            "file": "BridgetKnight_LLBean_ConceptSheet.webp",
+            "folder": "gallery",
+            "title": "L.L. Bean Shoebox Packaging Concept",
+            "year": 2026,
+            "tags": ["concept_art"],
+            "tools": "Clip Studio Paint, Illustrator, Photoshop",
+            "caption": "Shoebox packaging design for L.L. Bean's iconic Bean Boot box"
         }
     ],
 
@@ -425,11 +536,11 @@
     ],
 
     "main_gallery": [
-        { "id": "mass-audubon-poster",    "focus": "top" },
-        { "id": "public-health-editorial", "focus": "top" },
-        { "id": "project-hail-mary",       "focus": "right" },
-        { "id": "combat-sloth",            "focus": "left bottom", "zoom": 1.4 },
-        { "id": "countdown-touchdown",     "focus": "left bottom", "zoom": 1.5 },
+        { "id": "black-hole-sim",    "focus": "45% center" },
+        { "id": "mass-audubon-poster", "focus": "top" },
+        { "id": "halocline-environment", "focus": "center" },
+        { "id": "planetary-collision", "focus": "center" },
+        { "id": "project-hail-mary",     "focus": "right", "zoom": 1.4 },
         { "id": "self-portrait-rockwell",  "focus": "45% center",  "zoom": 1.5 }
     ]
 }

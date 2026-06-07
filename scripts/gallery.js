@@ -124,7 +124,7 @@ function openLightbox(items, startIndex) {
 //  Pieces with project_page navigate there on click.
 //  All others open the lightbox.
 
-function buildFigure(piece, index, items) {
+function buildFigure(piece, index, items, options = {}) {
     const fig = document.createElement('figure');
     fig.className = 'gallery_item';
     fig.style.setProperty('--i', index);
@@ -150,8 +150,18 @@ function buildFigure(piece, index, items) {
     fig.appendChild(img);
     fig.appendChild(caption);
 
+    if (piece.project_page) {
+        fig.classList.add('has_project');
+        const indicator = document.createElement('a');
+        indicator.className = 'project_indicator';
+        indicator.textContent = 'view project →';
+        indicator.href = piece.project_page;
+        indicator.addEventListener('click', e => e.stopPropagation());
+        fig.appendChild(indicator);
+    }
+
     fig.addEventListener('click', () => {
-        if (piece.project_page) {
+        if (options.navigateToProject && piece.project_page) {
             window.location.href = piece.project_page;
         } else {
             openLightbox(items, index);
@@ -176,12 +186,34 @@ async function renderGallery(containerId, tag, options = {}) {
     const pieces = await loadPieces(tag);
     if (!pieces.length) return;
 
-    if (options.columns) {
-        container.style.columnCount = options.columns;
+    // Determine number of columns (option override, otherwise try to
+    // read any CSS `column-count` on the container, fallback to 2)
+    let columns = options.columns || 0;
+    if (!columns) {
+        const cs = getComputedStyle(container).columnCount;
+        const parsed = parseInt(cs, 10);
+        columns = Number.isFinite(parsed) && parsed > 0 ? parsed : 2;
     }
 
+    // Clear container and create explicit column wrappers so we can
+    // control ordering (row-major) rather than the vertical flow of
+    // CSS multi-column layout.
+    container.innerHTML = '';
+    container.classList.add('masonry_columns');
+
+    const cols = [];
+    for (let c = 0; c < columns; c++) {
+        const col = document.createElement('div');
+        col.className = 'masonry_column';
+        container.appendChild(col);
+        cols.push(col);
+    }
+
+    // Distribute items round-robin across columns to achieve
+    // left-to-right (row-major) ordering.
     pieces.forEach((piece, i) => {
-        container.appendChild(buildFigure(piece, i, pieces));
+        const target = i % columns;
+        cols[target].appendChild(buildFigure(piece, i, pieces));
     });
 }
 
@@ -247,21 +279,29 @@ async function renderMainGallery(containerId) {
 //  Clusters without a heading just render as a grid.
 //  Used by: portfolio.html, technical_art.html
 
-async function renderProjectClusters(containerId, clusters) {
+async function renderProjectClusters(containerId, clusters, options={}) {
     const container = document.getElementById(containerId);
     if (!container) return;
 
     const data = await loadData();
 
     for (const cluster of clusters) {
+
+        // Section label — must come before the section
+        if (cluster.section_label) {
+            const label = document.createElement('p');
+            label.className = 'section_label';
+            label.textContent = cluster.section_label;
+            if (cluster.id) label.id = cluster.id;
+            container.appendChild(label);
+        }
+
         const section = document.createElement('section');
         section.className = 'portfolio_section';
 
-        // Optional cluster heading
         if (cluster.heading) {
             const headingRow = document.createElement('div');
             headingRow.className = 'category_heading_row';
-
             const h = document.createElement('h2');
             h.className = 'portfolio_category_heading';
             h.textContent = cluster.heading;
@@ -269,7 +309,6 @@ async function renderProjectClusters(containerId, clusters) {
             section.appendChild(headingRow);
         }
 
-        // Optional cluster note
         if (cluster.note) {
             const note = document.createElement('p');
             note.className = 'cluster_note';
@@ -277,17 +316,30 @@ async function renderProjectClusters(containerId, clusters) {
             section.appendChild(note);
         }
 
-        // Gallery grid
         const grid = document.createElement('div');
-        grid.className = 'masonry_gallery';
+        grid.className = 'masonry_gallery masonry_columns';
         if (cluster.columns) grid.style.columnCount = cluster.columns;
 
         const pieces = cluster.ids
             .map(id => data.pieces.find(p => p.id === id))
             .filter(Boolean);
 
+        // Determine columns
+        let columns = cluster.columns || 2;
+
+        // Create column wrappers
+        const cols = [];
+        for (let c = 0; c < columns; c++) {
+            const col = document.createElement('div');
+            col.className = 'masonry_column';
+            grid.appendChild(col);
+            cols.push(col);
+        }
+
+        // Single render — row-major distribution across columns
         pieces.forEach((piece, i) => {
-            grid.appendChild(buildFigure(piece, i, pieces));
+            const target = i % columns;
+            cols[target].appendChild(buildFigure(piece, i, pieces, options));
         });
 
         section.appendChild(grid);

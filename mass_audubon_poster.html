@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mass Audubon Poster | Bridget Knight</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/project.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="icon" href="../assets/favicon.webp">
+    <script src="../scripts/theme.js" defer></script>
+    <script src="../scripts/cursor_trail.js"></script>
+    <script src="../scripts/footer.js" defer></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body data-theme="light">
+    <div id="center">
+        <header>
+            <div id="navbar"></div>
+            <script src="../scripts/navbar.js" defer></script>
+        </header>
+
+        <article class="project_page">
+
+            <!-- ── HERO ───────────────────────────────────────── -->
+            <div class="project_showcase">
+                <div class="showcase_main">
+                    <img src="../assets/works/mass_audubon_poster/BridgetKnight_Mass_Audubon_Poster.webp"
+                         alt="Mass Audubon conservation poster — Save the Salt Marsh">
+                </div>
+                <p class="showcase_caption">Final poster — Photoshop, Illustrator</p>
+            </div>
+
+            <!-- ── HEADER ─────────────────────────────────────── -->
+            <div class="project_content">
+                <h1 class="project_title">mass audubon — save the salt marsh</h1>
+                <p class="project_meta">Photoshop · Illustrator · 2026</p>
+
+                <p class="project_intro">
+                    
+                    
+                    This conservation poster was made in support of Mass Audubon's Great Marsh restoration efforts, a multi-year initiative to restore tidal flow and habitat in the Great Marsh of northeastern Massachusetts. For 3 months, I worked as a field technician supporting these efforts, and learned that the Great Marsh is the largest contiguous salt marsh in New England, a critical habitat for migratory birds, marine nurseries, and coastal resilience. The poster was designed to communicate that urgency visually, to an audience that might not otherwise encounter conservation messaging.
+                </p>
+            </div>
+
+            <!-- ── FINAL POSTER ───────────────────────────────── -->
+            <div class="project_content">
+                <h2 class="project_section_heading">Final Poster</h2>
+                <div class="process_grid process_grid--single">
+                    <figure>
+                        <img src="../assets/works/mass_audubon_poster/BridgetKnight_Mass_Audubon_Poster.webp"
+                             alt="Save the Salt Marsh — final poster design">
+                        <figcaption>Final poster — Photoshop, Illustrator</figcaption>
+                    </figure>
+                </div>
+                <p class="project_reflection">
+                    The design draws on the visual language of vintage conservation and WPA posters--bold color fields, semi-flat illustration, strong typography--to evoke a sense of the marsh as a place worth protecting (however, I believe if you visit the Great Marsh you will understand why it's so worth protecting). The palette is pulled directly from the Great Marsh environment: tidal greens, marsh grasses, the blue-grey of the Atlantic sky in autumn, against the backdrop of an ocean-front sunset.
+                </p>
+            </div>
+
+            <!-- ── IN CONTEXT ─────────────────────────────────── -->
+            <div class="project_content">
+                <h2 class="project_section_heading">In Context</h2>
+                <div class="process_grid process_grid--single" id="mockup_img">
+                    <figure>
+                        <img src="../assets/works/mass_audubon_poster/Mass_Audubon_Poster_Mockup.webp"
+                             alt="Mass Audubon poster displayed at a bus stop">
+                        <figcaption>Bus stop mockup</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <!-- ── PROCESS ────────────────────────────────────── -->
+            <div class="project_content">
+                <h2 class="project_section_heading">Process</h2>
+                <p style="margin-bottom: 2rem;" class="showcase_caption">Click an image to get a closer look.</p>
+                <div class="process_grid">
+                    <figure>
+                        <img src="../assets/works/mass_audubon_poster/Mass_Audubon_Poster_Thumbnails.webp"
+                             alt="Composition thumbnails">
+                        <figcaption>Composition thumbnails</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="../assets/works/mass_audubon_poster/Mass_Audubon_Poster_ColorsValues.webp"
+                             alt="Color studies">
+                        <figcaption>Color studies</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <!-- ── NAV ────────────────────────────────────────── -->
+            <nav class="project_nav">
+                <a href="../index.html" class="link_float" style="color:black">< back to front page</a>
+                <a href="../art.html" class="link_float" style="color:black">all work ></a>
+            </nav>
+
+        </article>
+
+        <div id="footer_container"></div>
+    </div>
+
+    <script>
+        (function() {
+            const processImgs = Array.from(document.querySelectorAll('.process_grid img'));
+            if (!processImgs.length) return;
+
+            processImgs.forEach((img, i) => {
+                img.style.cursor = 'zoom-in';
+                img.addEventListener('click', () => openProcessLightbox(i));
+            });
+
+            function openProcessLightbox(index) {
+                const overlay = document.createElement('div');
+                overlay.className = 'gallery_lightbox_overlay active';
+                overlay.innerHTML = `
+                    <span class="gallery_lightbox_arrow left">&#8592;</span>
+                    <div class="gallery_lightbox_container">
+                        <span class="gallery_lightbox_close">&times;</span>
+                        <img src="" alt="">
+                        <figcaption></figcaption>
+                    </div>
+                    <span class="gallery_lightbox_arrow right">&#8594;</span>
+                `;
+                document.body.appendChild(overlay);
+
+                const lightboxImg = overlay.querySelector('img');
+                const lightboxCaption = overlay.querySelector('figcaption');
+
+                function loadImage(i) {
+                    const source = processImgs[i];
+                    lightboxImg.classList.add('fading');
+                    setTimeout(() => {
+                        lightboxImg.src = source.src;
+                        lightboxImg.alt = source.alt;
+                        lightboxCaption.textContent = source.alt;
+                        lightboxImg.onload = () => lightboxImg.classList.remove('fading');
+                    }, 250);
+                }
+
+                function closeOverlay() {
+                    overlay.remove();
+                    document.removeEventListener('keydown', onKey);
+                }
+
+                overlay.addEventListener('click', e => {
+                    if (!e.target.closest('.gallery_lightbox_container') &&
+                        !e.target.closest('.gallery_lightbox_arrow')) closeOverlay();
+                });
+                overlay.querySelector('.gallery_lightbox_arrow.left').addEventListener('click', e => {
+                    e.stopPropagation();
+                    index = (index - 1 + processImgs.length) % processImgs.length;
+                    loadImage(index);
+                });
+                overlay.querySelector('.gallery_lightbox_arrow.right').addEventListener('click', e => {
+                    e.stopPropagation();
+                    index = (index + 1) % processImgs.length;
+                    loadImage(index);
+                });
+                overlay.querySelector('.gallery_lightbox_close').addEventListener('click', e => {
+                    e.stopPropagation();
+                    closeOverlay();
+                });
+
+                function onKey(e) {
+                    if      (e.key === 'ArrowRight') { index = (index + 1) % processImgs.length; loadImage(index); }
+                    else if (e.key === 'ArrowLeft')  { index = (index - 1 + processImgs.length) % processImgs.length; loadImage(index); }
+                    else if (e.key === 'Escape')     { closeOverlay(); }
+                }
+                document.addEventListener('keydown', onKey);
+                loadImage(index);
+            }
+        })();
+    </script>
+</body>
+</html>

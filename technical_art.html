@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Art | Bridget Knight</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="icon" href="assets/favicon.webp">
+    <script src="scripts/theme.js" defer></script>
+    <script src="scripts/cursor_trail.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="scripts/footer.js" defer></script>
+
+    <style>
+        .portfolio_header {
+            position: relative;
+            text-align: left;
+            margin-bottom: 2rem;
+            padding: 3rem 0 1rem;
+            opacity: 0;
+            transform: translateY(-16px);
+            animation: fadeInHeader 0.7s ease forwards;
+            animation-delay: 0.15s;
+        }
+
+        .portfolio_header h1 {
+            font-family: "Momo Trust Display", "Poppins", sans-serif;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1;
+            color: var(--color-text-primary);
+            text-transform: lowercase;
+        }
+
+        .portfolio_header .header_sub {
+            font-size: clamp(0.85rem, 2vw, 1.5rem);
+            color: var(--subtitle);
+            margin-top: 0.4rem;
+        }
+
+    
+        /* ── SECTION LABELS ──────────────────────────────────── */
+        .section_label {
+            font-family: "Momo Trust Display", "Poppins", sans-serif;
+            font-size: clamp(0.65rem, 1.2vw, 0.75rem);
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--subtitle);
+            opacity: 0;
+            height: 0;
+            margin: 3rem 0 0.25rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255, 180, 220, 0.15);
+        }
+
+        .portfolio_section {
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio_section + .portfolio_section {
+            padding-top: 1.25rem;
+        }
+
+        .category_heading_row {
+            display: flex;
+            align-items: baseline;
+            gap: 0.75rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .portfolio_category_heading {
+            font-family: "Momo Trust Display", "Poppins", sans-serif;
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            font-weight: 800;
+            text-transform: lowercase;
+            color: var(--color-text-primary);
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+        }
+
+        .cluster_note {
+            font-family: Poppins, sans-serif;
+            font-size: 0.78rem;
+            letter-spacing: 0.2em;
+            text-transform: lowercase;
+            color: var(--subtitle);
+            margin-bottom: 1.75rem;
+        }
+        
+
+        /* ── CROSS LINK ──────────────────────────────────────── */
+        .tech_cross_link {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 180, 220, 0.15);
+            font-family: Poppins, sans-serif;
+            font-size: 0.9rem;
+            color: var(--subtitle);
+            font-style: italic;
+        }
+
+        .tech_cross_link a {
+            color: var(--medium-pink);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 180, 220, 0.4);
+            transition: color 0.2s;
+        }
+
+        .tech_cross_link a:hover {
+            color: var(--purple);
+        }
+
+        /* ── GALLERY ─────────────────────────────────────────── */
+        #technical_art_container .masonry_gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+            column-count: unset;
+        }
+
+        @media (max-width: 600px) {
+            #technical_art_container .masonry_gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .gallery_item {
+            position: relative;
+            box-shadow: 0 0 0 1.5px rgba(255, 180, 220, 0.18);
+            transition: box-shadow 0.25s ease, transform 0.25s ease;
+            overflow: hidden;
+            opacity: 0;
+            animation: itemReveal 0.5s ease forwards;
+            animation-delay: calc(var(--i, 0) * 60ms);
+            break-inside: avoid;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            border-radius: 6px;            
+        }
+
+        .gallery_item:hover {
+            box-shadow: 0 6px 24px rgba(255, 130, 190, 0.22),
+                        0 0 0 1.5px rgba(255, 180, 220, 0.4);
+        }
+
+        .gallery_item img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+        }
+
+        .gallery_item figcaption {
+            padding: 0.4rem 0.6rem;
+            display: flex;
+            justify-content: space-between;
+            font-family: Poppins, sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.06em;
+            color: var(--subtitle);
+        }
+
+        .wip_badge {
+            display: inline-block;
+            font-size: 0.65rem;
+            padding: 0.15rem 0.4rem;
+            border-radius: 3px;
+            background: rgba(255, 180, 220, 0.15);
+            color: var(--medium-pink);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-left: 0.4rem;
+        }
+
+        .project_indicator {
+            position: absolute;
+            bottom: 0.6rem;
+            right: 0.75rem;
+            opacity: 0;
+            font-family: Poppins, sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            color: white;
+            background: rgba(0, 0, 0, 0.45);
+            padding: 0.2rem 0.6rem;
+            border-radius: 999px;
+            z-index: 100;
+            pointer-events: none;
+            text-decoration: none;
+        }
+
+        @keyframes itemReveal {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── LIGHTBOX ────────────────────────────────────────── */
+        .gallery_lightbox_overlay {
+            background: rgba(10, 5, 15, 0.75);
+            backdrop-filter: blur(10px) saturate(1.4);
+        }
+
+        .gallery_lightbox_container {
+            background: rgba(255, 245, 250, 0.06);
+            border: 1px solid rgba(255, 180, 220, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 0 60px rgba(255, 120, 180, 0.15);
+        }
+
+        .gallery_lightbox_close {
+            font-size: 2.5rem;
+            color: white;
+            opacity: 0.8;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .gallery_lightbox_close:hover {
+            opacity: 1;
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        .gallery_lightbox_arrow {
+            font-size: 2rem;
+            color: white;
+            opacity: 0.7;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 180, 220, 0.2);
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, opacity 0.2s, transform 0.2s;
+            flex-shrink: 0;
+        }
+
+        .gallery_lightbox_arrow:hover {
+            opacity: 1;
+            background: rgba(255, 180, 220, 0.15);
+            transform: scale(1.08);
+        }
+
+        .gallery_lightbox_container figcaption {
+            font-family: Poppins, sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            color: rgba(255, 230, 240, 0.75);
+        }
+
+        @media (max-width: 600px) {
+            .masonry_gallery {
+                column-count: 1;
+            }
+        }
+    </style>
+</head>
+
+<body data-theme="light">
+    <div id="center">
+        <header>
+            <div id="navbar"></div>
+            <script src="scripts/navbar.js" defer></script>
+        </header>
+
+        <div id="main_section">
+            <div class="portfolio_header">
+                <h1>technical art & 3D</h1>
+                <p class="header_sub">environments, simulations, & visualizations</p>
+            </div>
+
+            <nav class="portfolio_toc">
+                <span class="portfolio_toc_label">navigate ></span>
+                <a href="#environments">3D environments</a>
+                <a href="#concept-environments">concept environments</a>
+            </nav>
+
+            <div id="technical_art_container"></div>
+
+            <p class="tech_cross_link">
+                Looking for CS and engineering projects?
+                <a href="/tech.html">See Technical Work →</a>
+            </p>
+        </div>
+
+        <div id="footer_container"></div>
+    </div>
+
+    <script src="/scripts/gallery.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const clusters = [
+                {
+                    id: "environments",
+                    section_label: "3D Environments & Simulations",
+                    heading: "Physically-Based & Scientific Visualization",
+                    note: "3d environments & simulations",
+                    ids: [
+                        "black-hole-sim",
+                        "halocline-environment",
+                        //"jupiter-juno"
+                    ]
+                },
+                {
+                    id: "concept-environments",
+                    section_label: "Concept Environments",
+                    heading: "Narrative & Visual Development",
+                    note: "concept environments",
+                    ids: [
+                        "narrative-environment"
+                    ]
+                }
+            ];
+
+            renderProjectClusters('technical_art_container', clusters, { navigateToProject: true });
+        })
+
+
+    </script>
+</body>
+</html>

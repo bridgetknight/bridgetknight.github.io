@@ -33,20 +33,46 @@
                     x-transition:leave="dropdown-leave"
                     x-transition:leave-start="dropdown-leave-start"
                     x-transition:leave-end="dropdown-leave-end">
-                        <a href="/conceptart.html">concept art</a>
-                        <a href="/illustrations.html">illustration</a>
-                        <a href="/sketches.html">sketches</a>
-                        <a href="/graphicdesign.html">graphic design</a>
+                        <a href="/art.html">all works</a>
+                        <a href="/technical_art.html">technical art & 3D</a>
+                        <a href="/art.html#sketches">sketches & observational work</a>
                     </div>
                 </div>
 
-                <a href="tech.html" class="link_float" style="color:var(--purple)">tech</a>
+                <div class="dropdown" x-data="{ open: false }"
+                @mouseenter="if(window.innerWidth>900) open=true"
+                @mouseleave="if(window.innerWidth>900) open=false"
+                @click="if(window.innerWidth<=900) open=!open"
+                @click.outside="open=false">
+
+                    <a href class="link_float dropdown-trigger" style="pointer-events: none; color:var(--green)">
+                        projects
+                    </a>
+
+                    <div class="dropdown-content"
+                    x-show="open"
+                    x-cloak
+                    x-transition:enter="dropdown-enter"
+                    x-transition:enter-start="dropdown-enter-start"
+                    x-transition:enter-end="dropdown-enter-end"
+                    x-transition:leave="dropdown-leave"
+                    x-transition:leave-start="dropdown-leave-start"
+                    x-transition:leave-end="dropdown-leave-end">
+                        <a href="/halocline.html" style="color:var(--green)">halocline</a>
+                        <a href="/mass_audubon_poster.html" style="color:var(--green)">mass audubon poster</a>
+                        <a href="/black_hole_sim.html" style="color:var(--green)">black hole simulation</a>
+                        <a href="/solar_prominences.html" style="color:var(--green)">solar prominences editorial</a>
+                        <a href="/narrative_environment.html" style="color:var(--green)">narrative environment</a>
+                    </div>
+                </div>
+
+                <a href="tech.html" class="link_float" style="color:var(--teal)">tech</a>
                 <a href="about.html" class="link_float" style="color:var(--blue)">about</a>
-                <a href="about.html#contact_section" class="link_float" style="color:var(--green)">contact</a>
+                <a href="about.html#contact_section" class="link_float" style="color:var(--purple)">contact</a>
             </nav>
 
             <div id="resume_link">
-                <a href="docs/BridgetKnight_ArtResume.pdf" download>
+                <a href="docs/Bridget_Knight_Resume.pdf" download>
                     <button class="layered_button layered_button--pink">resume</button>
                 </a>
             </div>
@@ -66,14 +92,21 @@
     <nav class="mobile_nav">
         <a href="/art.html" style="color:var(--medium-pink)">portfolio</a>
         <div class="mobile_sub">
-            <a href="/conceptart.html">concept art</a>
-            <a href="/illustrations.html">illustration</a>
-            <a href="/sketches.html">sketches</a>
-            <a href="/graphicdesign.html">graphic design</a>
+            <a href="/art.html">all works</a>
+            <a href="/technical_art.html">technical art & 3D</a>
+            <a href="/art.html#sketches">sketches & observational work</a>
         </div>
-        <a href="tech.html" style="color:var(--purple)">tech</a>
+        <a href="" style="color:var(--green); pointer-events: none; cursor: default;">projects</a>
+        <div class="mobile_sub">
+            <a href="/halocline.html" style="color:var(--green)">halocline</a>
+            <a href="/mass_audubon_poster.html" style="color:var(--green)">mass audubon poster</a>
+            <a href="/black_hole_sim.html" style="color:var(--green)">black hole simulation</a>
+            <a href="/solar_prominences.html" style="color:var(--green)">solar prominences editorial</a>
+            <a href="/narrative_environment.html" style="color:var(--green)">narrative environment</a>
+        </div>
+        <a href="tech.html" style="color:var(--teal)">tech</a>
         <a href="about.html" style="color:var(--blue)">about</a>
-        <a href="about.html#contact_section" style="color:var(--green)">contact</a>
+        <a href="about.html#contact_section" style="color:var(--purple)">contact</a>
     </nav>
 </div>
 

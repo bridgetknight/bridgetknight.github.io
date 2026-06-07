@@ -56,7 +56,7 @@
                         <ul>
                             <li>visual storytelling</li>
                             <li>technical design</li>
-                            <li>data visualization</li>
+                            <li>science visualization</li>
                         </ul>
                     </div>
                 </div>
@@ -80,114 +80,7 @@
                 </div>
             </div>
 
-            <script>
-                let current_gallery = "main_gallery";
-                let galleryItems = []; // store all items globally once loaded
-
-                fetch('/scripts/artwork_directory.json')
-                .then(res => res.json())
-                .then(data => {
-                    const gallery = data[current_gallery];
-                    galleryItems = gallery; // save for lightbox navigation
-                    const container = document.getElementById(current_gallery);
-
-                    gallery.forEach((item, index) => {
-                        const fig = document.createElement('figure');
-                        fig.className = 'gallery_item';
-                        fig.innerHTML = `
-                            <img src="/assets/main_gallery/${item.file}" 
-                            alt="${item.title}" 
-                            loading="lazy"
-                            style="
-                            object-position: ${item.focus || 'center'}; 
-                            --item-zoom: ${item.zoom || 1};
-                            object-fit: cover; 
-                            width: 100%; 
-                            height: 100%;">
-                            <figcaption>
-                                <span>${item.title}</span>
-                                <span>${item.year}</span>
-                            </figcaption>
-                        `;
-                        container.appendChild(fig);
-                        fig.addEventListener('click', () => openLightbox(index));
-                    });
-                });
-
-                function openLightbox(index) {
-                    const overlay = document.createElement('div');
-                    overlay.className = 'gallery_lightbox_overlay active';
-                    overlay.innerHTML = `
-                        <span class="gallery_lightbox_arrow left">&#8592;</span>
-                        <div class="gallery_lightbox_container">
-                            <span class="gallery_lightbox_close">&times;</span>
-                            <img src="" alt="">
-                            <figcaption></figcaption>
-                        </div>
-                        <span class="gallery_lightbox_arrow right">&#8594;</span>
-                    `;
-                    document.body.appendChild(overlay);
-
-                    function loadImage(i) {
-                        const item = galleryItems[i];
-                        const img = overlay.querySelector('img');
-                        const caption = overlay.querySelector('figcaption');
-
-                        img.classList.add('fading');
-                        setTimeout(() => {
-                            img.src = `/assets/main_gallery/${item.file}`;
-                            img.alt = item.title;
-                            caption.textContent = `${item.title} — ${item.year}`;
-                            img.onload = () => img.classList.remove('fading');
-                        }, 250);
-                    }
-
-                    loadImage(index);
-
-                    overlay.querySelector('.gallery_lightbox_arrow.left').addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        index = (index - 1 + galleryItems.length) % galleryItems.length;
-                        loadImage(index);
-                    });
-
-                    overlay.querySelector('.gallery_lightbox_arrow.right').addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        index = (index + 1) % galleryItems.length;
-                        loadImage(index);
-                    });
-
-                    overlay.querySelector('.gallery_lightbox_close').addEventListener('click', () => overlay.remove());
-
-                    overlay.addEventListener('click', (e) => {
-                        if (!e.target.closest('.gallery_lightbox_container') && 
-                            !e.target.closest('.gallery_lightbox_arrow')) {
-                            overlay.remove();
-                        }
-                    });
-
-                    // keyboard navigation
-                    function onKey(e) {
-                        if (e.key === 'ArrowRight') {
-                            index = (index + 1) % galleryItems.length;
-                            loadImage(index);
-                        } else if (e.key === 'ArrowLeft') {
-                            index = (index - 1 + galleryItems.length) % galleryItems.length;
-                            loadImage(index);
-                        } else if (e.key === 'Escape') {
-                            overlay.remove();
-                            document.removeEventListener('keydown', onKey);
-                        }
-                    }
-                    document.addEventListener('keydown', onKey);
-                    overlay.addEventListener('click', (e) => {
-                        if (!e.target.closest('.gallery_lightbox_container') &&
-                            !e.target.closest('.gallery_lightbox_arrow')) {
-                            document.removeEventListener('keydown', onKey);
-                        }
-                    });
-                }
-            </script>
-            <div class="main_link" id="portfolio_invite">
+            <div class="main_link">
                 <h2>
                     <a href="/art.html" class="link_float" style="color:black">
                         view full portfolio >
@@ -195,59 +88,59 @@
                 </h2>
             </div>
 
-            <section class="featured_project" style="font-family: 'Poppins'">
+            <section class="featured_project" id="featured_project" style="font-family: 'Poppins'">
                 <div class="accent" style="top: -2%; right: -3%; width: clamp(80px, 12vw, 150px); transform: rotate(20deg);">
-                    <img src="assets/accents/bluestars.webp">
+                    <img src="assets/accents/bluestars.webp" alt="">
                 </div>
                 <h2>featured project</h2>
-                <h3>narrative environment concept</h3>
-                
-                <!-- Final Illustration - Full Width -->
+                <h3>halocline: a bioluminescent environment</h3>
+                <p class="featured_project_sub">Blender · Photoshop · Clip Studio Paint · 2026</p>
+
+                <!-- 3D Render video hero -->
                 <div class="project_showcase">
-                    <div class="showcase_main">
-                        <img src="assets/featured_project/NarrativeEnvironment.webp" alt="Final illustration">
+                    <div class="showcase_main showcase_video">
+                        <video autoplay loop muted playsinline
+                            id="halocline_video"
+                            src="assets/works/halocline/Halocline15.mp4"
+                            poster="assets/works/halocline/halocline_hero.webp">
+                        </video>
+
                     </div>
+                    <div class="video_footer">
+                        <p class="showcase_caption">3D render — Blender, volumetric shaders, ambient audio</p>
+                        <button class="unmute_btn" onclick="
+                            const v = document.getElementById('halocline_video');
+                            v.muted = !v.muted;
+                            this.textContent = v.muted ? '🔇 unmute' : '🔊 mute';
+                        ">🔇 unmute</button>
+                    </div> 
                 </div>
-            
-                <!-- Process Work -->
+
+                <!-- 2D Illustration -->
                 <div class="process_sections">
-                    <!-- Value Studies & Color Keys - 2 Column -->
                     <div class="process_section">
-                        <h4>Value Studies & Color Keys</h4>
+                        <h4>2D Interpretation</h4>
+                        <div class="showcase_main">
+                            <img src="assets/works/halocline/BridgetKnight_Halocline_Hero.webp"
+                                alt="Diver swimming toward a halocline, digital illustration">
+                        </div>
+                        <p class="showcase_caption">Digital illustration — Photoshop, Clip Studio Paint</p>
+                    </div>
+
+                    <!-- Process -->
+                    <div class="process_section">
+                        <h4 style="margin-bottom: 0em;">Development & Process</h4>
+                        <p style="margin-bottom: 2rem;" class="showcase_caption">Click an image to get a closer look.</p>
                         <div class="studies_grid">
-                            <img src="assets/featured_project/ValueComp1.webp" alt="Value comp 1">
-                            <img src="assets/featured_project/ValueComp2.webp" alt="Value comp 2">
-                            <img src="assets/featured_project/ColorKey1.webp" alt="Color key 1">
-                            <img src="assets/featured_project/ColorKey2.webp" alt="Color key 2">
-                            <img src="assets/featured_project/ColorKey3.webp" alt="Color key 3">
-                        </div>
-                    </div>
-            
-                    <!-- Thumbnails - Full Width -->
-                    <div class="process_section">
-                        <h4>Exploration Thumbnails</h4>
-                        <div class="thumbnail_container">
-                            <img src="assets/featured_project/Thumbnails.webp" alt="Exploration thumbnails">
-                        </div>
-                    </div>
-            
-                    <!-- Technical References - 2 Column -->
-                    <div class="process_section">
-                        <h4>Technical References</h4>
-                        <div class="reference_grid">
-                            <div class="reference_pair">
-                                <img src="assets/featured_project/TightSketch.webp" alt="Tight sketch">
-                                <p>Tight Sketch</p>
-                            </div>
-                            <div class="reference_pair">
-                                <img src="assets/featured_project/3dmodel.webp" alt="3D model">
-                                <p>3D Model (Perspective Reference)</p>
-                            </div>
+                            <img src="assets/works/halocline/Halocline_Thumbnails.webp" alt="Composition thumbnails">
+                            <img src="assets/works/halocline/Halocline_Tight_Sketch.webp" alt="Tight sketch">
+                            <img src="assets/works/halocline/Halocline_Value_Color_Comps.webp" alt="Value and color studies">
+                            <img src="assets/works/halocline/Halocline_Process.webp" alt="3D scene non-material view">
                         </div>
                     </div>
                 </div>
-            
-                <!--<a href="/projects/city.html" class="cta_link">see full project →</a>-->
+
+                <a href="halocline.html" class="cta_link" style="color: black;">see full project →</a>
             </section>
 
             <section class="featured_section">
@@ -258,7 +151,7 @@
                     <div class="featured_text">
                         <h2 style="margin-bottom: 1em;">about me!</h2>
                         <div id="blurb" style="text-align: left;">                    
-                            Howdy! I'm a concept artist with an extensive background in both illustration and computer science. I'm interested in worldbuilding, visual development, and technical design for games and animation. &nbsp;
+                            Howdy! I'm a Boston-based illustrator, concept artist, and science communicator (and science nerd!) currently pursuing my MFA in Illustration at SCAD. I focus on uniting art and science, fueled by a passion for creating immersive worlds and visuals for scientific visualization, games, and storytelling. &nbsp;
                         </div>
                         <a href="/about.html" class="cta_link link_float" style="color: var(--black); font-style: italic;">read more ></a>
                     </div>
@@ -267,7 +160,13 @@
                     </div>
                 </div>
             </section>
-            
+                <script src="/scripts/gallery.js" defer></script>
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    renderMainGallery('main_gallery');
+                });
+            </script>
+
             <!--<div id="blurb">
 
                     Howdy! I'm a concept artist with an extensive background in both illustration and computer science. I'm interested in worldbuilding, visual development, and technical design for games and animation. &nbsp;
@@ -283,6 +182,83 @@
             </div>-->
         </div>
     <div id="footer_container"></div>
+    <script>
+    (function() {
+        const processImgs = Array.from(
+            document.querySelectorAll('.studies_grid img')
+        );
+        if (!processImgs.length) return;
+
+        processImgs.forEach((img, i) => {
+            img.addEventListener('click', () => openProcessLightbox(i));
+        });
+
+        function openProcessLightbox(index) {
+            const overlay = document.createElement('div');
+            overlay.className = 'gallery_lightbox_overlay active';
+            overlay.innerHTML = `
+                <span class="gallery_lightbox_arrow left">&#8592;</span>
+                <div class="gallery_lightbox_container">
+                    <span class="gallery_lightbox_close">&times;</span>
+                    <img src="" alt="">
+                    <figcaption></figcaption>
+                </div>
+                <span class="gallery_lightbox_arrow right">&#8594;</span>
+            `;
+            document.body.appendChild(overlay);
+
+            const lightboxImg     = overlay.querySelector('img');
+            const lightboxCaption = overlay.querySelector('figcaption');
+
+            function loadImage(i) {
+                const source = processImgs[i];
+                lightboxImg.classList.add('fading');
+                setTimeout(() => {
+                    lightboxImg.src = source.src;
+                    lightboxImg.alt = source.alt;
+                    lightboxCaption.textContent = source.alt;
+                    lightboxImg.onload = () => lightboxImg.classList.remove('fading');
+                }, 250);
+            }
+
+            function closeOverlay() {
+                overlay.remove();
+                document.removeEventListener('keydown', onKey);
+            }
+
+            overlay.addEventListener('click', e => {
+                if (!e.target.closest('.gallery_lightbox_container') &&
+                    !e.target.closest('.gallery_lightbox_arrow')) closeOverlay();
+            });
+
+            overlay.querySelector('.gallery_lightbox_arrow.left').addEventListener('click', e => {
+                e.stopPropagation();
+                index = (index - 1 + processImgs.length) % processImgs.length;
+                loadImage(index);
+            });
+
+            overlay.querySelector('.gallery_lightbox_arrow.right').addEventListener('click', e => {
+                e.stopPropagation();
+                index = (index + 1) % processImgs.length;
+                loadImage(index);
+            });
+
+            overlay.querySelector('.gallery_lightbox_close').addEventListener('click', e => {
+                e.stopPropagation();
+                closeOverlay();
+            });
+
+            function onKey(e) {
+                if      (e.key === 'ArrowRight') { index = (index + 1) % processImgs.length; loadImage(index); }
+                else if (e.key === 'ArrowLeft')  { index = (index - 1 + processImgs.length) % processImgs.length; loadImage(index); }
+                else if (e.key === 'Escape')     { closeOverlay(); }
+            }
+            document.addEventListener('keydown', onKey);
+
+            loadImage(index);
+        }
+    })();
+    </script>
     </div>
 
 
