@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halocline | Bridget Knight</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/project.css">
+    <link rel="icon" href="assets/favicon.webp">
+    <script src="scripts/theme.js" defer></script>
+    <script src="scripts/cursor_trail.js"></script>
+    <script src="scripts/footer.js" defer></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body data-theme="light">
+    <div id="center">
+        <header>
+            <div id="navbar"></div>
+            <script src="scripts/navbar.js" defer></script>
+        </header>
+
+        <article class="project_page">
+
+            <!-- ── VIDEO HERO ──────────────────────────────────── -->
+            <div class="project_showcase">
+                <div class="showcase_main showcase_video">
+                    <video autoplay loop muted playsinline
+                        id="halocline_video"
+                        src="../assets/works/halocline/Halocline15.mp4"
+                        poster="../assets/works/halocline/halocline_hero.webp">
+                    </video>
+                </div>
+                <div class="video_footer">
+                    <p class="showcase_caption">3D render — Blender, DaVinci Resolve, volumetric shaders, ambient audio</p>
+                    <button class="unmute_btn" onclick="
+                        const v = document.getElementById('halocline_video');
+                        v.muted = !v.muted;
+                        this.textContent = v.muted ? '🔇 unmute' : '🔊 mute';
+                    ">🔇 unmute</button>
+                </div>
+            </div>
+
+            <!-- ── HEADER ─────────────────────────────────────── -->
+            <div class="project_content">
+                <h1 class="project_title">halocline</h1>
+                <p class="project_meta">Blender · Photoshop · Clip Studio Paint · DaVinci Resolve · 2026</p>
+
+                <p class="project_intro">
+                    The halocline is a natural phenomenon that occurs where freshwater and saltwater meet, creating a distinct boundary layer with unique optical properties due to their different densities, resembling an ocean within an ocean. This project explores the halocline through both a 3D ambient environment and a 2D narrative illustration, each offering a different perspective on the same subject. The 3D environment invites viewers to immerse themselves in the ethereal beauty of the halocline, while the 2D illustration captures the moment of encounter between a diver and this mysterious boundary, emphasizing scale and human presence within this otherworldly setting.
+                </p>
+            </div>
+
+            <!-- ── 3D ENVIRONMENT ──────────────────────────────── -->
+            <div class="project_content">
+                <h2 class="project_section_heading">3D Environment</h2>
+
+                <div class="process_grid process_grid--single">
+                    <figure>
+                        <img src="assets/works/halocline/Halocline_Process.webp"
+                             alt="Halocline scene geometry without materials">
+                        <figcaption>Scene geometry — non-render view</figcaption>
+                    </figure>
+                </div>
+
+                <p class="project_reflection">
+                    The 3D environment was designed to evoke the surreal, disorienting, but beautiful experience of being at the halocline boundary. The scene is built around a flat plane representing the halocline, with a volumetric water column above and below to provide atmosphere. The halocline boundary is the star of the show, with volumetric absorption and refraction shaders layered with animated noise textures to create the characteristic distortion and turbulence. Bioluminescent particles are distributed along the boundary to add visual interest and a sense of life within the environment, both above and below the boundary. The primary lighting and atmospheric effects were added in post in DaVinci Resolve, completing the pipeline from concept to final render. Ambient audio was added to complement the visuals, using low-frequency, resonant sounds and gentle drones to enhance the feeling of being submerged in this unique underwater world.
+                </p>
+            </div>
+
+            <!-- ── 2D ILLUSTRATION ─────────────────────────────── -->
+            <div class="project_content">
+                <h2 class="project_section_heading">2D Illustration</h2>
+
+                <div class="process_grid process_grid--single">
+                    <figure>
+                        <img src="assets/works/halocline/BridgetKnight_Halocline_Hero.webp"
+                             alt="Diver swimming toward the halocline boundary, digital illustration">
+                        <figcaption>
+                            A diver descending toward the halocline —
+                            Photoshop, Clip Studio Paint
+                        </figcaption>
+                    </figure>
+                </div>
+
+                <p class="project_reflection">
+                    Where the 3D environment asks you to experience the halocline, the 2D illustration asks you to approach it. The diver gives it scale and a sense of space, something the render deliberately withholds. I was interested in the moment just before contact with the boundary, when the distortion is visible but not yet experienced. The lighting was the challenge: it had to do two things at once -- read as a portal into deeper water below, from the diver's already-underwater perspective, and also read as a bioluminescent source below, with the figure caught between them. I chose to capture the moment of anticipation just before crossing this otherworldly boundary.
+                </p>
+            </div>
+
+            <!-- ── PROCESS ────────────────────────────────────── -->
+            <div class="project_content">
+                <h2 class="project_section_heading">Process</h2>
+                <p style="margin-bottom: 2rem;" class="showcase_caption">Click an image to get a closer look.</p>
+                <div class="process_grid">
+                    <figure>
+                        <img src="assets/works/halocline/Halocline_Thumbnails.webp"
+                             alt="Composition thumbnails">
+                        <figcaption>Composition thumbnails</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="assets/works/halocline/Halocline_Value_Color_Comps.webp"
+                             alt="Value & color studies">
+                        <figcaption>Value & color studies</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="assets/works/halocline/Halocline_Tight_Sketch.webp"
+                             alt="Tight sketch before painting">
+                        <figcaption>Tight sketch</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <!-- ── NAV ────────────────────────────────────────── -->
+            <nav class="project_nav">
+                <a href="index.html#featured_project" class="link_float" style="color:black">< back to front page</a>
+                <a href="art.html" class="link_float" style="color:black">all work ></a>
+                <!--<a href="black-hole-sim.html">next project →</a>-->
+            </nav>
+
+        </article>
+
+    <div id="footer_container"></div>
+    </div>
+    <script>
+        (function() {
+            const processImgs = Array.from(
+                document.querySelectorAll('.process_grid img')
+            );
+            if (!processImgs.length) return;
+
+            processImgs.forEach((img, i) => {
+                img.addEventListener('click', () => openProcessLightbox(i));
+            });
+
+            function openProcessLightbox(index) {
+                const overlay = document.createElement('div');
+                overlay.className = 'gallery_lightbox_overlay active';
+                overlay.innerHTML = `
+                    <span class="gallery_lightbox_arrow left">&#8592;</span>
+                    <div class="gallery_lightbox_container">
+                        <span class="gallery_lightbox_close">&times;</span>
+                        <img src="" alt="">
+                        <figcaption></figcaption>
+                    </div>
+                    <span class="gallery_lightbox_arrow right">&#8594;</span>
+                `;
+                document.body.appendChild(overlay);
+
+                const lightboxImg     = overlay.querySelector('img');
+                const lightboxCaption = overlay.querySelector('figcaption');
+
+                function loadImage(i) {
+                    const source = processImgs[i];
+                    lightboxImg.classList.add('fading');
+                    setTimeout(() => {
+                        lightboxImg.src = source.src;
+                        lightboxImg.alt = source.alt;
+                        lightboxCaption.textContent = source.alt;
+                        lightboxImg.onload = () => lightboxImg.classList.remove('fading');
+                    }, 250);
+                }
+
+                function closeOverlay() {
+                    overlay.remove();
+                    document.removeEventListener('keydown', onKey);
+                }
+
+                overlay.addEventListener('click', e => {
+                    if (!e.target.closest('.gallery_lightbox_container') &&
+                        !e.target.closest('.gallery_lightbox_arrow')) closeOverlay();
+                });
+
+                overlay.querySelector('.gallery_lightbox_arrow.left').addEventListener('click', e => {
+                    e.stopPropagation();
+                    index = (index - 1 + processImgs.length) % processImgs.length;
+                    loadImage(index);
+                });
+
+                overlay.querySelector('.gallery_lightbox_arrow.right').addEventListener('click', e => {
+                    e.stopPropagation();
+                    index = (index + 1) % processImgs.length;
+                    loadImage(index);
+                });
+
+                overlay.querySelector('.gallery_lightbox_close').addEventListener('click', e => {
+                    e.stopPropagation();
+                    closeOverlay();
+                });
+
+                function onKey(e) {
+                    if      (e.key === 'ArrowRight') { index = (index + 1) % processImgs.length; loadImage(index); }
+                    else if (e.key === 'ArrowLeft')  { index = (index - 1 + processImgs.length) % processImgs.length; loadImage(index); }
+                    else if (e.key === 'Escape')     { closeOverlay(); }
+                }
+                document.addEventListener('keydown', onKey);
+
+                loadImage(index);
+            }
+        })();
+    </script>
+</body>
+</html>

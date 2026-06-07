@@ -46,9 +46,7 @@
     padding: 0;
 }
 
-p, li {
-    max-width: 70ch;
-}
+html { scroll-behavior: smooth; }
 
 /* Apply a basic font and background color to the entire page */
 body::before {
@@ -274,7 +272,7 @@ header {
 }
 
 .dropdown:hover .link_float {
-    font-weight: bold;
+    /* keep hover transform/underline only — avoid font-weight changes */
 }
 
 .dropdown-enter,
@@ -307,7 +305,6 @@ header {
 .dropdown:hover .link_float,
 .link_float:hover {
     transform: translateY(-2px);
-    font-weight: bold;
     text-decoration: underline;
 }
 
@@ -502,6 +499,67 @@ header {
     display: inline-block;
 }
 
+.portfolio_toc {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 180, 220, 0.15);
+    width: fit-content;
+}
+
+.portfolio_toc_label {
+    font-family: Poppins, sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgb(37, 37, 37);
+    opacity: 0.5;
+    margin-bottom: 0.2rem;
+}
+
+.portfolio_toc a {
+    font-family: Poppins, sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: lowercase;
+    color: var(--subtitle);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 180, 220, 0);
+    padding-bottom: 1px;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.portfolio_toc a:hover {
+    color: var(--medium-pink);
+    border-bottom-color: rgba(255, 180, 220, 0.5);
+}
+
+.portfolio_toc a {
+    font-family: Poppins, sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: lowercase;
+    color: var(--subtitle);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 180, 220, 0);
+    padding-bottom: 1px;
+    transition: color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+}
+
+.portfolio_toc a:hover {
+    color: var(--medium-pink);
+    border-bottom-color: rgba(255, 180, 220, 0.5);
+    
+}
+
+.section_label {
+    opacity: 0;
+    height: 0;
+}
+
 #main_gallery {
     margin-top: 1rem;
     box-sizing: border-box;
@@ -528,6 +586,7 @@ header {
 .gallery_item {
     opacity: 0;
     overflow: hidden;
+    position: relative;
     transform: translateZ(0);
     border-radius: 3px;
     animation: itemReveal 0.5s ease forwards;
@@ -537,8 +596,9 @@ header {
 .gallery_item { animation-delay: calc(var(--i, 0) * 60ms); }
 
 .gallery_grid .gallery_item {
-    height: clamp(200px, 30vw, 420px);
-    aspect-ratio: unset;
+    /* Keep gallery thumbnails square at all sizes */
+    aspect-ratio: 1 / 1;
+    height: auto;
     isolation: isolate;
 }
 
@@ -549,13 +609,13 @@ header {
     overflow: hidden;
     display: block;
     transition: transform 0.25s ease, filter 0.25s ease;
-    transform: scale(var(--item-zoom, 1));
+    /*transform: scale(var(--item-zoom, 1));*/
     will-change: transform;
 }
 
 
 .gallery_item:hover img {
-    transform: scale(calc(var(--item-zoom, 1) * 1.03));
+    /*transform: scale(calc(var(--item-zoom, 1) * 1.03));*/
     filter: brightness(0.9);
     transition: transform 0.25s ease, filter 0.25s ease;
     overflow: hidden;
@@ -584,6 +644,23 @@ header {
 .gallery_item figcaption span:last-child {
     font-size: 0.8rem;
     opacity: 0.7;
+}
+
+.project_indicator {
+    position: absolute;
+    bottom: 0.6rem;
+    right: 0.75rem;
+    font-family: Poppins, sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: white;
+    background: rgba(0, 0, 0, 0.45);
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    pointer-events: auto;
+    cursor: pointer;
+    text-decoration: none;
+    z-index: 1000;
 }
 
 .gallery_lightbox_overlay {
@@ -673,6 +750,13 @@ header {
     transform: scale(1.08);
 }
 
+.featured_project_sub {
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    color: var(--subtitle);
+    margin-bottom: 1rem;
+}
+
 .featured_project {
     margin: 6rem 0;
     padding: 3rem 2rem;
@@ -695,11 +779,31 @@ header {
     margin-bottom: 2rem;
 }
 
+.showcase_video {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+}
 
+.video_footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.showcase_video video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+}
 
 .showcase_main {
     max-width: 100%;
-    margin: 0 auto 3rem;
+    margin: 0 auto 0.5rem;
 }
 
 .showcase_main img {
@@ -708,11 +812,91 @@ header {
     border-radius: 8px;
 }
 
-.showcase_caption {
-    text-align: center;
-    font-size: 14px;
+/* ── UNMUTE BUTTON ───────────────────────────────────────── */
+.unmute_btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.6rem;
+    padding: 0.35rem 0.9rem;
+    font-family: Poppins, sans-serif;
+    font-size: 0.75em;
+    font-weight: 500;
+    letter-spacing: 0.08em;
     color: var(--subtitle);
-    margin-top: 1rem;
+    background: rgba(255, 252, 254, 0.4);
+    border: 1px solid rgba(255, 180, 220, 0.35);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+.unmute_btn:hover {
+    border-color: var(--medium-pink);
+    color: var(--medium-pink);
+    background: rgba(255, 180, 220, 0.08);
+}
+
+/* ── CAPTION ─────────────────────────────────────────────── */
+.showcase_caption {
+    text-align: left;
+    font-family: Poppins, sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    font-style: italic;
+    color: var(--subtitle);
+    margin-top: 0.5rem;
+}
+
+/* ── PROCESS GRID ────────────────────────────────────────── */
+.studies_grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+    width: 100%;
+}
+
+.studies_grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+    display: block;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease;
+    box-shadow: 0 0 0 1.5px rgba(255, 180, 220, 0.18);
+}
+
+.studies_grid img:hover {
+    box-shadow: 0 6px 24px rgba(255, 130, 190, 0.22),
+                0 0 0 1.5px rgba(255, 180, 220, 0.4);
+}
+
+@media (max-width: 700px) {
+    .studies_grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.studies_grid img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 6px;
+    display: block;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease;
+    box-shadow: 0 0 0 1.5px rgba(255, 180, 220, 0.18);
+}
+
+.studies_grid img:hover {
+    box-shadow: 0 6px 24px rgba(255, 130, 190, 0.22),
+                0 0 0 1.5px rgba(255, 180, 220, 0.4);
+}
+
+.showcase_video .showcase_caption {
+    align-self: flex-start;
 }
 
 .process_sections {
@@ -720,6 +904,7 @@ header {
     grid-template-columns: 1fr;
     gap: 3rem;
     margin: 3rem 0 2rem;
+    width: 100%;
 }
 
 .process_section h4 {
@@ -727,12 +912,6 @@ header {
     font-weight: 600;
     color: var(--text-color);
     margin-bottom: 1rem;
-}
-
-.studies_grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1rem;
 }
 
 .studies_grid img {
@@ -872,10 +1051,6 @@ header {
     margin-top: 0.5rem;
     margin-bottom: 3rem;
     text-align: center;  /* Centers the text inside the div */
-}
-
-#portfolio_invite {
-
 }
 
 #read_more {
@@ -1462,8 +1637,7 @@ code {
 
 .link_float:hover {
     transform: translateY(-2px);
-    font-weight:bold;
-    text-decoration:underline;
+    text-decoration: underline;
 }
 
 /* invisible bold copy that holds the width */
@@ -1669,7 +1843,7 @@ code {
 }
 
 .masonry_gallery .gallery_item:hover img {
-    transform: scale(1.03);
+    /*transform: scale(1.03);*/
     filter: brightness(0.9);
 }
 
@@ -1680,6 +1854,28 @@ code {
 .masonry_gallery .gallery_item figcaption span:last-child {
     font-size: 0.8rem;
     opacity: 0.7;
+}
+
+/* When JS creates explicit column wrappers we use flex columns
+   so we can control ordering (left-to-right across rows). */
+.masonry_gallery.masonry_columns {
+    display: flex;
+    gap: 1rem;
+    margin-top: 3rem;
+    margin-bottom: 5rem;
+}
+
+.masonry_gallery.masonry_columns .masonry_column {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.masonry_gallery.masonry_columns .gallery_item {
+    /* remove column-specific properties that don't apply */
+    break-inside: unset;
+    margin-bottom: 0;
 }
 
 /* CONCEPT ART - single column */
@@ -1833,7 +2029,7 @@ code {
     }
 
     .studies_grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .reference_grid {
@@ -1990,7 +2186,7 @@ code {
 }
 
 .mobile_drawer.open {
-    max-height: 400px;
+    max-height: fit-content;
 }
 
 .mobile_nav {
@@ -2029,7 +2225,7 @@ code {
 .mobile_sub a {
     font-size: 0.88rem;
     font-weight: 400;
-    color: var(--medium-pink) !important;
+    color: var(--medium-pink);
     padding: 0.4rem 0;
     border-bottom: none !important;
 }

@@ -1,0 +1,192 @@
+/* ─────────────────────────────────────────────────────────────
+   project.css  —  bridgetknight.com
+   Shared styles for all project pages under /projects/
+───────────────────────────────────────────────────────────── */
+
+/* ── PAGE LAYOUT ─────────────────────────────────────────── */
+
+.project_page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 5rem;
+}
+
+.project_content {
+    max-width: 100%;
+    margin: 3rem auto 3rem;
+    max-height: unset;
+    opacity: 1;
+    overflow: visible;
+}
+
+
+/* ── HERO ────────────────────────────────────────────────── */
+
+.project_hero {
+    width: 100%;
+    margin-bottom: 2.5rem;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.project_hero img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+/* ── TYPOGRAPHY ──────────────────────────────────────────── */
+
+.project_title {
+    font-family: "Momo Trust Display", "Poppins", sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    text-transform: lowercase;
+    letter-spacing: -1px;
+    line-height: 1;
+    color: var(--color-text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.project_meta {
+    font-family: Poppins, sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    text-transform: lowercase;
+    color: var(--subtitle);
+    margin-bottom: 1.75rem;
+}
+
+.project_intro {
+    font-family: Poppins, sans-serif;
+    display: block;
+    max-width: none;
+    width: 100%;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--color-text-primary);
+    margin-bottom: 0;
+}
+
+.project_section_heading {
+    font-family: "Momo Trust Display", "Poppins", sans-serif;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    font-weight: 800;
+    text-transform: lowercase;
+    letter-spacing: -0.5px;
+    color: var(--color-text-primary);
+    margin-bottom: 1rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(255, 180, 220, 0.2);
+}
+
+.project_reflection {
+    font-family: Poppins, sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--color-text-primary);
+    margin: 1.5rem 0 0;
+}
+
+
+/* ── PROCESS GRID ────────────────────────────────────────── */
+
+.process_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease;
+    box-shadow: 0 0 0 1.5px rgba(255, 180, 220, 0.18);
+}
+
+.process_grid img:hover {
+    box-shadow: 0 6px 24px rgba(255, 130, 190, 0.22),
+                0 0 0 1.5px rgba(255, 180, 220, 0.4);
+}
+
+/* Single full-width image */
+.process_grid--single {
+    grid-template-columns: 1fr;
+}
+
+.process_grid figure {
+    margin: 0;
+}
+
+.process_grid img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+    background: rgba(0,0,0,0.03);
+}
+
+.process_grid figcaption {
+    font-family: Poppins, sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: var(--subtitle);
+    margin-top: 0.4rem;
+    font-style: italic;
+}
+
+.process_grid--single figure {
+    display: contents;
+}
+
+.mockup_img {
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    object-position: center;
+}
+
+
+/* ── LINKS ───────────────────────────────────────────────── */
+
+.project_link {
+    display: inline-block;
+    font-family: Poppins, sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: var(--medium-pink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--medium-pink);
+    padding-bottom: 2px;
+    margin-top: 1.5rem;
+    transition: opacity 0.2s;
+}
+
+.project_link:hover {
+    opacity: 0.7;
+}
+
+
+/* ── PROJECT NAV ─────────────────────────────────────────── */
+
+.project_nav {
+    display: flex;
+    justify-content: space-between;
+    max-width: 100%;
+    margin: 4rem auto 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 180, 220, 0.2);
+    font-family: Poppins, sans-serif;
+    font-size: 1.25rem;
+}
+
+.project_nav a {
+    color: var(--subtitle);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.2s easeinout;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+}
+
+.project_nav a:hover {
+    color: var(--medium-pink);
+}

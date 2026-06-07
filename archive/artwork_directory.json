@@ -1,0 +1,227 @@
+{
+    "concept_art": [
+        {
+            "file": "BridgetKnight_Miner_Character_Concept.webp",
+            "title": "Miner Character Concept",
+            "year": 2025
+        },
+        {
+            "file": "BridgetKnight_HaddockCharacterSheet.webp",
+            "title": "Haddock Character Sheet",
+            "year": 2025
+        },
+        {
+            "file": "BridgetKnight_HikeNewEngland_Process_Backgrounds.webp",
+            "title": "Hike New England Background Concepts",
+            "year": 2025
+        },
+        {
+            "file": "BridgetKnight_HikeNewEngland_Process_Poses.webp",
+            "title": "Hike New England Pose Concepts",
+            "year": 2025
+        },
+        {
+            "file": "BridgetKnight_HikeNewEngland_Process_Backgrounds.webp",
+            "title": "Hike New England Thumbnail Concepts",
+            "year": 2025
+        }
+    ],
+    "graphic_design": [
+        {
+            "file": "BridgetKnight_1_ProjectHailMaryCover.webp",
+            "title": "Project Hail Mary Cover Reimagined",
+            "year": 2026
+        },
+        {
+            "file": "BridgetKnight_Cat_Stickers.webp",
+            "title": "Themed Cat Stickers",
+            "year": 2025
+        },
+        {
+            "file": "BridgetKnight_Climate_EPA_Editorial.webp",
+            "title": "Climate EPA Editorial",
+            "year": 2026
+        },
+        {
+            "file": "BridgetKnight_PattieGonia_Editorial_Design.webp",
+            "title": "Pattie Gonia Editorial Concept",
+            "year": 2026
+        },
+        {
+            "file": "BridgetKnight_Profile_Photo_BCrylz_Logo.webp",
+            "title": "BCrylz Logo Commission",
+            "year": 2022
+        },
+        {
+            "file": "BridgetKnight_Sproutling_Poster_UMassURC.webp",
+            "title": "Sproutling Poster (UMass Research Conference)",
+            "year": 2025
+        }
+    ],
+    "illustrations": [
+        {
+            "file": "BridgetKnight_CountdownTouchdown.webp",
+            "title": "Countdown Touchdown",
+            "year": 2026
+        },
+        {
+            "file": "BridgetKnight_Environment.webp",
+            "title": "Narrative Environment Concept",
+            "year": 2026
+        },
+        {
+            "file": "BridgetKnight_Mass_Audubon_Poster.webp",
+            "title": "Mass Audubon Poster",
+            "year": 2026
+        },
+        {
+            "file": "BridgetKnight_Mountain_Landscape_Beam.webp",
+            "title": "Beam Landscape Concept",
+            "year": 2025
+        },
+        {
+            "file": "BridgetKnight_NormanRockwellStyleSelfPortrait_2025.webp",
+            "title": "Norman Rockwell-Inspired Self Portrait",
+            "year": 2025
+        },
+        {
+            "file": "BridgetKnight_ProjectHailMary_Cover.webp",
+            "title": "Project Hail Mary Cover Reimagined",
+            "year": 2026
+        },
+        {
+            "file": "BridgetKnight_Public_Health_Editorial.webp",
+            "title": "Public Health Climate EPA Editorial",
+            "year": 2026
+        },
+        {
+            "file": "BridgetKnight_Resident_Evil_LeonKennedy_2025.webp",
+            "title": "You There? Resident Evil Fanart",
+            "year": 2025
+        },
+        {
+            "file": "BridgetKnight_SelfPortrait.jpg",
+            "title": "Adobe Illustrator Self Portrait",
+            "year": 2026
+        },
+        {
+            "file": "BridgetKnight_Shadows.webp",
+            "title": "Shadows",
+            "year": 2025
+        },
+        {
+            "file": "BridgetKnight_SunlitPortrait.webp",
+            "title": "Sunlit Portrait",
+            "year": 2025
+        },
+        {
+            "file": "BridgetKnight_TheAlpineShaman.jpg",
+            "title": "The Alpine Shaman (Watercolor)",
+            "year": 2026
+        },
+        {
+            "file": "BridgetKnight_TheAtom.webp",
+            "title": "The Atom Concept Art (Gouache)",
+            "year": 2026
+        },
+        {
+            "file": "BridgetKnight_WelcomingParty.webp",
+            "title": "Welcoming Party",
+            "year": 2022
+        },
+        {
+            "file": "CombatSloth_Revised.webp",
+            "title": "Combat Sloth",
+            "year": 2025
+        }
+    ],
+    "main_gallery": [
+        {
+            "file": "BridgetKnight_Audubon_Poster.webp",
+            "title": "Mass Audubon Poster",
+            "year": 2026,
+            "focus": "top"
+        },
+        {
+            "file": "BridgetKnight_Public_Health_Editorial.webp",
+            "title": "Public Health Climate EPA Editorial",
+            "year": 2026,
+            "focus": "top"
+        },
+        {
+            "file": "BridgetKnight_ProjectHailMary_Cover.webp",
+            "title": "Project Hail Mary Cover Reimagined",
+            "year": 2026,
+            "focus": "right"
+        },
+        {
+            "file": "CombatSloth_Revised.webp",
+            "title": "Combat Sloth",
+            "year": 2025,
+            "focus": "left bottom",
+            "zoom": 1.4
+        },
+
+        {
+            "file": "BridgetKnight_CountdownTouchdown.webp",
+            "title": "Countdown Touchdown",
+            "year": 2026,
+            "focus": "left bottom",
+            "zoom": 1.5
+        },
+        {
+            "file": "BridgetKnight_NormanRockwellStyleSelfPortrait_2025.webp",
+            "title": "Self Portrait",
+            "year": 2026,
+            "focus":"45% center",
+            "zoom": 1.5
+        }
+    ],
+    "sketches": [
+        {
+            "file": "BridgetKnight_FigureStudies.webp",
+            "title": "Figure Studies",
+            "year": 2026
+        },
+        {
+            "file": "BridgetKnight_Sketchbook_Environments2.webp",
+            "title": "Environment Sketch",
+            "year": 2026
+        },
+        {
+            "file": "BridgetKnight_Sketchbook_Environments3.webp",
+            "title": "Environment Sketchbook Spread",
+            "year": 2026
+        },
+        {
+            "file": "BridgetKnight_Sketchbook_Environments4.webp",
+            "title": "Environment Sketchbook Spread",
+            "year": 2026
+        },
+        {
+            "file": "BridgetKnight_SketchbookSpread_Environments1.webp",
+            "title": "Observational Environments",
+            "year": 2026
+        },
+        {
+            "file": "BridgetKnight_SketchbookSpread_FigureStudies.webp",
+            "title": "Figure Studies",
+            "year": 2026
+        },
+        {
+            "file": "BridgetKnight_SketchbookSpread_Portraits1.webp",
+            "title": "Portraits from Sketchbook",
+            "year": 2026
+        },
+        {
+            "file": "BridgetKnight_SketchbookSpread_Portraits2.webp",
+            "title": "Portraits from Sketchbook",
+            "year": 2026
+        },
+        {
+            "file": "BridgetKnight_SketchbookSpread_Portraits3.webp",
+            "title": "Portraits from Sketchbook",
+            "year": 2026
+        }
+    ]
+}

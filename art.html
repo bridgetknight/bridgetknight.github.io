@@ -66,26 +66,23 @@
             display: flex;
             align-items: flex-end;
             position: relative;
-        }
+        } 
 
         .portfolio_category_heading {
-            font-family: "Le Petit Cochon", cursive;
-            font-size: clamp(0.5rem, 4vw, 2.2rem);
-            font-weight: 400;
-            white-space: nowrap;
-            /* tiny bottom offset so the rule doesn't sit flush on descenders */
-            color: transparent;
-            background: linear-gradient(
-                45deg,
-                var(--medium-pink),
-                var(--purple),
-                var(--teal)
-            );
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            text-transform: UPPERCASE;
-            animation: shimmer 6s linear infinite;
+            font-family: "Momo Trust Display", "Poppins", sans-serif;
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 800;
+            text-transform: lowercase;
+            color: var(--color-text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .cluster_note {
+            font-family: "Poppins";
+            font-size: clamp(0.8rem, 2vw, 1rem);
+            color: var(--subtitle);
+            margin-top: 0.1rem;
+            margin-bottom: 1rem;
         }
         
         /* ── GALLERY ITEM — resting glow + stagger reveal ────────── */
@@ -195,139 +192,123 @@
                 <h1>PORTFOLIO</h1>
                 <p class="header_sub">All Works</p>
             </div>
-
+            <nav class="portfolio_toc">
+                <span class="portfolio_toc_label">navigate ></span>
+                <a href="#editorial" >science & editorial</a>
+                <a href="#concept-art">concept art</a>
+                <a href="#personal-work">personal work</a>
+                <a href="#sketches">sketches & studies</a>
+            </nav>
             <div id="portfolio_container"></div>
         </div>
 
     <div id="footer_container"></div>
     </div>
 
+    <script src="/scripts/gallery.js" defer></script>
     <script>
-        let allGalleryItems = {};
+        document.addEventListener('DOMContentLoaded', () => {
+ 
+            // ── Cluster definitions ───────────────────────────────
+            // Each object is one named group of pieces.
+            // section_label inserts a big divider above a group of clusters.
+            // heading is the cluster title.
+            // note is the small accent text beneath the heading.
+            // ids is the ordered list of piece IDs to show.
+            // columns overrides the default 2-column masonry.
+ 
+            const clusters = [
+ 
+                // ── ILLUSTRATIONS ─────────────────────────────────
+                {
+                    id: "editorial",
+                    section_label: "science communication & editorial",
+                    heading: "Science Communication & Editorial",
+                    note: "Photoshop, Illustrator, Clip Studio Paint",
+                    ids: [
+                        "mass-audubon-poster",
+                        "halocline-environment",
+                        "planetary-collision",
+                        "solar-prominences-editorial",
+                        "climate-editorial",
+                        "public-health-editorial",
+                        "project-hail-mary",
+                        "countdown-touchdown",
+                        "sproutling-poster",
+                        "pattie-gonia-editorial"                        
+                    ],
+                    columns: 3
+                },
+ 
+                // ── CONCEPT ART ───────────────────────────────────
+                {
+                    id: "concept-art",
+                    section_label: "Concept Art",
+                    heading: "Concept Art",
+                    note: "Photoshop, Clip Studio Paint, Illustrator",
+                    ids: [
+                        "narrative-environment",
+                        "miner-character",
+                        "haddock-character",
+                        "hike-new-england-backgrounds",
+                        "hike-new-england-poses",
+                        "llbean-concept-sheet"
+                    ],
+                    columns: 3
+                },
 
-        fetch('/scripts/artwork_directory.json')
-        .then(res => res.json())
-        .then(data => {
-            const categories = ['concept_art', 'illustrations', 'sketches', 'graphic_design'];
-            const categoryNames = {
-                concept_art:    'Concept Art',
-                illustrations:  'Illustrations',
-                sketches:       'Sketches',
-                graphic_design: 'Graphic Design & Editorial',
-            };
-
-            const container = document.getElementById('portfolio_container');
-
-            categories.forEach(category => {
-                if (!data[category] || data[category].length === 0) return;
-
-                allGalleryItems[category] = data[category].map(item => ({ ...item, folder: category }));
-
-                const section = document.createElement('section');
-                section.className = 'portfolio_section';
-                section.id = category;
-
-                const headingRow = document.createElement('div');
-                headingRow.className = 'category_heading_row';
-
-                const heading = document.createElement('h2');
-                heading.className = 'portfolio_category_heading';
-                heading.textContent = categoryNames[category];
-
-                headingRow.appendChild(heading);
-                section.appendChild(headingRow);
-
-                const gallery = document.createElement('div');
-                gallery.className = category === 'concept_art' ? 'portfolio_gallery' : 'masonry_gallery';
-                gallery.dataset.category = category;
-
-                allGalleryItems[category].forEach((item, index) => {
-                    const fig = document.createElement('figure');
-                    fig.className = 'gallery_item';
-                    fig.style.setProperty('--i', index);
-                    fig.innerHTML = `
-                        <img src="/assets/${item.folder}/${item.file}" alt="${item.title}" loading="lazy">
-                        <figcaption>
-                            <span>${item.title}</span>
-                            <span>${item.year}</span>
-                        </figcaption>
-                    `;
-                    gallery.appendChild(fig);
-                    fig.addEventListener('click', () => openLightbox(category, index));
-                });
-
-                section.appendChild(gallery);
-                container.appendChild(section);
-            });
+                // ── PERSONAL WORK ──────────────────────────────────────
+                {
+                    id: "personal-work",
+                    section_label: "portraits & personal work",
+                    heading: "Portraits & Personal Work",
+                    note: "Digital and traditional media",
+                    ids: [
+                        "hard-days-work",    
+                        "self-portrait-rockwell",
+                        "self-portrait-illustrator",
+                        "sunlit-portrait",
+                        "shadows",
+                        "alpine-shaman",
+                        "combat-sloth",
+                        "welcoming-party",
+                        "the-atom",
+                        "mountain-landscape",
+                        "resident-evil-fanart",
+                        "cat-stickers"
+                    ],
+                    columns: 3
+                },
+ 
+                // ── SKETCHES ──────────────────────────────────────
+                {
+                    id: "sketches",
+                    section_label: "observational work & studies",
+                    heading: "Observational Work & Studies",
+                    note: "Traditional & digital media — sketchbook, pencil, ink, Photoshop",
+                    ids: [
+                        "plein-air-1",
+                        "plein-air-3",
+                        "plein-air-4",
+                        "sketchbook-environments-1",
+                        "sketchbook-environments-2",
+                        "sketchbook-environments-3",
+                        "sketchbook-environments-4",
+                        "figure-studies",
+                        "sketchbook-figures",
+                        "sketchbook-portraits-1",
+                        "sketchbook-portraits-2",
+                        "sketchbook-portraits-3"
+                    ],
+                    columns: 3
+                }
+            ];
+ 
+            renderProjectClusters('portfolio_container', clusters);
         });
 
-        function openLightbox(category, index) {
-            const items = allGalleryItems[category];
-
-            const overlay = document.createElement('div');
-            overlay.className = 'gallery_lightbox_overlay active';
-            overlay.innerHTML = `
-                <span class="gallery_lightbox_arrow left">&#8592;</span>
-                <div class="gallery_lightbox_container">
-                    <span class="gallery_lightbox_close">&times;</span>
-                    <img src="" alt="">
-                    <figcaption></figcaption>
-                </div>
-                <span class="gallery_lightbox_arrow right">&#8594;</span>
-            `;
-            document.body.appendChild(overlay);
-
-            function loadImage(i) {
-                const item = items[i];
-                const img = overlay.querySelector('img');
-                const caption = overlay.querySelector('figcaption');
-                img.classList.add('fading');
-                setTimeout(() => {
-                    img.src = `/assets/${item.folder}/${item.file}`;
-                    img.alt = item.title;
-                    caption.textContent = `${item.title} — ${item.year}`;
-                    img.onload = () => img.classList.remove('fading');
-                }, 250);
-            }
-
-            // FIX: one clean close function, referenced everywhere
-            function closeOverlay() {
-                overlay.remove();
-                document.removeEventListener('keydown', onKey);
-            }
-
-            loadImage(index);
-
-            // FIX: single overlay click handler — only fires on the backdrop itself,
-            // not on the container or arrows (which stopPropagation or are checked here)
-            overlay.addEventListener('click', e => {
-                const onArrow     = e.target.closest('.gallery_lightbox_arrow');
-                const onContainer = e.target.closest('.gallery_lightbox_container');
-                if (!onArrow && !onContainer) closeOverlay();
-            });
-
-            overlay.querySelector('.gallery_lightbox_arrow.left').addEventListener('click', e => {
-                e.stopPropagation();
-                index = (index - 1 + items.length) % items.length;
-                loadImage(index);
-            });
-            overlay.querySelector('.gallery_lightbox_arrow.right').addEventListener('click', e => {
-                e.stopPropagation();
-                index = (index + 1) % items.length;
-                loadImage(index);
-            });
-            overlay.querySelector('.gallery_lightbox_close').addEventListener('click', e => {
-                e.stopPropagation();
-                closeOverlay();
-            });
-
-            function onKey(e) {
-                if      (e.key === 'ArrowRight') { index = (index + 1) % items.length; loadImage(index); }
-                else if (e.key === 'ArrowLeft')  { index = (index - 1 + items.length) % items.length; loadImage(index); }
-                else if (e.key === 'Escape')     { closeOverlay(); }
-            }
-            document.addEventListener('keydown', onKey);
-        }
+        
     </script>
+
 </body>
 </html>

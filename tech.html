@@ -16,38 +16,32 @@
     <style>
 
         /* ── PAGE HEADER ─────────────────────────────────────── */
-        .tech_header {
+        .portfolio_header {
             position: relative;
-            padding: 2.5rem 0 2rem;
+            text-align: left;
+            margin-bottom: 2rem;
+            padding: 3rem 0 1rem;
             opacity: 0;
             transform: translateY(-16px);
             animation: fadeInHeader 0.7s ease forwards;
             animation-delay: 0.15s;
         }
 
-        .tech_header h1 {
-            font-family: "Momo Trust Display", cursive;
-            font-size: clamp(0.1rem, 7vw, 3.5rem);
+        .portfolio_header h1 {
+            font-family: "Momo Trust Display", "Poppins", sans-serif;
+            font-size: clamp(1.8rem, 4vw, 3rem);
             font-weight: 800;
+            letter-spacing: -1px;
             line-height: 1;
-            margin: 0;
-            color: black;
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            animation: shimmer 5s linear infinite;
-            display: inline-block;
-            position: relative;
-            padding-bottom: 12px;
+            color: var(--color-text-primary);
+            text-transform: lowercase;
         }
 
-        .tech_header .header_sub {
-            font-size: clamp(0.75rem, 1.5vw, 0.8rem);
-            letter-spacing: 0.25em;
-            text-transform: lowercase;
+        .portfolio_header .header_sub {
+            font-family: "Le Petit Cochon", cursive;
+            font-size: clamp(0.85rem, 1.5vw, 1rem);
             color: var(--subtitle);
-            margin-top: 0.75rem;
-            font-style: italic;
+            margin-top: 0.4rem;
         }
 
         /* ── SECTION HEADINGS ────────────────────────────────── */
@@ -83,6 +77,24 @@
             background-repeat: repeat-x;
             background-size: 20px 6px;
             animation: waveScroll 0.6s steps(2) infinite;
+        }
+
+        .tech_cross_link {
+            font-family: Poppins, sans-serif;
+            font-size: 0.9rem;
+            color: var(--subtitle);
+            font-style: italic;
+        }
+
+        .tech_cross_link a {
+            color: var(--blue);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(248, 183, 218, 0.616);
+            transition: color 0.2s;
+        }
+
+        .tech_cross_link a:hover {
+            color: var(--purple);
         }
 
        /* ── PROJECT CARDS ───────────────────────────────────── */
@@ -366,9 +378,9 @@
         <div id="main_section">
 
             <!-- ── PAGE HEADER ─────────────────────────────── -->
-            <div class="tech_header">
+            <div class="portfolio_header">
                 <h1>technical work</h1>
-                <p class="header_sub">code, systems, & creative technology</p>
+                <p class="header_sub">code, systems & creative technology</p>
             </div>
 
             <!-- ── CS PROJECTS ─────────────────────────────── -->
@@ -381,7 +393,7 @@
                 <div class="projects_grid">
 
                     <!-- SPROUTLING -->
-                    <div class="project_card" style="--i:0">
+                    <div class="project_card" style="--i:0" id="sproutling_card">
                         <div class="project_title">Sproutling</div>
                         <div class="project_description">
                             An automatic plant watering system pairing an Arduino hardware device with a custom Android app — my undergraduate capstone.
@@ -448,7 +460,7 @@
                             <div class="card_expanded_inner">
                                 <img class="card_img_zoom" src="assets/projects/malaria-reports/BroadInstitute_MalariaReports.png" alt="Malaria reports dashboard">
                                 <img class="card_img_zoom" src="assets/projects/malaria-reports/BroadInstitute_MalariaReports2.png" alt="Final version of the first page, showing the location of the sample, read information, and drug resistance markers.">
-                                <p><i>Above: Collection of screenshots from the Malaria Reports dashboard.</i><br>This project was developed to visualize and analyze malaria case data in Senegal from 2000-2025, providing insights into the distribution and progression of the disease, as well as informing drug development and public health interventions at a glance. Completed for the Broad Institute of MTI and Harvard during a 4-year software engineeringinternship.</p>
+                                <p><i>Above: Collection of screenshots from the Malaria Reports dashboard.</i><br>This project was developed to visualize and analyze malaria case data in Senegal from 2000-2025, providing insights into the distribution and progression of the disease, as well as informing drug development and public health interventions at a glance. Completed for the Broad Institute of MTI and Harvard during a 4-year software engineering internship.</p>
                                 <a class="github_link" href="">
                                     <img src="assets/github-mark.svg" alt=""> View on GitHub
                                 </a>
@@ -509,24 +521,10 @@
 
             <!-- ── COMING SOON ──────────────────────────────── -->
             <section class="tech_section">
-                <h2 class="tech_section_heading">Coming Soon</h2>
-
-                <div class="coming_soon_grid">
-
-                    <div class="coming_soon_card" style="--i:0">
-                        <div class="coming_soon_sticker">COMING SOON!</div>
-                        <div class="coming_soon_icon">🎨</div>
-                        <div class="coming_soon_title">Technical Art</div>
-                        <div class="coming_soon_desc">Shaders, VFX, and procedural tools.</div>
-                    </div>
-
-                    <div class="coming_soon_card" style="--i:1">
-                        <div class="coming_soon_sticker">COMING SOON!</div>
-                        <div class="coming_soon_icon">🧊</div>
-                        <div class="coming_soon_title">3D & Blender</div>
-                        <div class="coming_soon_desc">Environment models, sculpts, and pipeline tools for concept art production.</div>
-                    </div>
-                </div>
+                <p class="tech_cross_link">
+                    Looking for 3D work and visualizations? 
+                    <a href="/technical_art.html">See Technical Art & 3D ></a>
+                </p>
             </section>
 
         </div>

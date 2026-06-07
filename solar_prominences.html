@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar Prominences | Bridget Knight</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/project.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="icon" href="../assets/favicon.webp">
+    <script src="../scripts/theme.js" defer></script>
+    <script src="../scripts/cursor_trail.js"></script>
+    <script src="../scripts/footer.js" defer></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body data-theme="light">
+    <div id="center">
+        <header>
+            <div id="navbar"></div>
+            <script src="../scripts/navbar.js" defer></script>
+        </header>
+
+        <article class="project_page">
+
+            <!-- ── HERO ───────────────────────────────────────── -->
+            <div class="project_showcase">
+                <div class="showcase_main">
+                    <img src="../assets/works/solar_prominences/BridgetKnight_SolarProminences_Editorial_Gradient.webp"
+                         alt="Solar prominences editorial illustration">
+                </div>
+                <p class="showcase_caption">Editorial illustration — Photoshop, Clip Studio Paint</p>
+            </div>
+
+            <!-- ── HEADER ─────────────────────────────────────── -->
+            <div class="project_content">
+                <h1 class="project_title">solar prominences</h1>
+                <p class="project_meta">Photoshop · Clip Studio Paint · 2026</p>
+
+                <p class="project_intro">
+                    In April 2026, researchers at the Max Planck Institute for Solar System Research published a landmark paper in Nature Astronomy titled "A Giant Leap for Virtual Solar Prominences"--the first simulation to model the full dynamics of solar prominence formation from sub-photosphere to corona. Solar prominences are enormous structures of cool, dense plasma suspended in the Sun's million-degree outer atmosphere by magnetic fields, persisting for days to weeks to months before erupting and sending charged particles toward Earth. This editorial illustration was made in response to that paper: an attempt to make the physics tangible and visible, while also conveying the beauty and strangeness of these otherworldly phenomena.
+                </p>
+            </div>
+
+            <!-- ── FINAL ILLUSTRATIONS ────────────────────────── -->
+            <div class="project_content">
+                <h2 class="project_section_heading">Final Illustrations</h2>
+                <div class="process_grid">
+                    <figure>
+                        <img src="../assets/works/solar_prominences/BridgetKnight_SolarProminences_Editorial_Gradient.webp"
+                             alt="Solar prominences editorial — version 1">
+                        <figcaption>Version 1</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="../assets/works/solar_prominences/BridgetKnight_SolarProminences_Editorial_Solid.webp"
+                             alt="Solar prominences editorial — version 2">
+                        <figcaption>Version 2</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="../assets/works/solar_prominences/BridgetKnight_SolarProminences_Editorial_Space.webp"
+                             alt="Solar prominences editorial — version 3">
+                        <figcaption>Version 3</figcaption>
+                    </figure>
+                </div>
+                <p class="project_reflection">
+                    Three versions of the final illustration explore slightly different approaches to the same subject, both in narrative and in pure design. The core visual challenge was representing something that is simultaneously enormous in scale and delicate in structure--prominences span thousands of kilometers yet look like flickering flames. The versions experiment with different combinations of elements, from yarn draped over a pin to yarn creating an opening into space to try and find the right balance of context cues for unfamiliar viewers.
+                </p>
+            </div>
+
+            <!-- ── MOCKUP ─────────────────────────────────────── -->
+            <div class="project_content">
+                <h2 class="project_section_heading">In Context</h2>
+                <div class="process_grid process_grid--single">
+                    <figure>
+                        <img src="../assets/works/solar_prominences/BridgetKnight_SolarProminences_Editorial_Mockup.webp"
+                             alt="Solar prominences editorial mockup — magazine on table">
+                        <figcaption>Magazine mockup</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <!-- ── PROCESS ────────────────────────────────────── -->
+            <div class="project_content">
+                <h2 class="project_section_heading">Process</h2>
+                <p style="margin-bottom: 2rem;" class="showcase_caption">Click an image to get a closer look.</p>
+                <div class="process_grid">
+                    <figure>
+                        <img src="../assets/works/solar_prominences/BridgetKnight_SolarProminences_Editorial_Thumbnails.webp"
+                             alt="Composition thumbnails">
+                        <figcaption>Composition thumbnails</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="../assets/works/solar_prominences/BridgetKnight_SolarProminences_Editorial_Colors.webp"
+                             alt="Color and value studies">
+                        <figcaption>Color & value studies</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <!-- ── NAV ────────────────────────────────────────── -->
+            <nav class="project_nav">
+                <a href="../index.html" class="link_float" style="color:black">< back to front page</a>
+                <a href="../art.html" class="link_float" style="color:black">all work ></a>
+            </nav>
+
+        </article>
+
+        <div id="footer_container"></div>
+    </div>
+
+    <script>
+        (function() {
+            const processImgs = Array.from(document.querySelectorAll('.process_grid img'));
+            if (!processImgs.length) return;
+
+            processImgs.forEach((img, i) => {
+                img.style.cursor = 'zoom-in';
+                img.addEventListener('click', () => openProcessLightbox(i));
+            });
+
+            function openProcessLightbox(index) {
+                const overlay = document.createElement('div');
+                overlay.className = 'gallery_lightbox_overlay active';
+                overlay.innerHTML = `
+                    <span class="gallery_lightbox_arrow left">&#8592;</span>
+                    <div class="gallery_lightbox_container">
+                        <span class="gallery_lightbox_close">&times;</span>
+                        <img src="" alt="">
+                        <figcaption></figcaption>
+                    </div>
+                    <span class="gallery_lightbox_arrow right">&#8594;</span>
+                `;
+                document.body.appendChild(overlay);
+
+                const lightboxImg = overlay.querySelector('img');
+                const lightboxCaption = overlay.querySelector('figcaption');
+
+                function loadImage(i) {
+                    const source = processImgs[i];
+                    lightboxImg.classList.add('fading');
+                    setTimeout(() => {
+                        lightboxImg.src = source.src;
+                        lightboxImg.alt = source.alt;
+                        lightboxCaption.textContent = source.alt;
+                        lightboxImg.onload = () => lightboxImg.classList.remove('fading');
+                    }, 250);
+                }
+
+                function closeOverlay() {
+                    overlay.remove();
+                    document.removeEventListener('keydown', onKey);
+                }
+
+                overlay.addEventListener('click', e => {
+                    if (!e.target.closest('.gallery_lightbox_container') &&
+                        !e.target.closest('.gallery_lightbox_arrow')) closeOverlay();
+                });
+                overlay.querySelector('.gallery_lightbox_arrow.left').addEventListener('click', e => {
+                    e.stopPropagation();
+                    index = (index - 1 + processImgs.length) % processImgs.length;
+                    loadImage(index);
+                });
+                overlay.querySelector('.gallery_lightbox_arrow.right').addEventListener('click', e => {
+                    e.stopPropagation();
+                    index = (index + 1) % processImgs.length;
+                    loadImage(index);
+                });
+                overlay.querySelector('.gallery_lightbox_close').addEventListener('click', e => {
+                    e.stopPropagation();
+                    closeOverlay();
+                });
+
+                function onKey(e) {
+                    if      (e.key === 'ArrowRight') { index = (index + 1) % processImgs.length; loadImage(index); }
+                    else if (e.key === 'ArrowLeft')  { index = (index - 1 + processImgs.length) % processImgs.length; loadImage(index); }
+                    else if (e.key === 'Escape')     { closeOverlay(); }
+                }
+                document.addEventListener('keydown', onKey);
+                loadImage(index);
+            }
+        })();
+    </script>
+</body>
+</html>

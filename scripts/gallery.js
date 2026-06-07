@@ -1,197 +1,348 @@
-class Gallery {
-    constructor(containerId, galleryName) {
-        this.container = document.getElementById(containerId);
-        this.galleryName = galleryName;
-    }
+// ─────────────────────────────────────────────────────────────
+//  gallery.js
+//  Shared rendering logic for all gallery and portfolio pages.
+//
+//  Public API:
+//    renderGallery(containerId, tag, options)
+//    renderFeatured(containerId)
+//    renderMainGallery(containerId)
+//    renderProjectClusters(containerId, clusters)
+// ─────────────────────────────────────────────────────────────
 
-    async load() {
-        const res = await fetch("scripts/artwork_directory.json");
-        console.log("Fetch status:", res.status);
-    
-        const data = await res.json();
-        console.log("JSON data:", data);
-    
-        const artworks = data[this.galleryName];
-        console.log("Artworks:", artworks);
-    
-        if (!artworks) return;
-    
-        artworks.forEach(art => this.addImage(art));
-    }
+const GALLERY_DATA_PATH = '/scripts/artwork_directory.json';
 
-    addImage(art) {
-        const figure = document.createElement("figure");
-        figure.classList.add("gallery_item");
-    
-        const img = document.createElement("img");
-        img.src = `/assets/${this.galleryName}/${art.file}`;
-        img.alt = art.title;
-    
-        const caption = document.createElement("figcaption");
-        caption.innerHTML = `<span>${art.title}</span>`;
-    
-        figure.appendChild(img);
-        figure.appendChild(caption);
-        this.container.appendChild(figure);
-    }
+// ── Data fetching ─────────────────────────────────────────────
+
+let _cache = null;
+
+async function loadData() {
+    if (_cache) return _cache;
+    const res = await fetch(GALLERY_DATA_PATH);
+    _cache = await res.json();
+    return _cache;
 }
 
-function setupGalleryLightbox() {
-    const galleryImages = document.querySelectorAll(".gallery_item img");
-    if (!galleryImages.length) return;
+async function loadPieces(tag) {
+    const data = await loadData();
+    if (!tag) return data.pieces;
+    return data.pieces.filter(p => p.tags && p.tags.includes(tag));
+}
 
-    // Overlay
-    const overlay = document.createElement("div");
-    overlay.classList.add("gallery_lightbox_overlay");
-    overlay.style.position = "fixed";
-    overlay.style.top = 0;
-    overlay.style.left = 0;
-    overlay.style.width = "100%";
-    overlay.style.height = "100%";
-    overlay.style.background = "rgba(0,0,0,0.7)";
-    overlay.style.display = "flex";
-    overlay.style.alignItems = "center";
-    overlay.style.justifyContent = "center";
-    overlay.style.zIndex = 9999;
-    overlay.style.overflow = "hidden";
-    overlay.style.opacity = 0;
-    overlay.style.transition = "opacity 0.3s ease";
+async function getFeatured() {
+    const data = await loadData();
+    return data.featured.map(id => data.pieces.find(p => p.id === id)).filter(Boolean);
+}
 
+async function getMainGallery() {
+    const data = await loadData();
+    return data.main_gallery.map(entry => {
+        const piece = data.pieces.find(p => p.id === entry.id);
+        return piece ? { ...piece, ...entry } : null;
+    }).filter(Boolean);
+}
+
+
+// ── Image path helper ─────────────────────────────────────────
+
+function imgPath(piece) {
+    return `/assets/${piece.folder}/${piece.file}`;
+}
+
+
+// ── Lightbox ──────────────────────────────────────────────────
+
+function openLightbox(items, startIndex) {
+    let index = startIndex;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'gallery_lightbox_overlay active';
+    overlay.innerHTML = `
+        <span class="gallery_lightbox_arrow left">&#8592;</span>
+        <div class="gallery_lightbox_container">
+            <span class="gallery_lightbox_close">&times;</span>
+            <img src="" alt="">
+            <figcaption></figcaption>
+        </div>
+        <span class="gallery_lightbox_arrow right">&#8594;</span>
+    `;
     document.body.appendChild(overlay);
 
-    // Container for sliding images
-    const container = document.createElement("div");
-    container.style.position = "relative";
-    container.style.width = "90%";
-    container.style.height = "80%";
-    overlay.appendChild(container);
+    const img     = overlay.querySelector('img');
+    const caption = overlay.querySelector('figcaption');
 
-    // Controls
-    const closeBtn = document.createElement("span");
-    closeBtn.innerHTML = "&times;";
-    closeBtn.style.position = "absolute";
-    closeBtn.style.top = "20px";
-    closeBtn.style.right = "30px";
-    closeBtn.style.fontSize = "2rem";
-    closeBtn.style.color = "#fff";
-    closeBtn.style.cursor = "pointer";
-    overlay.appendChild(closeBtn);
+    function loadImage(i) {
+        const item = items[i];
+        img.classList.add('fading');
+        setTimeout(() => {
+            img.src = imgPath(item);
+            img.alt = item.title;
+            caption.textContent = `${item.title}${item.tools ? ' — ' + item.tools : ''} · ${item.year}`;
+            img.onload = () => img.classList.remove('fading');
+        }, 250);
+    }
 
-    const leftArrow = document.createElement("span");
-    leftArrow.innerHTML = "&#10094;";
-    leftArrow.style.position = "absolute";
-    leftArrow.style.left = "20px";
-    leftArrow.style.top = "50%";
-    leftArrow.style.transform = "translateY(-50%)";
-    leftArrow.style.fontSize = "3rem";
-    leftArrow.style.color = "#fff";
-    leftArrow.style.cursor = "pointer";
-    overlay.appendChild(leftArrow);
+    function closeOverlay() {
+        overlay.remove();
+        document.removeEventListener('keydown', onKey);
+    }
 
-    const rightArrow = document.createElement("span");
-    rightArrow.innerHTML = "&#10095;";
-    rightArrow.style.position = "absolute";
-    rightArrow.style.right = "20px";
-    rightArrow.style.top = "50%";
-    rightArrow.style.transform = "translateY(-50%)";
-    rightArrow.style.fontSize = "3rem";
-    rightArrow.style.color = "#fff";
-    rightArrow.style.cursor = "pointer";
-    overlay.appendChild(rightArrow);
+    overlay.addEventListener('click', e => {
+        if (!e.target.closest('.gallery_lightbox_container') &&
+            !e.target.closest('.gallery_lightbox_arrow')) closeOverlay();
+    });
 
-    let currentIndex = 0;
-    let currentImg = null;
+    overlay.querySelector('.gallery_lightbox_arrow.left').addEventListener('click', e => {
+        e.stopPropagation();
+        index = (index - 1 + items.length) % items.length;
+        loadImage(index);
+    });
 
-    function showImage(index, direction = null) {
-        if (currentImg) {
-            // slide old image out
-            const oldImg = currentImg;
-            oldImg.style.transition = "all 0.4s ease";
-            oldImg.style.transform =
-                direction === "left" ? "translateX(-150%) translateY(-50%)" : "translateX(150%) translateY(-50%)";
-            oldImg.style.opacity = "0";
-            oldImg.addEventListener(
-                "transitionend",
-                () => {
-                    if (oldImg.parentNode) oldImg.parentNode.removeChild(oldImg);
-                },
-                { once: true }
-            );
+    overlay.querySelector('.gallery_lightbox_arrow.right').addEventListener('click', e => {
+        e.stopPropagation();
+        index = (index + 1) % items.length;
+        loadImage(index);
+    });
+
+    overlay.querySelector('.gallery_lightbox_close').addEventListener('click', e => {
+        e.stopPropagation();
+        closeOverlay();
+    });
+
+    function onKey(e) {
+        if      (e.key === 'ArrowRight') { index = (index + 1) % items.length; loadImage(index); }
+        else if (e.key === 'ArrowLeft')  { index = (index - 1 + items.length) % items.length; loadImage(index); }
+        else if (e.key === 'Escape')     { closeOverlay(); }
+    }
+    document.addEventListener('keydown', onKey);
+
+    loadImage(index);
+}
+
+
+// ── Figure builder ────────────────────────────────────────────
+//  Used by all render functions.
+//  Pieces with project_page navigate there on click.
+//  All others open the lightbox.
+
+function buildFigure(piece, index, items, options = {}) {
+    const fig = document.createElement('figure');
+    fig.className = 'gallery_item';
+    fig.style.setProperty('--i', index);
+
+    const img = document.createElement('img');
+    img.src     = imgPath(piece);
+    img.alt     = piece.title;
+    img.loading = 'lazy';
+
+    const caption = document.createElement('figcaption');
+    caption.innerHTML = `
+        <span>${piece.title}</span>
+        <span>${piece.year}</span>
+    `;
+
+    if (piece.wip) {
+        const badge = document.createElement('span');
+        badge.className = 'wip_badge';
+        badge.textContent = 'in progress';
+        caption.appendChild(badge);
+    }
+
+    fig.appendChild(img);
+    fig.appendChild(caption);
+
+    if (piece.project_page) {
+        fig.classList.add('has_project');
+        const indicator = document.createElement('a');
+        indicator.className = 'project_indicator';
+        indicator.textContent = 'view project →';
+        indicator.href = piece.project_page;
+        indicator.addEventListener('click', e => e.stopPropagation());
+        fig.appendChild(indicator);
+    }
+
+    fig.addEventListener('click', () => {
+        if (options.navigateToProject && piece.project_page) {
+            window.location.href = piece.project_page;
+        } else {
+            openLightbox(items, index);
+        }
+    });
+
+    return fig;
+}
+
+
+// ── renderGallery ─────────────────────────────────────────────
+//  Renders a flat masonry gallery filtered by tag.
+//  Used by: illustrations.html, sketches.html, concept_art.html,
+//           graphic_design.html, technical_art.html
+//
+//  options.columns — CSS column-count override (default 2)
+
+async function renderGallery(containerId, tag, options = {}) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const pieces = await loadPieces(tag);
+    if (!pieces.length) return;
+
+    // Determine number of columns (option override, otherwise try to
+    // read any CSS `column-count` on the container, fallback to 2)
+    let columns = options.columns || 0;
+    if (!columns) {
+        const cs = getComputedStyle(container).columnCount;
+        const parsed = parseInt(cs, 10);
+        columns = Number.isFinite(parsed) && parsed > 0 ? parsed : 2;
+    }
+
+    // Clear container and create explicit column wrappers so we can
+    // control ordering (row-major) rather than the vertical flow of
+    // CSS multi-column layout.
+    container.innerHTML = '';
+    container.classList.add('masonry_columns');
+
+    const cols = [];
+    for (let c = 0; c < columns; c++) {
+        const col = document.createElement('div');
+        col.className = 'masonry_column';
+        container.appendChild(col);
+        cols.push(col);
+    }
+
+    // Distribute items round-robin across columns to achieve
+    // left-to-right (row-major) ordering.
+    pieces.forEach((piece, i) => {
+        const target = i % columns;
+        cols[target].appendChild(buildFigure(piece, i, pieces));
+    });
+}
+
+
+// ── renderFeatured ────────────────────────────────────────────
+//  Renders the 6 homepage thumbnail grid.
+//  Used by: index.html
+
+async function renderFeatured(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const pieces = await getFeatured();
+
+    pieces.forEach((piece, i) => {
+        const fig = buildFigure(piece, i, pieces);
+        fig.className += ' featured_item';
+        container.appendChild(fig);
+    });
+}
+
+
+// ── renderMainGallery ─────────────────────────────────────────
+//  Renders the homepage hero grid with focus/zoom overrides.
+//  Used by: index.html (the 6-up cropped hero thumbnails)
+
+async function renderMainGallery(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const items = await getMainGallery();
+
+    items.forEach((item, i) => {
+        const fig = buildFigure(item, i, items);
+
+        // Apply focus and zoom from main_gallery overrides
+        const img = fig.querySelector('img');
+        if (item.focus) img.style.objectPosition = item.focus;
+        if (item.zoom)  img.style.transform       = `scale(${item.zoom})`;
+
+        container.appendChild(fig);
+    });
+}
+
+
+// ── renderProjectClusters ─────────────────────────────────────
+//  Renders the portfolio.html page with named clusters.
+//  Pass an array of cluster definitions:
+//
+//  [
+//    {
+//      heading: "Salt Marsh Conservation Poster",
+//      ids: ["mass-audubon-poster"],
+//      note: "Science communication poster for Mass Audubon"
+//    },
+//    {
+//      heading: "Personal & Commercial Work",
+//      ids: ["combat-sloth", "countdown-touchdown", ...]
+//      columns: 2
+//    }
+//  ]
+//
+//  Clusters without a heading just render as a grid.
+//  Used by: portfolio.html, technical_art.html
+
+async function renderProjectClusters(containerId, clusters, options={}) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const data = await loadData();
+
+    for (const cluster of clusters) {
+
+        // Section label — must come before the section
+        if (cluster.section_label) {
+            const label = document.createElement('p');
+            label.className = 'section_label';
+            label.textContent = cluster.section_label;
+            if (cluster.id) label.id = cluster.id;
+            container.appendChild(label);
         }
 
-        // Create new image
-        const newImg = document.createElement("img");
-        newImg.src = galleryImages[index].src;
-        newImg.alt = galleryImages[index].alt;
-        newImg.style.position = "absolute";
-        newImg.style.top = "50%";
-        newImg.style.left = "50%";
-        newImg.style.transform =
-            direction === "left" ? "translateX(150%) translateY(-50%)" : direction === "right" ? "translateX(-150%) translateY(-50%)" : "translate(-50%, -50%)";
-        newImg.style.maxWidth = "100%";
-        newImg.style.maxHeight = "100%";
-        newImg.style.transition = "all 0.4s ease";
-        newImg.style.opacity = "0";
+        const section = document.createElement('section');
+        section.className = 'portfolio_section';
 
-        container.appendChild(newImg);
+        if (cluster.heading) {
+            const headingRow = document.createElement('div');
+            headingRow.className = 'category_heading_row';
+            const h = document.createElement('h2');
+            h.className = 'portfolio_category_heading';
+            h.textContent = cluster.heading;
+            headingRow.appendChild(h);
+            section.appendChild(headingRow);
+        }
 
-        // force layout then transition in
-        requestAnimationFrame(() => {
-            newImg.style.transform = "translate(-50%, -50%)";
-            newImg.style.opacity = "1";
+        if (cluster.note) {
+            const note = document.createElement('p');
+            note.className = 'cluster_note';
+            note.textContent = cluster.note;
+            section.appendChild(note);
+        }
+
+        const grid = document.createElement('div');
+        grid.className = 'masonry_gallery masonry_columns';
+        if (cluster.columns) grid.style.columnCount = cluster.columns;
+
+        const pieces = cluster.ids
+            .map(id => data.pieces.find(p => p.id === id))
+            .filter(Boolean);
+
+        // Determine columns
+        let columns = cluster.columns || 2;
+
+        // Create column wrappers
+        const cols = [];
+        for (let c = 0; c < columns; c++) {
+            const col = document.createElement('div');
+            col.className = 'masonry_column';
+            grid.appendChild(col);
+            cols.push(col);
+        }
+
+        // Single render — row-major distribution across columns
+        pieces.forEach((piece, i) => {
+            const target = i % columns;
+            cols[target].appendChild(buildFigure(piece, i, pieces, options));
         });
 
-        currentImg = newImg;
-        currentIndex = index;
+        section.appendChild(grid);
+        container.appendChild(section);
     }
-
-    function openLightbox(index) {
-        overlay.style.opacity = "1";
-        overlay.style.pointerEvents = "auto";
-        showImage(index);
-    }
-
-    function closeLightbox() {
-        overlay.style.opacity = "0";
-        overlay.style.pointerEvents = "none";
-        if (currentImg && currentImg.parentNode) {
-            currentImg.parentNode.removeChild(currentImg);
-            currentImg = null;
-        }
-    }
-
-    function nextImage() {
-        const nextIndex = (currentIndex + 1) % galleryImages.length;
-        showImage(nextIndex, "left");
-    }
-
-    function prevImage() {
-        const prevIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
-        showImage(prevIndex, "right");
-    }
-
-    galleryImages.forEach((img, i) => {
-        img.style.cursor = "pointer";
-        img.addEventListener("click", () => openLightbox(i));
-    });
-
-    closeBtn.addEventListener("click", closeLightbox);
-    overlay.addEventListener("click", (e) => {
-        if (e.target === overlay) closeLightbox();
-    });
-    rightArrow.addEventListener("click", (e) => {
-        e.stopPropagation();
-        nextImage();
-    });
-    leftArrow.addEventListener("click", (e) => {
-        e.stopPropagation();
-        prevImage();
-    });
-
-    document.addEventListener("keydown", (e) => {
-        if (overlay.style.opacity !== "1") return;
-        if (e.key === "Escape") closeLightbox();
-        if (e.key === "ArrowRight") nextImage();
-        if (e.key === "ArrowLeft") prevImage();
-    });
 }

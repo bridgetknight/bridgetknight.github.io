@@ -1,227 +1,546 @@
 {
-    "concept_art": [
+    "pieces": [
+
         {
-            "file": "BridgetKnight_Miner_Character_Concept.webp",
-            "title": "Miner Character Concept",
-            "year": 2025
-        },
-        {
-            "file": "BridgetKnight_HaddockCharacterSheet.webp",
-            "title": "Haddock Character Sheet",
-            "year": 2025
-        },
-        {
-            "file": "BridgetKnight_HikeNewEngland_Process_Backgrounds.webp",
-            "title": "Hike New England Background Concepts",
-            "year": 2025
-        },
-        {
-            "file": "BridgetKnight_HikeNewEngland_Process_Poses.webp",
-            "title": "Hike New England Pose Concepts",
-            "year": 2025
-        },
-        {
-            "file": "BridgetKnight_HikeNewEngland_Process_Backgrounds.webp",
-            "title": "Hike New England Thumbnail Concepts",
-            "year": 2025
-        }
-    ],
-    "graphic_design": [
-        {
-            "file": "BridgetKnight_1_ProjectHailMaryCover.webp",
-            "title": "Project Hail Mary Cover Reimagined",
-            "year": 2026
-        },
-        {
-            "file": "BridgetKnight_Cat_Stickers.webp",
-            "title": "Themed Cat Stickers",
-            "year": 2025
-        },
-        {
-            "file": "BridgetKnight_Climate_EPA_Editorial.webp",
-            "title": "Climate EPA Editorial",
-            "year": 2026
-        },
-        {
-            "file": "BridgetKnight_PattieGonia_Editorial_Design.webp",
-            "title": "Pattie Gonia Editorial Concept",
-            "year": 2026
-        },
-        {
-            "file": "BridgetKnight_Profile_Photo_BCrylz_Logo.webp",
-            "title": "BCrylz Logo Commission",
-            "year": 2022
-        },
-        {
-            "file": "BridgetKnight_Sproutling_Poster_UMassURC.webp",
-            "title": "Sproutling Poster (UMass Research Conference)",
-            "year": 2025
-        }
-    ],
-    "illustrations": [
-        {
-            "file": "BridgetKnight_CountdownTouchdown.webp",
-            "title": "Countdown Touchdown",
-            "year": 2026
-        },
-        {
-            "file": "BridgetKnight_Environment.webp",
-            "title": "Narrative Environment Concept",
-            "year": 2026
-        },
-        {
-            "file": "BridgetKnight_Mass_Audubon_Poster.webp",
-            "title": "Mass Audubon Poster",
-            "year": 2026
-        },
-        {
-            "file": "BridgetKnight_Mountain_Landscape_Beam.webp",
-            "title": "Beam Landscape Concept",
-            "year": 2025
-        },
-        {
-            "file": "BridgetKnight_NormanRockwellStyleSelfPortrait_2025.webp",
-            "title": "Norman Rockwell-Inspired Self Portrait",
-            "year": 2025
-        },
-        {
-            "file": "BridgetKnight_ProjectHailMary_Cover.webp",
-            "title": "Project Hail Mary Cover Reimagined",
-            "year": 2026
-        },
-        {
-            "file": "BridgetKnight_Public_Health_Editorial.webp",
-            "title": "Public Health Climate EPA Editorial",
-            "year": 2026
-        },
-        {
-            "file": "BridgetKnight_Resident_Evil_LeonKennedy_2025.webp",
-            "title": "You There? Resident Evil Fanart",
-            "year": 2025
-        },
-        {
-            "file": "BridgetKnight_SelfPortrait.jpg",
-            "title": "Adobe Illustrator Self Portrait",
-            "year": 2026
-        },
-        {
-            "file": "BridgetKnight_Shadows.webp",
-            "title": "Shadows",
-            "year": 2025
-        },
-        {
-            "file": "BridgetKnight_SunlitPortrait.webp",
-            "title": "Sunlit Portrait",
-            "year": 2025
-        },
-        {
-            "file": "BridgetKnight_TheAlpineShaman.jpg",
-            "title": "The Alpine Shaman (Watercolor)",
-            "year": 2026
-        },
-        {
-            "file": "BridgetKnight_TheAtom.webp",
-            "title": "The Atom Concept Art (Gouache)",
-            "year": 2026
-        },
-        {
-            "file": "BridgetKnight_WelcomingParty.webp",
-            "title": "Welcoming Party",
-            "year": 2022
-        },
-        {
-            "file": "CombatSloth_Revised.webp",
-            "title": "Combat Sloth",
-            "year": 2025
-        }
-    ],
-    "main_gallery": [
-        {
-            "file": "BridgetKnight_Audubon_Poster.webp",
-            "title": "Mass Audubon Poster",
+            "id": "black-hole-sim",
+            "file": "BlackHoleRenderPost.webp",
+            "folder": "works/black_hole_sim",
+            "title": "Physically-Based Black Hole Simulation",
             "year": 2026,
-            "focus": "top"
-        },
-        {
-            "file": "BridgetKnight_Public_Health_Editorial.webp",
-            "title": "Public Health Climate EPA Editorial",
-            "year": 2026,
-            "focus": "top"
-        },
-        {
-            "file": "BridgetKnight_ProjectHailMary_Cover.webp",
-            "title": "Project Hail Mary Cover Reimagined",
-            "year": 2026,
-            "focus": "right"
-        },
-        {
-            "file": "CombatSloth_Revised.webp",
-            "title": "Combat Sloth",
-            "year": 2025,
-            "focus": "left bottom",
-            "zoom": 1.4
+            "tags": ["technical_art", "featured"],
+            "tools": "Blender, Maya, Python, Photoshop",
+            "caption": "Physics-based gravitational lensing simulation built from Schwarzschild optics with volumetric accretion disk rendering pipeline",
+            "artstation": "https://www.artstation.com/",
+            "project_page": "black_hole_sim.html"
         },
 
         {
+            "id": "halocline-environment",
+            "file": "BridgetKnight_Halocline_Hero.webp",
+            "folder": "works/halocline",
+            "title": "Halocline Bioluminescent Environment",
+            "year": 2026,
+            "tags": ["technical_art", "illustrations", "featured"],
+            "tools": "Blender, Photoshop",
+            "caption": "Underwater bioluminescent environment exploring the halocline — 3D and 2D approaches",
+            "project_page": "halocline.html"
+        },
+
+        {
+            "id": "jupiter-juno",
+            "file": "BridgetKnight_Jupiter_Juno_WIP.webp",
+            "folder": "gallery",
+            "title": "Jupiter Interior / Juno Probe",
+            "year": 2026,
+            "tags": ["technical_art"],
+            "tools": "Blender",
+            "caption": "Planetary atmosphere environment with Juno probe — in development",
+            "wip": true
+        },
+
+        {
+            "id": "hard-days-work",
+            "file": "farmer_and_creature.webp",
+            "folder": "gallery",
+            "title": "Hard Day's Work",
+            "year": 2025,
+            "tags": ["illustrations", "concept_art"],
+            "tools": "Clip Studio Paint",
+            "caption": "Concept for a farmer and her pitchfork-tailed creature"
+        },
+
+        {
+            "id": "narrative-environment",
+            "file": "BridgetKnight_NarrativeEnvironment.webp",
+            "folder": "works/narrative_environment",
+            "title": "Narrative Environment: Abandoned City",
+            "year": 2026,
+            "tags": ["technical_art", "illustrations", "concept_art"],
+            "tools": "Blender, Photoshop, Clip Studio Paint",
+            "caption": "Sci-fi narrative environment concept — 3D blockout, value studies, color keys, and final digital painting",
+            "project_page": "narrative_environment.html"
+        },
+
+        {
+            "id": "mass-audubon-poster",
+            "file": "BridgetKnight_Mass_Audubon_Poster.webp",
+            "folder": "works/mass_audubon_poster",
+            "title": "Mass Audubon Poster",
+            "year": 2026,
+            "tags": ["illustrations", "graphic_design", "featured"],
+            "tools": "Clip Studio Paint, Photoshop",
+            "caption": "Conservation poster for Mass Audubon's Great Marsh restoration project",
+            "project_page": "mass_audubon_poster.html"
+        },
+
+        {
+            "id": "project-hail-mary",
+            "file": "BridgetKnight_ProjectHailMary_Cover.webp",
+            "folder": "gallery",
+            "title": "Project Hail Mary Cover Reimagined",
+            "year": 2026,
+            "tags": ["illustrations", "graphic_design", "featured"],
+            "tools": "Clip Studio Paint, Photoshop",
+            "caption": "Book cover redesign for Andy Weir's Project Hail Mary"
+        },
+
+        {
+            "id": "planetary-collision",
+            "file": "BridgetKnight_PlanetaryCollision.webp",
+            "folder": "gallery",
+            "title": "Planetary Collision",
+            "year": 2026,
+            "tags": ["illustrations", "featured"],
+            "tools": "Photoshop, Clip Studio Paint",
+            "caption": "Figure on a desert planet watching a planetary collision — personal work"
+        },
+
+        {
+            "id": "public-health-editorial",
+            "file": "BridgetKnight_Public_Health_Editorial.webp",
+            "folder": "gallery",
+            "title": "Public Health Climate Editorial",
+            "year": 2026,
+            "tags": ["illustrations", "graphic_design"],
+            "tools": "Photoshop, Illustrator",
+            "caption": "Editorial illustration on public health and climate"
+        },
+
+        {
+            "id": "countdown-touchdown",
             "file": "BridgetKnight_CountdownTouchdown.webp",
+            "folder": "gallery",
             "title": "Countdown Touchdown",
             "year": 2026,
-            "focus": "left bottom",
-            "zoom": 1.5
+            "tags": ["illustrations"],
+            "tools": "Photoshop, Clip Studio Paint",
+            "caption": "Personal illustration"
         },
+
         {
-            "file": "BridgetKnight_NormanRockwellStyleSelfPortrait_2025.webp",
-            "title": "Self Portrait",
+            "id": "pattie-gonia-editorial",
+            "file": "BridgetKnight_PattieGonia_Editorial_Design.webp",
+            "folder": "gallery",
+            "title": "Pattie Gonia Editorial Concept",
             "year": 2026,
-            "focus":"45% center",
-            "zoom": 1.5
+            "tags": ["illustrations", "graphic_design"],
+            "tools": "Photoshop, Illustrator",
+            "caption": "Editorial concept design"
+        },
+
+        {
+            "id": "self-portrait-rockwell",
+            "file": "BridgetKnight_NormanRockwellStyleSelfPortrait_2025.webp",
+            "folder": "gallery",
+            "title": "Norman Rockwell-Inspired Self Portrait",
+            "year": 2025,
+            "tags": ["illustrations", "featured"],
+            "tools": "Photoshop",
+            "caption": "Self portrait in the style of Norman Rockwell"
+        },
+
+        {
+            "id": "self-portrait-illustrator",
+            "file": "BridgetKnight_SelfPortrait.webp",
+            "folder": "gallery",
+            "title": "Adobe Illustrator Self Portrait",
+            "year": 2026,
+            "tags": ["illustrations", "graphic_design"],
+            "tools": "Adobe Illustrator",
+            "caption": "Vector self portrait"
+        },
+
+        {
+            "id": "alpine-shaman",
+            "file": "BridgetKnight_TheAlpineShaman.webp",
+            "folder": "gallery",
+            "title": "The Alpine Shaman",
+            "year": 2026,
+            "tags": ["illustrations"],
+            "tools": "Watercolor",
+            "caption": "Traditional watercolor illustration"
+        },
+
+        {
+            "id": "the-atom",
+            "file": "BridgetKnight_TheAtom.webp",
+            "folder": "gallery",
+            "title": "The Atom",
+            "year": 2026,
+            "tags": ["illustrations"],
+            "tools": "Gouache",
+            "caption": "Traditional gouache concept art"
+        },
+
+        {
+            "id": "shadows",
+            "file": "BridgetKnight_Shadows.webp",
+            "folder": "gallery",
+            "title": "Shadows",
+            "year": 2025,
+            "tags": ["illustrations"],
+            "tools": "Photoshop",
+            "caption": "Personal illustration"
+        },
+
+        {
+            "id": "sunlit-portrait",
+            "file": "BridgetKnight_SunlitPortrait.webp",
+            "folder": "gallery",
+            "title": "Sunlit Portrait",
+            "year": 2025,
+            "tags": ["illustrations"],
+            "tools": "Photoshop",
+            "caption": "Portrait study"
+        },
+
+        {
+            "id": "resident-evil-fanart",
+            "file": "BridgetKnight_Resident_Evil_LeonKennedy_2025.webp",
+            "folder": "gallery",
+            "title": "You There? — Resident Evil Fanart",
+            "year": 2025,
+            "tags": ["illustrations"],
+            "tools": "Photoshop",
+            "caption": "Fan illustration"
+        },
+
+        {
+            "id": "welcoming-party",
+            "file": "BridgetKnight_WelcomingParty.webp",
+            "folder": "gallery",
+            "title": "Welcoming Party",
+            "year": 2022,
+            "tags": ["illustrations"],
+            "tools": "Photoshop",
+            "caption": "Personal illustration"
+        },
+
+        {
+            "id": "combat-sloth",
+            "file": "CombatSloth_Revised.webp",
+            "folder": "gallery",
+            "title": "Combat Sloth",
+            "year": 2025,
+            "tags": ["illustrations"],
+            "tools": "Photoshop, Clip Studio Paint",
+            "caption": "Personal character illustration"
+        },
+
+        {
+            "id": "mountain-landscape",
+            "file": "BridgetKnight_Mountain_Landscape_Beam.webp",
+            "folder": "gallery",
+            "title": "Beam Landscape Concept",
+            "year": 2025,
+            "tags": ["illustrations"],
+            "tools": "Photoshop",
+            "caption": "Environment concept"
+        },
+
+        {
+            "id": "miner-character",
+            "file": "BridgetKnight_Miner_Character_Concept.webp",
+            "folder": "gallery",
+            "title": "Miner Character Concept",
+            "year": 2025,
+            "tags": ["concept_art"],
+            "tools": "Photoshop, Clip Studio Paint",
+            "caption": "Character concept design"
+        },
+
+        {
+            "id": "haddock-character",
+            "file": "BridgetKnight_HaddockCharacterSheet.webp",
+            "folder": "gallery",
+            "title": "Haddock Character Sheet",
+            "year": 2025,
+            "tags": ["concept_art"],
+            "tools": "Photoshop, Clip Studio Paint",
+            "caption": "Character sheet design"
+        },
+
+        {
+            "id": "hike-new-england-backgrounds",
+            "file": "BridgetKnight_HikeNewEngland_Process_Backgrounds.webp",
+            "folder": "gallery",
+            "title": "Hike New England — Background Concepts",
+            "year": 2025,
+            "tags": ["concept_art"],
+            "tools": "Photoshop",
+            "caption": "Background environment concepts"
+        },
+
+        {
+            "id": "hike-new-england-poses",
+            "file": "BridgetKnight_HikeNewEngland_Process_Poses.webp",
+            "folder": "gallery",
+            "title": "Hike New England — Pose Concepts",
+            "year": 2025,
+            "tags": ["concept_art"],
+            "tools": "Photoshop",
+            "caption": "Character pose exploration"
+        },
+
+        {
+            "id": "cat-stickers",
+            "file": "BridgetKnight_Cat_Stickers.webp",
+            "folder": "gallery",
+            "title": "Themed Cat Stickers",
+            "year": 2025,
+            "tags": ["graphic_design"],
+            "tools": "Photoshop, Illustrator",
+            "caption": "Sticker set design"
+        },
+
+        {
+            "id": "bcrylz-logo",
+            "file": "BridgetKnight_Profile_Photo_BCrylz_Logo.webp",
+            "folder": "gallery",
+            "title": "BCrylz Logo Commission",
+            "year": 2022,
+            "tags": ["graphic_design"],
+            "tools": "Illustrator",
+            "caption": "Logo design commission for small business client"
+        },
+
+        {
+            "id": "sproutling-poster",
+            "file": "BridgetKnight_Sproutling_Poster_UMassURC.webp",
+            "folder": "gallery",
+            "title": "Sproutling Research Poster",
+            "year": 2025,
+            "tags": ["graphic_design"],
+            "tools": "Illustrator, Photoshop",
+            "caption": "Scientific research poster presented at Massachusetts Undergraduate Research Conference",
+            "project_page": "tech.html#sproutling_card"
+        },
+
+        {
+            "id": "figure-studies",
+            "file": "BridgetKnight_FigureStudies.webp",
+            "folder": "gallery",
+            "title": "Figure Studies",
+            "year": 2026,
+            "tags": ["sketches"],
+            "tools": "Traditional",
+            "caption": "Life drawing figure studies"
+        },
+
+        {
+            "id": "sketchbook-environments-1",
+            "file": "BridgetKnight_SketchbookSpread_Environments1.webp",
+            "folder": "gallery",
+            "title": "Observational Environments",
+            "year": 2026,
+            "tags": ["sketches"],
+            "tools": "Traditional",
+            "caption": "Observational environment sketches"
+        },
+
+        {
+            "id": "sketchbook-environments-2",
+            "file": "BridgetKnight_Sketchbook_Environments2.webp",
+            "folder": "gallery",
+            "title": "Environment Sketch",
+            "year": 2026,
+            "tags": ["sketches"],
+            "tools": "Traditional",
+            "caption": "Environment sketchbook work"
+        },
+
+        {
+            "id": "sketchbook-environments-3",
+            "file": "BridgetKnight_Sketchbook_Environments3.webp",
+            "folder": "gallery",
+            "title": "Environment Sketchbook Spread",
+            "year": 2026,
+            "tags": ["sketches"],
+            "tools": "Traditional",
+            "caption": "Environment sketchbook spread"
+        },
+
+        {
+            "id": "sketchbook-environments-4",
+            "file": "BridgetKnight_Sketchbook_Environments4.webp",
+            "folder": "gallery",
+            "title": "Environment Sketchbook Spread",
+            "year": 2026,
+            "tags": ["sketches"],
+            "tools": "Traditional",
+            "caption": "Environment sketchbook spread"
+        },
+
+        {
+            "id": "sketchbook-figures",
+            "file": "BridgetKnight_SketchbookSpread_FigureStudies.webp",
+            "folder": "gallery",
+            "title": "Figure Studies — Sketchbook",
+            "year": 2026,
+            "tags": ["sketches"],
+            "tools": "Traditional",
+            "caption": "Sketchbook figure studies"
+        },
+
+        {
+            "id": "sketchbook-portraits-1",
+            "file": "BridgetKnight_SketchbookSpread_Portraits1.webp",
+            "folder": "gallery",
+            "title": "Portraits from Sketchbook",
+            "year": 2026,
+            "tags": ["sketches"],
+            "tools": "Traditional",
+            "caption": "Portrait studies from sketchbook"
+        },
+
+        {
+            "id": "sketchbook-portraits-2",
+            "file": "BridgetKnight_SketchbookSpread_Portraits2.webp",
+            "folder": "gallery",
+            "title": "Portraits from Sketchbook",
+            "year": 2026,
+            "tags": ["sketches"],
+            "tools": "Traditional",
+            "caption": "Portrait studies from sketchbook"
+        },
+
+        {
+            "id": "sketchbook-portraits-3",
+            "file": "BridgetKnight_SketchbookSpread_Portraits3.webp",
+            "folder": "gallery",
+            "title": "Portraits from Sketchbook",
+            "year": 2026,
+            "tags": ["sketches"],
+            "tools": "Traditional",
+            "caption": "Portrait studies from sketchbook"
+        },
+
+        {
+            "id": "solar-prominences-editorial",
+            "file": "BridgetKnight_SolarProminences_Editorial_Gradient.webp",
+            "folder": "works/solar_prominences",
+            "title": "Solar Prominence Editorial Illustration",
+            "year": 2026,
+            "tags": ["graphic_design", "illustration"],
+            "tools": "Clip Studio Paint, Photoshop",
+            "caption": "Editorial illustration for groundbreaking research on the dynamics of solar prominences",
+            "project_page": "solar_prominences.html"
+        },
+
+        {
+            "id": "solar-prominences-editorial-mockup",
+            "file": "BridgetKnight_SolarProminences_Editorial_Mockup.webp",
+            "folder": "works/solar_prominences",
+            "title": "Solar Prominence Editorial Illustration Mockup",
+            "year": 2026,
+            "tags": ["graphic_design", "illustration"],
+            "tools": "Photoshop",
+            "caption": "Mockup for editorial illustration about the dynamics of solar prominences"
+        },
+
+        {
+            "id": "solar-prominences-editorial-colors",
+            "file": "BridgetKnight_SolarProminences_Editorial_Colors.webp",
+            "folder":"works/solar_prominences",
+            "title": "Solar Prominence Editorial Illustration Color Compositions",
+            "year": 2026,
+            "tags": ["graphic_design", "illustration"],
+            "tools": "Clip Studio Paint",
+            "caption": "Color compositions for editorial illustration about solar prominences"
+        },
+
+        {
+            "id": "solar-prominences-editorial-thumbnails",
+            "file": "BridgetKnight_SolarProminences_Editorial_Thumbnails.webp",
+            "folder": "works/solar_prominences",
+            "title": "Solar Prominence Editorial Illustration Thumbnails",
+            "year": 2026,
+            "tags": ["graphic_design", "illustration"],
+            "tools": "Clip Studio Paint",
+            "caption": "Thumbnails for solar prominence editorial illustration"
+        },
+                {
+            "id": "solar-prominences-editorial-solid",
+            "file": "BridgetKnight_SolarProminences_Editorial_Solid.webp",
+            "folder": "works/solar_prominences",
+            "title": "Solar Prominence Editorial Illustration",
+            "year": 2026,
+            "tags": ["graphic_design", "illustration"],
+            "tools": "Clip Studio Paint, Photoshop",
+            "caption": "Alternative version 1 of editorial illustration for groundbreaking research on the dynamics of solar prominences"
+        },
+
+        {
+            "id": "solar-prominences-editorial-space",
+            "file": "BridgetKnight_SolarProminences_Editorial_Space.webp",
+            "folder": "works/solar_prominences",
+            "title": "Solar Prominence Editorial Illustration",
+            "year": 2026,
+            "tags": ["graphic_design", "illustration"],
+            "tools": "Clip Studio Paint, Photoshop",
+            "caption": "Alternative version 2 of editorial illustration for groundbreaking research on the dynamics of solar prominences"
+        },
+
+        {
+            "id": "plein-air-1",
+            "file": "PleinAir1.webp",
+            "folder": "gallery",
+            "title": "Digital Plein Air Painting 1",
+            "year": 2026,
+            "tags": ["sketches"],
+            "tools": "Photoshop",
+            "caption": "Digital plein air painting"
+        },
+
+        {
+            "id": "plein-air-3",
+            "file": "PleinAir3.webp",
+            "folder": "gallery",
+            "title": "Digital Plein Air Painting 1",
+            "year": 2026,
+            "tags": ["sketches"],
+            "tools": "Photoshop",
+            "caption": "Digital plein air painting"
+        },
+
+        {
+            "id": "plein-air-4",
+            "file": "PleinAir4.webp",
+            "folder": "gallery",
+            "title": "Digital Plein Air Painting 1",
+            "year": 2026,
+            "tags": ["sketches"],
+            "tools": "Photoshop",
+            "caption": "Digital plein air painting"
+        },
+
+        {
+            "id": "llbean-concept-sheet",
+            "file": "BridgetKnight_LLBean_ConceptSheet.webp",
+            "folder": "gallery",
+            "title": "L.L. Bean Shoebox Packaging Concept",
+            "year": 2026,
+            "tags": ["concept_art"],
+            "tools": "Clip Studio Paint, Illustrator, Photoshop",
+            "caption": "Shoebox packaging design for L.L. Bean's iconic Bean Boot box"
         }
     ],
-    "sketches": [
-        {
-            "file": "BridgetKnight_FigureStudies.webp",
-            "title": "Figure Studies",
-            "year": 2026
-        },
-        {
-            "file": "BridgetKnight_Sketchbook_Environments2.webp",
-            "title": "Environment Sketch",
-            "year": 2026
-        },
-        {
-            "file": "BridgetKnight_Sketchbook_Environments3.webp",
-            "title": "Environment Sketchbook Spread",
-            "year": 2026
-        },
-        {
-            "file": "BridgetKnight_Sketchbook_Environments4.webp",
-            "title": "Environment Sketchbook Spread",
-            "year": 2026
-        },
-        {
-            "file": "BridgetKnight_SketchbookSpread_Environments1.webp",
-            "title": "Observational Environments",
-            "year": 2026
-        },
-        {
-            "file": "BridgetKnight_SketchbookSpread_FigureStudies.webp",
-            "title": "Figure Studies",
-            "year": 2026
-        },
-        {
-            "file": "BridgetKnight_SketchbookSpread_Portraits1.webp",
-            "title": "Portraits from Sketchbook",
-            "year": 2026
-        },
-        {
-            "file": "BridgetKnight_SketchbookSpread_Portraits2.webp",
-            "title": "Portraits from Sketchbook",
-            "year": 2026
-        },
-        {
-            "file": "BridgetKnight_SketchbookSpread_Portraits3.webp",
-            "title": "Portraits from Sketchbook",
-            "year": 2026
-        }
+
+    "featured": [
+        "black-hole-sim",
+        "halocline-environment",
+        "mass-audubon-poster",
+        "project-hail-mary",
+        "planetary-collision",
+        "self-portrait-rockwell"
+    ],
+
+    "main_gallery": [
+        { "id": "black-hole-sim",    "focus": "45% center" },
+        { "id": "mass-audubon-poster", "focus": "top" },
+        { "id": "halocline-environment", "focus": "center" },
+        { "id": "planetary-collision", "focus": "center" },
+        { "id": "project-hail-mary",     "focus": "right", "zoom": 1.4 },
+        { "id": "self-portrait-rockwell",  "focus": "45% center",  "zoom": 1.5 }
     ]
 }

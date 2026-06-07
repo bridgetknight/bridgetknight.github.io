@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Hole Simulation | Bridget Knight</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/project.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="icon" href="../assets/favicon.webp">
+    <script src="../scripts/theme.js" defer></script>
+    <script src="../scripts/cursor_trail.js"></script>
+    <script src="../scripts/footer.js" defer></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body data-theme="light">
+    <div id="center">
+        <header>
+            <div id="navbar"></div>
+            <script src="../scripts/navbar.js" defer></script>
+        </header>
+
+        <article class="project_page">
+
+            <!-- ── HERO ───────────────────────────────────────── -->
+            <div class="project_showcase">
+                <div class="showcase_main">
+                    <img src="../assets/works/black_hole_sim/BlackHoleRenderPost.webp"
+                         alt="Physically-based black hole simulation — final render with compositing">
+                </div>
+                <p class="showcase_caption">Final render with compositing — Blender, Cycles</p>
+            </div>
+
+            <!-- ── HEADER ─────────────────────────────────────── -->
+            <div class="project_content">
+                <h1 class="project_title">physically-based black hole simulation</h1>
+                <p class="project_meta">Blender · Maya · Cycles · 2025</p>
+
+                <p class="project_intro">
+                    This project is an independent study in physically-based astrophysical visualization — an attempt to make a black hole that doesn't just look dramatic, but behaves correctly. The gravitational lensing shader is derived from Schwarzschild optics, the accretion disk texturing follows known thermal gradient patterns, and every aesthetic decision was made in service of scientific accuracy. The goal was a render that a physicist would recognize, not just an audience.
+                </p>
+            </div>
+
+            <!-- ── FINAL RENDER ───────────────────────────────── -->
+            <div class="project_content">
+                <h2 class="project_section_heading">Final Render</h2>
+                <div class="process_grid">
+                    <figure>
+                        <img src="../assets/works/black_hole_sim/BlackHoleRenderPost.webp"
+                             alt="Final render with compositing">
+                        <figcaption>Final render — with compositing</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="../assets/works/black_hole_sim/BlackHoleRenderFinal.webp"
+                             alt="Final render without compositing">
+                        <figcaption>Final render — without compositing</figcaption>
+                    </figure>
+                </div>
+                <p class="project_reflection">
+                    The compositing pass adds atmospheric glow, a subtle starry background, and lens flares, pushing the render toward the kind of image NASA's Event Horizon Telescope produces, after some touch-up, rather than a purely synthetic look. The difference between the two renders shows how much the post-processing contributes to legibility--the raw Cycles output is accurate but flat; the composite is accurate and tangible.
+                </p>
+            </div>
+
+            <!-- ── BLENDER PROCESS ────────────────────────────── -->
+            <div class="project_content">
+                <h2 class="project_section_heading">Blender Development</h2>
+                <div class="process_grid process_grid--single">
+                    <figure>
+                        <img src="../assets/works/black_hole_sim/BlackHoleRenderTest.webp"
+                             alt="Render test partway through development — no compositing">
+                        <figcaption>Mid-development render test — no compositing</figcaption>
+                    </figure>
+                </div>
+                <p class="project_reflection">
+                    The gravitational lensing effect is built entirely in Blender's node editor--a Schwarzschild displacement shader that bends light paths around a central mass using vector math nodes to approximate relativistic light deflection. The accretion disk uses a procedural noise-based texture with temperature-mapped emission, hotter near the inner edge and cooler at the outer rim, consistent with standard accretion disk thermodynamics. Volumetric scattering along the disk plane adds physical density to what would otherwise read as a flat texture.
+                </p>
+            </div>
+
+            <!-- ── MAYA EXPLORATION ───────────────────────────── -->
+            <div class="project_content">
+                <h2 class="project_section_heading">Process & Exploration</h2>
+                <div class="process_grid">
+                    <figure>
+                        <img src="../assets/works/black_hole_sim/Nonmaterial.webp"
+                             alt="Maya material view — accretion disk shader exploration">
+                        <figcaption>Blender non-material view</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="../assets/works/black_hole_sim/Maya.webp"
+                             alt="Maya material view — second shader attempt">
+                        <figcaption>Maya non-material and material view — first attempt</figcaption>
+                    </figure>
+                </div>
+                <p class="project_reflection">
+                    Early in development I explored building the simulation in Maya using MASH networks for the accretion disk geometry and Arnold for rendering. The material development showed promise but Maya's node-based shading system offered less flexibility for the custom light-bending logic the lensing effect required. Blender's more accessible shader node editor and Cycles' volume rendering capabilities made it the better tool for this specific problem. The Maya exploration wasn't wasted, though, instead it clarified exactly what the Blender implementation needed to do differently.
+                </p>
+            </div>
+
+            <!-- ── NAV ────────────────────────────────────────── -->
+            <nav class="project_nav">
+                <a href="../index.html" class="link_float" style="color:black">< back to front page</a>
+                <a href="../art.html" class="link_float" style="color:black">all work ></a>
+            </nav>
+
+        </article>
+
+        <div id="footer_container"></div>
+    </div>
+
+    <script>
+        (function() {
+            const processImgs = Array.from(document.querySelectorAll('.process_grid img'));
+            if (!processImgs.length) return;
+
+            processImgs.forEach((img, i) => {
+                img.style.cursor = 'zoom-in';
+                img.addEventListener('click', () => openProcessLightbox(i));
+            });
+
+            function openProcessLightbox(index) {
+                const overlay = document.createElement('div');
+                overlay.className = 'gallery_lightbox_overlay active';
+                overlay.innerHTML = `
+                    <span class="gallery_lightbox_arrow left">&#8592;</span>
+                    <div class="gallery_lightbox_container">
+                        <span class="gallery_lightbox_close">&times;</span>
+                        <img src="" alt="">
+                        <figcaption></figcaption>
+                    </div>
+                    <span class="gallery_lightbox_arrow right">&#8594;</span>
+                `;
+                document.body.appendChild(overlay);
+
+                const lightboxImg = overlay.querySelector('img');
+                const lightboxCaption = overlay.querySelector('figcaption');
+
+                function loadImage(i) {
+                    const source = processImgs[i];
+                    lightboxImg.classList.add('fading');
+                    setTimeout(() => {
+                        lightboxImg.src = source.src;
+                        lightboxImg.alt = source.alt;
+                        lightboxCaption.textContent = source.alt;
+                        lightboxImg.onload = () => lightboxImg.classList.remove('fading');
+                    }, 250);
+                }
+
+                function closeOverlay() {
+                    overlay.remove();
+                    document.removeEventListener('keydown', onKey);
+                }
+
+                overlay.addEventListener('click', e => {
+                    if (!e.target.closest('.gallery_lightbox_container') &&
+                        !e.target.closest('.gallery_lightbox_arrow')) closeOverlay();
+                });
+                overlay.querySelector('.gallery_lightbox_arrow.left').addEventListener('click', e => {
+                    e.stopPropagation();
+                    index = (index - 1 + processImgs.length) % processImgs.length;
+                    loadImage(index);
+                });
+                overlay.querySelector('.gallery_lightbox_arrow.right').addEventListener('click', e => {
+                    e.stopPropagation();
+                    index = (index + 1) % processImgs.length;
+                    loadImage(index);
+                });
+                overlay.querySelector('.gallery_lightbox_close').addEventListener('click', e => {
+                    e.stopPropagation();
+                    closeOverlay();
+                });
+
+                function onKey(e) {
+                    if      (e.key === 'ArrowRight') { index = (index + 1) % processImgs.length; loadImage(index); }
+                    else if (e.key === 'ArrowLeft')  { index = (index - 1 + processImgs.length) % processImgs.length; loadImage(index); }
+                    else if (e.key === 'Escape')     { closeOverlay(); }
+                }
+                document.addEventListener('keydown', onKey);
+                loadImage(index);
+            }
+        })();
+    </script>
+</body>
+</html>
