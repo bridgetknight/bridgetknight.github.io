@@ -355,6 +355,10 @@ header {
 
 #splash_container {
     position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+
     flex: 0 0 100%;
     width: 100%;
     max-width: 100%;
@@ -377,11 +381,15 @@ header {
     width: 100%;
     border-radius: 3px;
     height: auto;
-    display: block;
+    grid-column: 1;
+    grid-row: 1;
+    object-fit: cover;
 }
 
 #splash_overlay {
-    position: absolute;
+    grid-column: 1;
+    grid-row: 1;
+    z-index: 2;
     top: 0;
     left: 0;
     width: 33%;
@@ -390,12 +398,12 @@ header {
 }
 
 #splash_text {
-    position: absolute;
     top: 1%;
     left: 0;
     margin-right: 2%;
-    padding-right: 2%;
-    padding-left: 2%;
+    padding-right: 5%;
+    padding-left: 5%;
+    padding-top: 5%;
     box-sizing: border-box;
     width: 100%;
     min-width: 5%;
@@ -408,7 +416,7 @@ header {
     font-family: Poppins;
     font-weight: 800;
     height: auto;
-    font-size: clamp(1px, 1.6vw, 1.8rem);
+    font-size: clamp(0rem, 1.65vw, 1.8rem);
     font-style: italic;
     color: rgb(255, 234, 44);
     white-space: nowrap;
@@ -425,7 +433,7 @@ header {
     position: relative;
     padding-left: 1rem;
     margin-bottom: 0.5rem;
-    font-size: clamp(0.2rem, 1.4vw, 1.5rem);
+    font-size: clamp(0.2rem, 1.32vw, 1.5rem);
 }
 
 #splash_text ul {
@@ -472,11 +480,22 @@ header {
 }
 
 #splash_name {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     margin-left: 0.1em;
     font-family: "Momo Trust Display";
     font-weight: 800;
     height: auto;
-    font-size: clamp(1.5rem, 5.5vw, 6rem);
+    font-size: clamp(0rem, 5.5vw, 5.8rem);
+    line-height: 0.95;
+    /* Remove gradient from container so it doesn't double-render */
+    background: none; 
+}
+
+#first-name {
+    display: block;
+    white-space: nowrap;
     color: transparent;
     background: linear-gradient(
         45deg,
@@ -491,12 +510,24 @@ header {
     animation: shimmer 5s linear infinite;
 }
 
-#stretched_text{
+#stretched_text {
     font-family: inherit;
-    background: inherit;
-    margin-left: 0.29em;
-    transform: scaleX(1.16);
     display: inline-block;
+    white-space: nowrap;
+    transform: scaleX(1.16);
+    transform-origin: left;
+    color: transparent;
+    background: linear-gradient(
+        45deg,
+        #ffdd00,
+        #eb95eb,
+        #9cffff,
+        #ffdd00
+    );
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: shimmer 5s linear infinite;
 }
 
 .portfolio_toc {
